@@ -9,7 +9,7 @@
 	url = ../../authpass/biometric_storage.git
 [submodule "deps/autofill_service"]
 	path = deps/autofill_service
-	url = ../../authpass/autofill_service.git
+	url = ../../DZSolutions/autofill_service.git
 [submodule "deps/package_info_macos"]
 	path = deps/package_info_macos
 	url = ../../authpass/package_info_macos

@@ -81,7 +81,7 @@ class PathUtils implements PathUtil {
     // https://stackoverflow.com/a/32937974/109219
     final userHome = AuthPassPlatform.environment['HOME'] ??
         Platform.environment['USERPROFILE'];
-    final dataDir = Directory(path.join(userHome, '.authpass', 'data'));
+    final dataDir = Directory(path.join(userHome, '.proxipass', 'data'));
     await dataDir.create(recursive: true);
     return dataDir;
   }

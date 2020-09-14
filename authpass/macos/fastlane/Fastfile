@@ -24,6 +24,6 @@ platform :ios do
 end
 
 lane :notarize do
-  notarize(package: '../build/macos/Build/Products/Release/AuthPass.app', bundle_id: 'codeux.design.authpass')
+  notarize(package: '../build/macos/Build/Products/Release/AuthPass.app', bundle_id: 'dzsolutions.com.proxipass')
 end
 

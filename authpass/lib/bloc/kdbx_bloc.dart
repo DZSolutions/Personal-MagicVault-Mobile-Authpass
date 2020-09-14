@@ -603,9 +603,9 @@ class KdbxBloc {
       file.body.meta.generator.set('ProxiPass (save)');
     }
     final saveCounter =
-        file.body.meta.customData['codeux.design.authpass.save'] ?? '0';
+        file.body.meta.customData['dzsolutions.com.proxipass.save'] ?? '0';
     final newCounter = (int.tryParse(saveCounter) ?? 0) + 1;
-    file.body.meta.customData['codeux.design.authpass.save'] = '$newCounter';
+    file.body.meta.customData['dzsolutions.com.proxipass.save'] = '$newCounter';
     analytics.events.trackSaveCount(generator: generator, value: newCounter);
     return await file.save();
   }

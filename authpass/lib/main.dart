@@ -431,7 +431,7 @@ class _AuthPassAppState extends State<AuthPassApp> with StreamSubscriberMixin {
         'env': <String, Object>{
           'isDebug': _deps.env.isDebug,
           'isGoogleStore': (await _deps.env.getAppInfo()).packageName ==
-                  'design.codeux.authpass' &&
+                  'com.dzsolutions.proxipass' &&
               AuthPassPlatform.isAndroid,
           'isIOS': AuthPassPlatform.isIOS,
           'isAndroid': AuthPassPlatform.isAndroid,

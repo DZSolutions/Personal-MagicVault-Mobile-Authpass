@@ -436,9 +436,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = design.codeux.authpass.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dzsolutions.proxipass.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore design.codeux.authpass.ios";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.dzsolutions.proxipass.ios";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -572,7 +572,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = design.codeux.authpass.ios.debug;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dzsolutions.proxipass.ios.debug;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -605,9 +605,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Flutter",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = design.codeux.authpass.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dzsolutions.proxipass.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore design.codeux.authpass.ios";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.dzsolutions.proxipass.ios";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;

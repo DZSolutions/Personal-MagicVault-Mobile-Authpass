@@ -14,7 +14,7 @@ const _DEFAULT_VERSION =
 const _DEFAULT_BUILD_NUMBER =
     int.fromEnvironment('AUTHPASS_BUILD_NUMBER', defaultValue: 1);
 const _DEFAULT_PACKAGE_NAME = String.fromEnvironment('AUTHPASS_PACKAGE_NAME',
-    defaultValue: 'design.codeux.authpass.dev');
+    defaultValue: 'com.dzsolutions.proxipass.dev');
 
 abstract class EnvAppBase extends Env {
   EnvAppBase(EnvType type) : super(type);

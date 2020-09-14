@@ -22,7 +22,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>design.codeux.authpass</string>
+				<string>com.dzsolutions.proxipass</string>
 			</array>
 		</dict>
 	</array>
@@ -46,7 +46,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>design.codeux.authpass.ios</string>
+			<string>com.dzsolutions.proxipass.ios</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>authpass</string>
@@ -104,7 +104,7 @@
 				<string>kdbx_doc_type</string>
 			</array>
 			<key>UTTypeIdentifier</key>
-			<string>design.codeux.authpass</string>
+			<string>com.dzsolutions.proxipass</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>

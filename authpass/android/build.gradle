@@ -1,12 +1,12 @@
-if (System.getProperty("design.codeux.ndkVersion") == null) {
+if (System.getProperty("com.dzsolutions.ndkVersion") == null) {
 //    println("Setting ndkVersion")
-    if (rootProject.hasProperty('design.codeux.ndkVersion')) {
-        System.setProperty("design.codeux.ndkVersion", rootProject.getProperty("design.codeux.ndkVersion"))
+    if (rootProject.hasProperty('com.dzsolutions.ndkVersion')) {
+        System.setProperty("com.dzsolutions.ndkVersion", rootProject.getProperty("com.dzsolutions.ndkVersion"))
     } else {
-        System.setProperty("design.codeux.ndkVersion", "21.0.6113669")
+        System.setProperty("com.dzsolutions.ndkVersion", "21.0.6113669")
     }
 }
-println("ndkVersion: ${System.getProperty("design.codeux.ndkVersion")}")
+println("ndkVersion: ${System.getProperty("com.dzsolutions.ndkVersion")}")
 
 buildscript {
     repositories {

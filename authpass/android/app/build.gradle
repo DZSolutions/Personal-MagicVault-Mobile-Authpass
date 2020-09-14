@@ -38,7 +38,7 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
-    ndkVersion System.getProperty("design.codeux.ndkVersion", "21.0.6113669")
+    ndkVersion System.getProperty("com.dzsolutions.ndkVersion", "21.0.6113669")
 
     lintOptions {
         disable 'InvalidPackage'
@@ -46,7 +46,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "design.codeux.authpass"
+        applicationId "com.dzsolutions.proxipass"
         minSdkVersion 23
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
@@ -57,15 +57,15 @@ android {
     signingConfigs {
         release {
             keyAlias 'authpass'
-            keyPassword secretProperties['design.codeux.authpass.storePassword']
-            storeFile file(secretProperties['design.codeux.authpass.storeFile'] ?: "invalid")
-            storePassword secretProperties['design.codeux.authpass.storePassword']
+            keyPassword secretProperties['com.dzsolutions.proxipass.storePassword']
+            storeFile file(secretProperties['com.dzsolutions.proxipass.storeFile'] ?: "invalid")
+            storePassword secretProperties['com.dzsolutions.proxipass.storePassword']
         }
         amazon {
             keyAlias 'amazon-key'
-            keyPassword secretProperties['design.codeux.authpass.amazon.storePassword']
-            storeFile file(secretProperties['design.codeux.authpass.amazon.storeFile'] ?: "invalid")
-            storePassword secretProperties['design.codeux.authpass.amazon.storePassword']
+            keyPassword secretProperties['com.dzsolutions.proxipass.amazon.storePassword']
+            storeFile file(secretProperties['com.dzsolutions.proxipass.amazon.storeFile'] ?: "invalid")
+            storePassword secretProperties['com.dzsolutions.proxipass.amazon.storePassword']
         }
     }
 

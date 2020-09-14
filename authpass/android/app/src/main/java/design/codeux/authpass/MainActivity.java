@@ -1,4 +1,4 @@
-package design.codeux.authpass;
+package com.dzsolutions.proxipass;
 
 import android.content.Intent;
 import android.os.Bundle;
