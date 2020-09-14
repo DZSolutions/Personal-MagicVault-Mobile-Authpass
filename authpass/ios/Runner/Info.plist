@@ -15,7 +15,7 @@
 				<string>kdbx_doc_type</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>KeePass</string>
+			<string>DZPass</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
@@ -98,7 +98,7 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>KeePass password database</string>
+			<string>DZPass password database</string>
 			<key>UTTypeIconFiles</key>
 			<array>
 				<string>kdbx_doc_type</string>

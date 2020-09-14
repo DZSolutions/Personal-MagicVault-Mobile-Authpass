@@ -143,14 +143,14 @@ abstract class AppLocalizations {
   // language switcher subtitle
   String get french;
 
-  // No description provided in @selectKeepassFile
-  String get selectKeepassFile;
+  // No description provided in @selectDZPassFile
+  String get selectDZPassFile;
 
   // No description provided in @quickUnlockingFiles
   String get quickUnlockingFiles;
 
-  // No description provided in @selectKeepassFileLabel
-  String get selectKeepassFileLabel;
+  // No description provided in @selectDZPassFileLabel
+  String get selectDZPassFileLabel;
 
   // No description provided in @openLocalFile
   String get openLocalFile;
@@ -164,8 +164,8 @@ abstract class AppLocalizations {
   // No description provided in @loadFromUrl
   String get loadFromUrl;
 
-  // No description provided in @createNewKeepass
-  String get createNewKeepass;
+  // No description provided in @createNewDZPass
+  String get createNewDZPass;
 
   // No description provided in @labelLastOpenFiles
   String get labelLastOpenFiles;

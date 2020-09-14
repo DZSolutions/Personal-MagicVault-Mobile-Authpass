@@ -37,8 +37,8 @@
     "description": "language switcher subtitle"
   },
 
-  "selectKeepassFile": "AuthPass - Select KeePass File",
-  "@selectKeepassFile": {
+  "selectDZPassFile": "AuthPass - Select DZPass File",
+  "@selectDZPassFile": {
     "context": "appbar title - select file screen"
   },
   "quickUnlockingFiles": "Quick unlocking files",
@@ -46,8 +46,8 @@
     "context": "select file screen"
   },
 
-  "selectKeepassFileLabel": "Please select a KeePass (.dzpx) file.",
-  "@selectKeepassFileLabel": {
+  "selectDZPassFileLabel": "Please select a DZPass (.dzpx) file.",
+  "@selectDZPassFileLabel": {
     "context": "select file screen, used as label."
   },
 
@@ -72,8 +72,8 @@
   },
   "loadFromUrl": "Download from URL",
   "@loadFromUrl": {},
-  "createNewKeepass": "New to KeePass?\nCreate New Password Database",
-  "@createNewKeepass": {},
+  "createNewDZPass": "New to DZPass?\nCreate New Password Database",
+  "@createNewDZPass": {},
 
   "labelLastOpenFiles": "Last opened files:",
   "@labelLastOpenFiles": {},

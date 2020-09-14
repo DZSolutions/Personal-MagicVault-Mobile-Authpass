@@ -43,13 +43,13 @@ class AppLocalizationsUk extends AppLocalizations {
   String get french => 'French';
 
   @override
-  String get selectKeepassFile => 'AuthPass - виберіть KeePass файл';
+  String get selectDZPassFile => 'AuthPass - виберіть DZPass файл';
 
   @override
   String get quickUnlockingFiles => 'Швидке розблокування файлів';
 
   @override
-  String get selectKeepassFileLabel => 'Оберіть файл KeePass (.kdbx).';
+  String get selectDZPassFileLabel => 'Оберіть файл DZPass (.kdbx).';
 
   @override
   String get openLocalFile => 'Відкрити\nлокальний файл';
@@ -66,7 +66,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get loadFromUrl => 'Завантажити з URL';
 
   @override
-  String get createNewKeepass => 'Вперше у KeePass?\nСтворити нову базу паролів';
+  String get createNewDZPass => 'Вперше у DZPass?\nСтворити нову базу паролів';
 
   @override
   String get labelLastOpenFiles => 'Останні відкриті файли:';

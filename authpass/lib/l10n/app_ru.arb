@@ -12,16 +12,16 @@
     "@fieldTotp": {
         "description": "Label for fields of TOTP (Time based one time passwords)"
     },
-    "selectKeepassFile": "AuthPass - выберите KeePass файл",
-    "@selectKeepassFile": {
+    "selectDZPassFile": "AuthPass - выберите DZPass файл",
+    "@selectDZPassFile": {
         "context": "appbar title - select file screen"
     },
     "quickUnlockingFiles": "Быстрая разблокировка файлов",
     "@quickUnlockingFiles": {
         "context": "select file screen"
     },
-    "selectKeepassFileLabel": "Выберите файл KeePass (.kdbx).",
-    "@selectKeepassFileLabel": {
+    "selectDZPassFileLabel": "Выберите файл DZPass (.kdbx).",
+    "@selectDZPassFileLabel": {
         "context": "select file screen, used as label."
     },
     "openLocalFile": "Открыть\nлокальный файл",
@@ -43,8 +43,8 @@
     },
     "loadFromUrl": "Загрузить из URL",
     "@loadFromUrl": {},
-    "createNewKeepass": "Впервые в KeePass?\nСоздать новую базу данных паролей",
-    "@createNewKeepass": {},
+    "createNewDZPass": "Впервые в DZPass?\nСоздать новую базу данных паролей",
+    "@createNewDZPass": {},
     "labelLastOpenFiles": "Последние открытые файлы:",
     "@labelLastOpenFiles": {},
     "noFilesHaveBeenOpenYet": "Файлы ещё не были открыты.",

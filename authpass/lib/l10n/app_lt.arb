@@ -12,16 +12,16 @@
     "@fieldTotp": {
         "description": "Label for fields of TOTP (Time based one time passwords)"
     },
-    "selectKeepassFile": "„AuthPass“ - Pasirinkti „KeePass“ failą",
-    "@selectKeepassFile": {
+    "selectDZPassFile": "„AuthPass“ - Pasirinkti „DZPass“ failą",
+    "@selectDZPassFile": {
         "context": "appbar title - select file screen"
     },
     "quickUnlockingFiles": "Greitas failų atrakinimas",
     "@quickUnlockingFiles": {
         "context": "select file screen"
     },
-    "selectKeepassFileLabel": "Prašome pasirinkti „KeePass“ (.kdbx) failą.",
-    "@selectKeepassFileLabel": {
+    "selectDZPassFileLabel": "Prašome pasirinkti „DZPass“ (.kdbx) failą.",
+    "@selectDZPassFileLabel": {
         "context": "select file screen, used as label."
     },
     "openLocalFile": "Atidaryti\nVietinis failas",
@@ -43,8 +43,8 @@
     },
     "loadFromUrl": "Atsisiųsti iš URL",
     "@loadFromUrl": {},
-    "createNewKeepass": "Esate naujas „KeePass“ programoje?\nSukurti naują slaptažodžių duomenų bazę",
-    "@createNewKeepass": {},
+    "createNewDZPass": "Esate naujas „DZPass“ programoje?\nSukurti naują slaptažodžių duomenų bazę",
+    "@createNewDZPass": {},
     "labelLastOpenFiles": "Paskiausiai atidaryti failai:",
     "@labelLastOpenFiles": {},
     "noFilesHaveBeenOpenYet": "Jokie failai dar nebuvo atidaryti.",

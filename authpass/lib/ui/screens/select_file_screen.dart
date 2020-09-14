@@ -71,7 +71,7 @@ class SelectFileScreen extends StatelessWidget {
     final loc = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(loc.selectKeepassFile),
+        title: Text(loc.selectDZPassFile),
         actions: <Widget>[
           AppBarMenu.createOverflowMenuButton(context),
         ],
@@ -306,7 +306,7 @@ class _SelectFileWidgetState extends State<SelectFileWidget>
                     ]
                   : null),
               const SizedBox(height: 16),
-              Text(loc.selectKeepassFileLabel),
+              Text(loc.selectDZPassFileLabel),
               const SizedBox(height: 16),
               Wrap(
                 alignment: WrapAlignment.center,
@@ -396,7 +396,7 @@ class _SelectFileWidgetState extends State<SelectFileWidget>
                         },
                         icon: const Icon(Icons.create_new_folder),
                         child: Expanded(
-                            child: Text(loc.createNewKeepass, softWrap: true)),
+                            child: Text(loc.createNewDZPass, softWrap: true)),
                       ),
                     )
                   ],
