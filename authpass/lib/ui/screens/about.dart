@@ -45,20 +45,20 @@ class AuthPassAboutDialog extends StatelessWidget {
             ),
             applicationName: loc.aboutAppName,
             applicationVersion: appInfo?.versionLabel,
-            applicationLegalese: '© by Herbert Poul, 2019-2020', // NON-NLS
+            applicationLegalese: '© by DZ Solutions, 2020', // NON-NLS
             children: <Widget>[
               const SizedBox(height: 32),
               UrlLink(
                 caption: loc.aboutLinkFeedback,
-                url: 'mailto:hello@authpass.app',
+                url: 'mailto:dzsolutions@dzcard.com',
               ),
               UrlLink(
                 caption: loc.aboutLinkVisitWebsite,
-                url: 'https://authpass.app/',
+                url: 'https://dzcard.com/',
               ),
               UrlLink(
                 caption: loc.aboutLinkGitHub,
-                url: 'https://github.com/authpass/authpass/',
+                url: 'https://github.com/dzsolutions/proxipass/',
               ),
               const SizedBox(height: 32),
               Text(
