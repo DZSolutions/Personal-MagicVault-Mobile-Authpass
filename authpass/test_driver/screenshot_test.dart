@@ -40,14 +40,14 @@ void main() {
       await screenshot(driver, config, 'launchscreen');
 
       await _downloadFileAndOpen(driver,
-          'https://github.com/authpass/authpass/raw/master/_docs/screenshot_example.kdbx');
+          'https://github.com/authpass/authpass/raw/master/_docs/screenshot_example.dzpx');
 
       await screenshot(driver, config, 'openedfile1');
 
       await driver.tap(find.byValueKey('appBarOverflowMenu'));
       await driver.tap(find.byValueKey('openAnotherFile'));
       await _downloadFileAndOpen(driver,
-          'https://github.com/authpass/authpass/raw/master/_docs/screenshot_example_company.kdbx');
+          'https://github.com/authpass/authpass/raw/master/_docs/screenshot_example_company.dzpx');
       await screenshot(driver, config, 'openfile2');
 
       // entry details

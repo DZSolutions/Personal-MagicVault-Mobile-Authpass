@@ -74,9 +74,9 @@ class FileSourceCloudStorage extends FileSource {
   String get displayPath => provider.displayPath(fileInfo);
 
   File _cacheMetadataFile(String cacheDirPath) =>
-      File(path.join(cacheDirPath, '$uuid.kdbx.json'));
+      File(path.join(cacheDirPath, '$uuid.dzpx.json'));
   File _cacheKdbxFile(String cacheDirPath) =>
-      File(path.join(cacheDirPath, '$uuid.kdbx'));
+      File(path.join(cacheDirPath, '$uuid.dzpx'));
 
   @override
   Stream<FileContent> load() async* {

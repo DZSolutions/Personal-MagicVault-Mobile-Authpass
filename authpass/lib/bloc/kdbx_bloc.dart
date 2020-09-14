@@ -549,7 +549,7 @@ class KdbxBloc {
   }) async {
     assert(password != null);
     analytics.events.trackCreateFile();
-    assert(!(databaseName.endsWith('.kdbx')));
+    assert(!(databaseName.endsWith('.dzpx')));
     final credentials = Credentials(ProtectedValue.fromString(password));
     final kdbxFile = kdbxFormat.create(
       credentials,
@@ -566,7 +566,7 @@ class KdbxBloc {
   }
 
   Future<FileSourceLocal> _localFileSourceForDbName(String databaseName) async {
-    final fileName = '$databaseName.kdbx';
+    final fileName = '$databaseName.dzpx';
     final appDir = await PathUtils().getAppDocDirectory(ensureCreated: true);
     final localSource = FileSourceLocal(File(path.join(appDir.path, fileName)),
         databaseName: databaseName, uuid: AppDataBloc.createUuid());

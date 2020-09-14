@@ -144,7 +144,7 @@ class FileSourceLocal extends FileSource {
     if (filePickerIdentifier != null) {
       _logger.finer('Writing into file with file picker.');
       final identifier = filePickerInfo?.identifier ?? filePickerIdentifier;
-      await createFileInNewTempDirectory('$displayNameFromPath.kdbx',
+      await createFileInNewTempDirectory('$displayNameFromPath.dzpx',
           (f) async {
         await f.writeAsBytes(bytes, flush: true);
         final fileInfo =

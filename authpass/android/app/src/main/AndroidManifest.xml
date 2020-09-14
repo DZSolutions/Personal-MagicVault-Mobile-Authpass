@@ -55,12 +55,12 @@
                 <data android:host="*"  />
                 <data android:mimeType="*/*" />
                 <!-- https://stackoverflow.com/a/52384331/109219 ?? -->
-                <data android:pathPattern=".*\\.kdbx" />
-                <data android:pathPattern=".*\\..*\\.kdbx" />
-                <data android:pathPattern=".*\\..*\\..*\\.kdbx" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.kdbx" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.kdbx" />
-                <data android:pathPattern=".*\\..*\\..*\\..*\\.*\\..*\\.kdbx" />
+                <data android:pathPattern=".*\\.dzpx" />
+                <data android:pathPattern=".*\\..*\\.dzpx" />
+                <data android:pathPattern=".*\\..*\\..*\\.dzpx" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.dzpx" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\..*\\.dzpx" />
+                <data android:pathPattern=".*\\..*\\..*\\..*\\.*\\..*\\.dzpx" />
             </intent-filter>
             <intent-filter android:label="@string/app_name">
                 <action android:name="android.intent.action.VIEW"  />

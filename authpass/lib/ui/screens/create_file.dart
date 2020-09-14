@@ -57,7 +57,7 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
                 controller: _databaseName,
                 decoration: InputDecoration(
                   labelText: loc.nameNewPasswordDatabase,
-                  suffixText: '.kdbx', // NON-NLS
+                  suffixText: '.dzpx', // NON-NLS
                   filled: true,
                 ),
                 textInputAction: TextInputAction.next,

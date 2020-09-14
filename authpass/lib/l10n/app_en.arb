@@ -46,7 +46,7 @@
     "context": "select file screen"
   },
 
-  "selectKeepassFileLabel": "Please select a KeePass (.kdbx) file.",
+  "selectKeepassFileLabel": "Please select a KeePass (.dzpx) file.",
   "@selectKeepassFileLabel": {
     "context": "select file screen, used as label."
   },

@@ -342,11 +342,11 @@ class _ManageFileState extends State<ManageFile> with FutureTaskStateMixin {
   Future<void> _saveAsLocalFile() async {
     if (AuthPassPlatform.isIOS || AuthPassPlatform.isAndroid) {
       final fileInfo = await FileSourceLocal.createFileInNewTempDirectory(
-          '${path.basenameWithoutExtension(_file.fileSource.displayPath)}.kdbx',
+          '${path.basenameWithoutExtension(_file.fileSource.displayPath)}.dzpx',
           (tempFile) async {
         return await FilePickerWritable().openFileForCreate(
           fileName:
-              '${path.basenameWithoutExtension(_file.fileSource.displayPath)}.kdbx',
+              '${path.basenameWithoutExtension(_file.fileSource.displayPath)}.dzpx',
           writer: (file) async {
             _logger.fine('Writing placeholder into $file');
             await file.writeAsString('<placeholder>');
