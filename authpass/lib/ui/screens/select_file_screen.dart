@@ -274,7 +274,7 @@ class _SelectFileWidgetState extends State<SelectFileWidget>
                   ? [
                       const SizedBox(height: 16),
                       Text(
-                        'AuthPass requires permission to communicate with '
+                        'ProxiPass requires permission to communicate with '
                         'Secret Service to store credentials for cloud storage.\n'
                         'Please run the following command:',
                         textAlign: TextAlign.center,

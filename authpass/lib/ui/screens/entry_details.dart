@@ -1298,7 +1298,7 @@ class _EntryFieldState extends State<EntryField>
           child: ListTile(
             leading: Icon(Icons.cloud),
             title: Text('Generate Email'),
-            subtitle: Text('AuthPass Cloud'),
+            subtitle: Text('ProxiPass Cloud'),
           )),
     ];
   }

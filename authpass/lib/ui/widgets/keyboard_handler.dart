@@ -69,7 +69,7 @@ class _KeyboardHandlerState extends State<KeyboardHandler> {
   final _keyboardShortcutEvents = KeyboardShortcutEvents();
 
   final FocusNode _focusNode = FocusNode(
-    debugLabel: 'AuthPassKeyboardFocus',
+    debugLabel: 'ProxiPassKeyboardFocus',
     onKey: (focusNode, rawKeyEvent) {
 //      _logger.info('got onKey: ($focusNode) $rawKeyEvent');
       return true;

@@ -600,7 +600,7 @@ class KdbxBloc {
   Future<Uint8List> _saveFileToBytes(KdbxFile file) async {
     final generator = file.body.meta.generator.get();
     if (generator == null || generator.isEmpty) {
-      file.body.meta.generator.set('AuthPass (save)');
+      file.body.meta.generator.set('ProxiPass (save)');
     }
     final saveCounter =
         file.body.meta.customData['codeux.design.authpass.save'] ?? '0';

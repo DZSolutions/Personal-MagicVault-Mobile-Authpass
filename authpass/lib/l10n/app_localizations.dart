@@ -350,10 +350,10 @@ abstract class AppLocalizations {
   // credential screen while unlocking file.
   String get loadingFile;
 
-  // Choose a file previously created in AuthPass app sandbox
+  // Choose a file previously created in ProxiPass app sandbox
   String get internalFile;
 
-  // Choose a file previously created in AuthPass app sandbox
+  // Choose a file previously created in ProxiPass app sandbox
   String get internalFileSubtitle;
 
   // Choose a file with the system's file picker. (ios/android)

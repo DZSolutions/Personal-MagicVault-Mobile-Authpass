@@ -43,7 +43,7 @@ class AppLocalizationsLt extends AppLocalizations {
   String get french => 'French';
 
   @override
-  String get selectDZPassFile => '„AuthPass“ - Pasirinkti „DZPass“ failą';
+  String get selectDZPassFile => '„ProxiPass“ - Pasirinkti „DZPass“ failą';
 
   @override
   String get quickUnlockingFiles => 'Greitas failų atrakinimas';
@@ -117,7 +117,7 @@ class AppLocalizationsLt extends AppLocalizations {
   String get preferenceTitle => 'Nustatymai';
 
   @override
-  String get aboutAppName => '„AuthPass“';
+  String get aboutAppName => '„ProxiPass“';
 
   @override
   String get aboutLinkFeedback => 'Mes laukiame bet kokių atsiliepimų!';
@@ -271,7 +271,7 @@ class AppLocalizationsLt extends AppLocalizations {
   String get internalFile => 'Vidinis failas';
 
   @override
-  String get internalFileSubtitle => 'Duomenų bazė prieš tai sukurta su „AuthPass“';
+  String get internalFileSubtitle => 'Duomenų bazė prieš tai sukurta su „ProxiPass“';
 
   @override
   String get filePicker => 'Failų parinkėjas';

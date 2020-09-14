@@ -37,7 +37,7 @@
     "description": "language switcher subtitle"
   },
 
-  "selectDZPassFile": "AuthPass - Select DZPass File",
+  "selectDZPassFile": "ProxiPass - Select DZPass File",
   "@selectDZPassFile": {
     "context": "appbar title - select file screen"
   },
@@ -111,7 +111,7 @@
   "@preferenceAutoFillDescription": {},
   "preferenceTitle": "Preferences",
   "@preferenceTitle": {},
-  "aboutAppName": "AuthPass",
+  "aboutAppName": "ProxiPass",
   "@aboutAppName": {},
   "aboutLinkFeedback": "We welcome any kind of feedback!",
   "@aboutLinkFeedback": {},
@@ -296,12 +296,12 @@
   },
   "internalFile": "Internal file",
   "@internalFile": {
-    "description": "Choose a file previously created in AuthPass app sandbox",
+    "description": "Choose a file previously created in ProxiPass app sandbox",
     "context": "open file picker: internal file vs. file picker"
   },
-  "internalFileSubtitle": "Database previously created with AuthPass",
+  "internalFileSubtitle": "Database previously created with ProxiPass",
   "@internalFileSubtitle": {
-    "description": "Choose a file previously created in AuthPass app sandbox",
+    "description": "Choose a file previously created in ProxiPass app sandbox",
     "context": "open file picker: internal file vs. file picker"
   },
   "filePicker": "File Picker",

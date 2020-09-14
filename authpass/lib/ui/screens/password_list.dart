@@ -517,7 +517,7 @@ class _PasswordListContentState extends State<PasswordListContent>
         element.value.kdbxFile.dirtyObjects.isNotEmpty);
     final loc = AppLocalizations.of(context);
     return AppBar(
-      title: const Text('AuthPass'), // NON-NLS
+      title: const Text('ProxiPass'), // NON-NLS
       actions: <Widget>[
         ...?!isDirty
             ? null
@@ -1074,7 +1074,7 @@ class _PasswordListContentState extends State<PasswordListContent>
               badgeColor: Theme.of(context).primaryColor,
               child: const Icon(Icons.cloud),
             ),
-            title: const Text('AuthPass Mailboxes'),
+            title: const Text('ProxiPass Mailboxes'),
           ),
           value: () {
             Navigator.of(context, rootNavigator: true)
@@ -1087,7 +1087,7 @@ class _PasswordListContentState extends State<PasswordListContent>
         PopupMenuItem(
           child: const ListTile(
             leading: Icon(Icons.cloud),
-            title: Text('Authenticate with AuthPass Cloud'),
+            title: Text('Authenticate with ProxiPass Cloud'),
           ),
           value: () {
             Navigator.of(context, rootNavigator: true)

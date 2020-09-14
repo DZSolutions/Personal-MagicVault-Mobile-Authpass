@@ -101,7 +101,7 @@
 
             <meta-data
                 android:name="design.codeux.autofill_service.unlock_label"
-                android:value="Autofill with AuthPass" />
+                android:value="Autofill with ProxiPass" />
         </service>
 
         <activity android:name="com.apptreesoftware.barcodescan.BarcodeScannerActivity"/>

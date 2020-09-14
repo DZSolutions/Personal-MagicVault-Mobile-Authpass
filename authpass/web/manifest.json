@@ -1,11 +1,11 @@
 {
-    "name": "AuthPass",
-    "short_name": "AuthPass",
+    "name": "ProxiPass",
+    "short_name": "ProxiPass",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#626BC6",
     "theme_color": "#626BC6",
-    "description": "AuthPass - Cross Platform Password Manager.",
+    "description": "ProxiPass - Cross Platform Password Manager.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

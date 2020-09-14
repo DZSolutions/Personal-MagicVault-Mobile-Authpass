@@ -43,7 +43,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get french => 'French';
 
   @override
-  String get selectDZPassFile => 'AuthPass - Select DZPass File';
+  String get selectDZPassFile => 'ProxiPass - Select DZPass File';
 
   @override
   String get quickUnlockingFiles => 'Quick unlocking files';
@@ -117,7 +117,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get preferenceTitle => 'Preferences';
 
   @override
-  String get aboutAppName => 'AuthPass';
+  String get aboutAppName => 'ProxiPass';
 
   @override
   String get aboutLinkFeedback => 'We welcome any kind of feedback!';
@@ -271,7 +271,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get internalFile => 'Internal file';
 
   @override
-  String get internalFileSubtitle => 'Database previously created with AuthPass';
+  String get internalFileSubtitle => 'Database previously created with ProxiPass';
 
   @override
   String get filePicker => 'File Picker';

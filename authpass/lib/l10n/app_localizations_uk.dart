@@ -43,7 +43,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get french => 'French';
 
   @override
-  String get selectDZPassFile => 'AuthPass - виберіть DZPass файл';
+  String get selectDZPassFile => 'ProxiPass - виберіть DZPass файл';
 
   @override
   String get quickUnlockingFiles => 'Швидке розблокування файлів';
@@ -117,7 +117,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get preferenceTitle => 'Налаштування';
 
   @override
-  String get aboutAppName => 'AuthPass';
+  String get aboutAppName => 'ProxiPass';
 
   @override
   String get aboutLinkFeedback => 'Ми раді будь-яким відгукам!';
@@ -273,7 +273,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get internalFile => 'Внутрішній файл';
 
   @override
-  String get internalFileSubtitle => 'Попередня база паролів створена в AuthPass';
+  String get internalFileSubtitle => 'Попередня база паролів створена в ProxiPass';
 
   @override
   String get filePicker => 'Вибір файлу';
