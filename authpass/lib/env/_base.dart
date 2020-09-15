@@ -68,8 +68,8 @@ abstract class Env {
   }
 
   /// app name ;) basically it's just here so I don't have to translate it.
-  static const AuthPass = 'AuthPass'; // NON-NLS
-  static const AuthPassCLoud = 'AuthPass Cloud'; // NON-NLS
+  static const AuthPass = 'ProxiPass'; // NON-NLS
+  static const AuthPassCLoud = 'ProxiPass Cloud'; // NON-NLS
 
   static Env value;
 
