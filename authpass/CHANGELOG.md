@@ -3,6 +3,8 @@
 * Android: improve autofill input field detection for usernames.
 * Improve locking with biometric storage.
   (Files can now be closed/locked without removing saved master passwords)
+* File Create: Show password strength #143
+* Password generator: include accented characters in 'Umlauts'
 * French translations.
 
 # 1.7.7
