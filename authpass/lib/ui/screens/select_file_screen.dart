@@ -1045,7 +1045,9 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
           analytics: analytics,
           result: TryUnlockResult.failure,
           errorTitle: loc.errorUnlockFileTitle,
-          errorBody: loc.errorUnlockFileBody(e),
+          //DZSOLUTIONS
+          // errorBody: loc.errorUnlockFileBody(e),
+          errorBody: 'In order to import the Keepass file KDB* files, Please use ProxiPass desktop version and create a new ProxiPass database file (.dzpx) first then click "File" -> "Import" in the main menu. In the import dialog, choose "Keepass (.kdbx)" as file format.',
           stopWatch: stopWatch,
         );
       } finally {
