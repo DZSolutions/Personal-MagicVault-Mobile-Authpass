@@ -1506,6 +1506,8 @@ class ObscuredEntryFieldEditor extends StatelessWidget {
           decoration: InputDecoration(
             prefixIcon:
                 commonField?.icon == null ? null : Icon(commonField.icon),
+            // suffixIcon:
+            //     IconButton(icon: const Icon(Icons.nfc), onPressed: () {}),
             labelText: commonField?.displayName ?? fieldKey.key,
             filled: true,
           ),

@@ -67,6 +67,12 @@ class CommonFields {
             icon: Icons.link,
           ),
           CommonField(
+            key: KdbxKeyCommon.NOTES,
+            displayName: 'Notes',
+            includeInSearch: true,
+            icon: Icons.note,
+          ),
+          CommonField(
             key: KdbxKeyCommon.OTP,
             displayName: loc.fieldTotp,
             icon: Icons.watch_later,
