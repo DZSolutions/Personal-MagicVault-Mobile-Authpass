@@ -1525,15 +1525,53 @@ class ObscuredEntryFieldEditor extends StatelessWidget {
               ),
               child: LinkButton(
                 child: Container(
-                  alignment: Alignment.bottomCenter,
-                  padding: const EdgeInsets.only(left: 12.0 + 24.0, bottom: 16),
-                  child: const Text(
-                    'Protected field. Click to reveal.',
-                    style: TextStyle(
-                        shadows: [Shadow(color: Colors.white, blurRadius: 5)]),
+                    alignment: Alignment.bottomCenter,
+                    padding:
+                        const EdgeInsets.only(left: 12.0 + 24.0, bottom: 16),
+                    child: RichText(
+                      text: TextSpan(
+                        style: Theme.of(context).textTheme.body1,
+                        children: [
+                          const TextSpan(text: 'Protected by NFC '),
+                          const WidgetSpan(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 2.0),
+                              child: Icon(Icons.nfc),
+                            ),
+                          ),
+                          const TextSpan(text: 'Tap to reveal.'),
+                        ],
+                      ),
+                    )
+                    // child: const Text(
+                    //   'Protected field. Click to reveal.',
+                    //   style: TextStyle(
+                    //       shadows: [Shadow(color: Colors.white, blurRadius: 5)]),
+                    // ),
+                    ),
+                // onPressed: (onPressed),
+                onPressed: () => showDialog<void>(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('AlertDialog'),
+                    content: const Text('Tap NFC Card'),
+                    actions: [
+                      FlatButton(
+                        child: const Text('Continue'),
+                        onPressed: () {
+                          onPressed();
+                          Navigator.pop(context);
+                        },
+                      ),
+                      FlatButton(
+                          child: const Text('Cancel'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                          }),
+                    ],
                   ),
                 ),
-                onPressed: onPressed,
               ),
             ),
           ),
