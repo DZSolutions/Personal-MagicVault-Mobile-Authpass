@@ -87,6 +87,8 @@ class CommonFields {
 
   CommonField get url => _fieldByKey(KdbxKeyCommon.URL);
 
+  CommonField get notes => _fieldByKey(KdbxKeyCommon.NOTES);
+
   CommonField get userName => _fieldByKey(KdbxKeyCommon.USER_NAME);
 
   CommonField get password => _fieldByKey(KdbxKeyCommon.PASSWORD);
