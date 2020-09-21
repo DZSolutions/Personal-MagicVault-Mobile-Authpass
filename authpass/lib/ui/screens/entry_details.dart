@@ -117,7 +117,7 @@ class _EntryDetailsScreenState extends State<EntryDetailsScreen>
                   ));
                 },
               ),
-              ...?!env.isDebug
+              ...?env.isDebug
                   ? null
                   : [
                       PopupMenuItem(
@@ -929,7 +929,7 @@ class _EntryFieldState extends State<EntryField>
   final GlobalKey _formFieldKey = GlobalKey();
   TextEditingController _controller;
   bool _isValueObscured = false;
-  bool _isValueNFC = false;
+  bool _isValueFilteredNFC = false;
   final FocusNode _focusNode = FocusNode();
   CommonFields _commonFields;
 
@@ -944,7 +944,7 @@ class _EntryFieldState extends State<EntryField>
 
   bool get _isNFC => _fieldValue == null
       ? widget.commonField?.nfc == true
-      : _fieldValue is ProtectedValue;
+      : _fieldValue is ProtectedValue && _isValueFilteredNFC;
 
   String get _valueCurrent =>
       (_isValueObscured
@@ -1119,10 +1119,16 @@ class _EntryFieldState extends State<EntryField>
         break;
       case EntryAction.nfc:
         setState(() {
-          if (_isNFC) {
-            print('STOP NFC');
+          if (_isProtected && _isNFC) {
+            _fieldValue = PlainValue(_valueCurrent ?? '');
+            _isValueObscured = false;
+            _isValueFilteredNFC = false;
           } else {
-            print('DO NFC');
+            _logger.fine(
+                'protected: $_isProtected, obscured: $_isValueObscured, current: $_valueCurrent, nfc: $_isNFC, filtered: $_isValueFilteredNFC');
+            _fieldValue = ProtectedValue.fromString(_valueCurrent ?? '');
+            _isValueObscured = true;
+            _isValueFilteredNFC = true;
           }
         });
         break;
@@ -1272,6 +1278,24 @@ class _EntryFieldState extends State<EntryField>
           : _buildStringEntryFieldEditor();
 
   Widget _buildObscuredEntryFieldEditor() {
+    if (_isValueFilteredNFC) {
+      return FilteredEntryFieldEditor(
+        onPressed: () {
+          setState(() {
+            _controller.text = _valueCurrent ?? '';
+            _controller.selection = TextSelection(
+                baseOffset: 0, extentOffset: _controller.text?.length ?? 0);
+            _isValueObscured = false;
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _focusNode.requestFocus();
+              _logger.finer('requesting focus.');
+            });
+          });
+        },
+        fieldKey: widget.fieldKey,
+        commonField: widget.commonField,
+      );
+    }
     return ObscuredEntryFieldEditor(
       onPressed: () {
         setState(() {
@@ -1513,6 +1537,61 @@ class _OtpEntryFieldState extends _EntryFieldState {
 
 class ObscuredEntryFieldEditor extends StatelessWidget {
   const ObscuredEntryFieldEditor({
+    Key key,
+    @required this.onPressed,
+    @required this.commonField,
+    @required this.fieldKey,
+  }) : super(key: key);
+
+  final CommonField commonField;
+  final KdbxKey fieldKey;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        InputDecorator(
+          decoration: InputDecoration(
+            prefixIcon:
+                commonField?.icon == null ? null : Icon(commonField.icon),
+            labelText: commonField?.displayName ?? fieldKey.key,
+            filled: true,
+          ),
+          child: const Text(
+            '*****************',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        Positioned.fill(
+          child: ClipRect(
+            child: BackdropFilter(
+              filter: ui.ImageFilter.blur(
+                sigmaX: 0.5,
+                sigmaY: 0.5,
+              ),
+              child: LinkButton(
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  padding: const EdgeInsets.only(left: 12.0 + 24.0, bottom: 16),
+                  child: const Text(
+                    'Protected field. Click to reveal.',
+                    style: TextStyle(
+                        shadows: [Shadow(color: Colors.white, blurRadius: 5)]),
+                  ),
+                ),
+                onPressed: onPressed,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class FilteredEntryFieldEditor extends StatelessWidget {
+  const FilteredEntryFieldEditor({
     Key key,
     @required this.onPressed,
     @required this.commonField,
