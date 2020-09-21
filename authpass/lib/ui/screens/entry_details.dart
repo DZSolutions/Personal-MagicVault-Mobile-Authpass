@@ -616,6 +616,7 @@ class _EntryDetailsState extends State<EntryDetails>
     );
     widget.entry.entry.createBinary(
       isProtected: false,
+      isNFC: false,
       name: fileName,
       bytes: bytes,
     );
@@ -916,6 +917,7 @@ enum EntryAction {
   copyRawData,
   rename,
   protect,
+  nfc,
   delete,
   show,
   passwordGenerator,
@@ -927,6 +929,7 @@ class _EntryFieldState extends State<EntryField>
   final GlobalKey _formFieldKey = GlobalKey();
   TextEditingController _controller;
   bool _isValueObscured = false;
+  bool _isValueNFC = false;
   final FocusNode _focusNode = FocusNode();
   CommonFields _commonFields;
 
@@ -938,6 +941,11 @@ class _EntryFieldState extends State<EntryField>
   bool get _isProtected => _fieldValue == null
       ? widget.commonField?.protect == true
       : _fieldValue is ProtectedValue;
+
+  bool get _isNFC => _fieldValue == null
+      ? widget.commonField?.nfc == true
+      : _fieldValue is ProtectedValue;
+
   String get _valueCurrent =>
       (_isValueObscured
           ? widget.entry.getString(widget.fieldKey)?.getText()
@@ -1109,6 +1117,15 @@ class _EntryFieldState extends State<EntryField>
           }
         });
         break;
+      case EntryAction.nfc:
+        setState(() {
+          if (_isNFC) {
+            print('STOP NFC');
+          } else {
+            print('DO NFC');
+          }
+        });
+        break;
       case EntryAction.delete:
         widget.entry.removeString(widget.fieldKey);
         widget.onChangedMetadata();
@@ -1173,6 +1190,14 @@ class _EntryFieldState extends State<EntryField>
           leading: Icon(
               _isProtected ? Icons.no_encryption : Icons.enhanced_encryption),
           title: Text(_isProtected ? loc.fieldUnprotect : loc.fieldProtect),
+        ),
+      ),
+      PopupMenuItem(
+        value: EntryAction.nfc,
+        child: ListTile(
+          leading:
+              Icon(_isNFC ? Icons.no_encryption : Icons.enhanced_encryption),
+          title: Text(_isNFC ? 'Disable NFC' : 'Enable NFC'),
         ),
       ),
       PopupMenuItem(
