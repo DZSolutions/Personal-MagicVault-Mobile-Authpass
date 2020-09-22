@@ -944,7 +944,7 @@ class _EntryFieldState extends State<EntryField>
 
   bool get _isNFC => _fieldValue == null
       ? widget.commonField?.nfc == true
-      : _fieldValue is ProtectedValue && _isValueFilteredNFC;
+      : _fieldValue is NFCValue;
 
   String get _valueCurrent =>
       (_isValueObscured
@@ -961,10 +961,10 @@ class _EntryFieldState extends State<EntryField>
     _focusNode.addListener(_focusNodeChanged);
     if (_fieldValue is ProtectedValue || widget.commonField?.protect == true) {
       _isValueObscured = true;
-      if (widget.commonField?.nfc == true) {
-        _isValueFilteredNFC = true;
-      }
-
+      _controller = TextEditingController();
+    } else if (_fieldValue is NFCValue || widget.commonField?.nfc == true) {
+      _isValueObscured = true;
+      _isValueFilteredNFC = true;
       _controller = TextEditingController();
     } else {
       _controller = TextEditingController(text: _fieldValue?.getText() ?? '');
@@ -989,12 +989,17 @@ class _EntryFieldState extends State<EntryField>
   void _focusNodeChanged() {
     if (!_isProtected) {
       return;
-    }
     _logger.info(
         'Focus changed to ${_focusNode.hasFocus} (primary: ${_focusNode.hasPrimaryFocus})');
     if (!_focusNode.hasFocus) {
       setState(() {
-        _fieldValue = ProtectedValue.fromString(_controller.text);
+        if (_fieldValue is ProtectedValue) {
+          _fieldValue = ProtectedValue.fromString(_controller.text);
+        }
+        if (_fieldValue is NFCValue) {
+          _fieldValue = NFCValue.fromString(_controller.text);
+          _isValueFilteredNFC = true;
+        }
         _isValueObscured = true;
         _logger.finer(
             '${widget.fieldKey} _isProtected= $_isValueObscured _isNFC= $_isValueFilteredNFC');
@@ -1115,6 +1120,7 @@ class _EntryFieldState extends State<EntryField>
           if (_isProtected) {
             _fieldValue = PlainValue(_valueCurrent ?? '');
             _isValueObscured = false;
+            _isValueFilteredNFC = false;
           } else {
             _logger.fine(
                 'protected: $_isProtected, obscured: $_isValueObscured, current: $_valueCurrent');
@@ -1125,14 +1131,17 @@ class _EntryFieldState extends State<EntryField>
         break;
       case EntryAction.nfc:
         setState(() {
-          if (_isProtected && _isNFC) {
-            // _fieldValue = PlainValue(_valueCurrent ?? '');
+          if (_isNFC) {
+            _fieldValue = ProtectedValue.fromString(_valueCurrent ?? '');
             _isValueObscured = true;
             _isValueFilteredNFC = false;
           } else {
+            if (_isProtected) {
+              _fieldValue = PlainValue(_valueCurrent ?? '');
+            }
             _logger.fine(
                 'protected: $_isProtected, obscured: $_isValueObscured, current: $_valueCurrent, nfc: $_isNFC, filtered: $_isValueFilteredNFC');
-            _fieldValue = ProtectedValue.fromString(_valueCurrent ?? '');
+            _fieldValue = NFCValue.fromString(_valueCurrent ?? '');
             _isValueObscured = true;
             _isValueFilteredNFC = true;
           }
@@ -1199,9 +1208,12 @@ class _EntryFieldState extends State<EntryField>
       PopupMenuItem(
         value: EntryAction.protect,
         child: ListTile(
-          leading: Icon(
-              _isProtected ? Icons.no_encryption : Icons.enhanced_encryption),
-          title: Text(_isProtected ? loc.fieldUnprotect : loc.fieldProtect),
+          leading: Icon(_isProtected
+              ? Icons.no_encryption
+              : _isNFC ? Icons.no_encryption : Icons.enhanced_encryption),
+          title: Text(_isProtected
+              ? loc.fieldUnprotect
+              : _isNFC ? loc.fieldUnprotect : loc.fieldProtect),
         ),
       ),
       PopupMenuItem(
@@ -1323,8 +1335,9 @@ class _EntryFieldState extends State<EntryField>
   Widget _buildStringEntryFieldEditor() {
     return StringEntryFieldEditor(
       onSaved: (value) {
-        final newValue =
-            _isProtected ? ProtectedValue.fromString(value) : PlainValue(value);
+        final newValue = _isProtected
+            ? ProtectedValue.fromString(value)
+            : _isNFC ? NFCValue.fromString(value) : PlainValue(value);
         _fieldValue = newValue;
       },
       fieldKey: widget.fieldKey,
