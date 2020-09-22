@@ -961,6 +961,10 @@ class _EntryFieldState extends State<EntryField>
     _focusNode.addListener(_focusNodeChanged);
     if (_fieldValue is ProtectedValue || widget.commonField?.protect == true) {
       _isValueObscured = true;
+      if (widget.commonField?.nfc == true) {
+        _isValueFilteredNFC = true;
+      }
+
       _controller = TextEditingController();
     } else {
       _controller = TextEditingController(text: _fieldValue?.getText() ?? '');
@@ -992,14 +996,16 @@ class _EntryFieldState extends State<EntryField>
       setState(() {
         _fieldValue = ProtectedValue.fromString(_controller.text);
         _isValueObscured = true;
-        _logger.finer('${widget.fieldKey} _isProtected= $_isValueObscured');
+        _logger.finer(
+            '${widget.fieldKey} _isProtected= $_isValueObscured _isNFC= $_isValueFilteredNFC');
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    _logger.finer('building ${widget.fieldKey} ($_isValueObscured)');
+    _logger.finer(
+        'building ${widget.fieldKey} ($_isValueObscured) ($_isValueFilteredNFC)');
     final loc = AppLocalizations.of(context);
     return Dismissible(
       key: ValueKey(widget.fieldKey),
@@ -1120,8 +1126,8 @@ class _EntryFieldState extends State<EntryField>
       case EntryAction.nfc:
         setState(() {
           if (_isProtected && _isNFC) {
-            _fieldValue = PlainValue(_valueCurrent ?? '');
-            _isValueObscured = false;
+            // _fieldValue = PlainValue(_valueCurrent ?? '');
+            _isValueObscured = true;
             _isValueFilteredNFC = false;
           } else {
             _logger.fine(
