@@ -989,6 +989,7 @@ class _EntryFieldState extends State<EntryField>
   void _focusNodeChanged() {
     if (!_isProtected) {
       return;
+    }
     _logger.info(
         'Focus changed to ${_focusNode.hasFocus} (primary: ${_focusNode.hasPrimaryFocus})');
     if (!_focusNode.hasFocus) {
