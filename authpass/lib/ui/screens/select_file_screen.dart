@@ -470,7 +470,7 @@ class _SelectFileWidgetState extends State<SelectFileWidget>
         ),
       );
     } else {
-      _logger.fine('No kdbx files found, open FilePickerWritable');
+      _logger.fine('No dzpx files found, open FilePickerWritable');
       await openFilePickerWritable();
     }
   }
@@ -484,7 +484,7 @@ class _SelectFileWidgetState extends State<SelectFileWidget>
         continue;
       }
       _logger.finest('contains: ${dir.path}');
-      if (f.path.endsWith('kdbx')) {
+      if (f.path.endsWith('dzpx')) {
         // NON-NLS
         return true;
       }
@@ -537,7 +537,7 @@ class OpenFileBottomSheet extends StatelessWidget {
                 rootDirectory:
                     await PathUtils().getAppDocDirectory(ensureCreated: true),
                 fsType: FilesystemType.file,
-                allowedExtensions: ['.kdbx'],
+                allowedExtensions: ['.dzpx'],
                 fileTileSelectMode: FileTileSelectMode.wholeTile,
               );
               if (filePath == null) {
@@ -881,49 +881,50 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
                   },
                 ),
               ),
-              Container(
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.only(right: 32, left: 32),
-                child: FlatButton.icon(
-//                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  icon: Icon(_keyFile == null
-                      ? FontAwesomeIcons.folderOpen
-                      : FontAwesomeIcons.edit),
-                  label: Text(_keyFile == null
-                      ? loc.useKeyFile
-                      : path.basename(_keyFile.displayName)),
-                  onPressed: () async {
-                    _invalidPassword = null;
-                    if (AuthPassPlatform.isIOS || AuthPassPlatform.isAndroid) {
-                      final fileInfo = await FilePickerWritable()
-                          .openFile((fileInfo, file) async {
-                        final keyFile = KeyFileInfo(
-                            fileInfo: fileInfo,
-                            bytes: await file.readAsBytes());
-                        setState(() {
-//                          writeTe
-                          _keyFile = keyFile;
-                        });
-                        return fileInfo;
-                      });
-                      if (fileInfo == null) {
-                        setState(() => _keyFile = null);
-                      }
-                    } else {
-                      final result = await showOpenPanel();
-                      if (!result.canceled) {
-                        setState(() {
-                          _keyFile = KeyFileFile(File(result.paths[0]));
-                        });
-                      } else {
-                        setState(() {
-                          _keyFile = null;
-                        });
-                      }
-                    }
-                  },
-                ),
-              ),
+//KeyFile
+//               Container(
+//                 alignment: Alignment.centerLeft,
+//                 padding: const EdgeInsets.only(right: 32, left: 32),
+//                 child: FlatButton.icon(
+// //                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+//                   icon: Icon(_keyFile == null
+//                       ? FontAwesomeIcons.folderOpen
+//                       : FontAwesomeIcons.edit),
+//                   label: Text(_keyFile == null
+//                       ? loc.useKeyFile
+//                       : path.basename(_keyFile.displayName)),
+//                   onPressed: () async {
+//                     _invalidPassword = null;
+//                     if (AuthPassPlatform.isIOS || AuthPassPlatform.isAndroid) {
+//                       final fileInfo = await FilePickerWritable()
+//                           .openFile((fileInfo, file) async {
+//                         final keyFile = KeyFileInfo(
+//                             fileInfo: fileInfo,
+//                             bytes: await file.readAsBytes());
+//                         setState(() {
+// //                          writeTe
+//                           _keyFile = keyFile;
+//                         });
+//                         return fileInfo;
+//                       });
+//                       if (fileInfo == null) {
+//                         setState(() => _keyFile = null);
+//                       }
+//                     } else {
+//                       final result = await showOpenPanel();
+//                       if (!result.canceled) {
+//                         setState(() {
+//                           _keyFile = KeyFileFile(File(result.paths[0]));
+//                         });
+//                       } else {
+//                         setState(() {
+//                           _keyFile = null;
+//                         });
+//                       }
+//                     }
+//                   },
+//                 ),
+//               ),
               ...(_biometricQuickUnlockSupported
                   ? [
                       Container(
@@ -971,6 +972,7 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
   }
 
   Future<void> _tryUnlock() async {
+    //nfc
     if (_formKey.currentState.validate()) {
       final deps = Provider.of<Deps>(context, listen: false);
       final loc = AppLocalizations.of(context);
@@ -1040,14 +1042,15 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
           stopWatch: stopWatch,
         );
       } catch (e, stackTrace) {
-        _logger.fine('Unable to open kdbx file. ', e, stackTrace);
+        _logger.fine('Unable to open dzpx file. ', e, stackTrace);
         await _handleOpenError(
           analytics: analytics,
           result: TryUnlockResult.failure,
           errorTitle: loc.errorUnlockFileTitle,
           //DZSOLUTIONS
           // errorBody: loc.errorUnlockFileBody(e),
-          errorBody: 'In order to import the Keepass file KDB* files, Please use ProxiPass desktop version and create a new ProxiPass database file (.dzpx) first then click "File" -> "Import" in the main menu. In the import dialog, choose "Keepass (.kdbx)" as file format.',
+          errorBody:
+              'In order to import the Keepass file KDB* files, Please use ProxiPass desktop version and create a new ProxiPass database file (.dzpx) first then click "File" -> "Import" in the main menu. In the import dialog, choose "Keepass (.kdbx)" as file format.',
           stopWatch: stopWatch,
         );
       } finally {

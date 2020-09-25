@@ -111,7 +111,7 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
                 alignment: Alignment.centerRight,
                 child: task != null
                     ? const CircularProgressIndicator(
-                        backgroundColor: Colors.red,
+                        backgroundColor: Colors.transparent,
                       )
                     : PrimaryButton(
                         large: false,
@@ -129,28 +129,52 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
   VoidCallback _submitCallback() => asyncTaskCallback((progress) async {
         if (_formKey.currentState.validate()) {
           final kdbxBloc = Provider.of<KdbxBloc>(context, listen: false);
-          try {
-            final created = await kdbxBloc.createFile(
-              password: _password.text,
-              databaseName: _databaseName.text,
-              openAfterCreate: true,
-            );
-            assert(created != null);
-            await Navigator.of(context)
-                .pushAndRemoveUntil(MainAppScaffold.route(), (route) => false);
-          } on FileExistsException catch (e, stackTrace) {
-            _logger.warning('Showing file exists error dialog.', e, stackTrace);
-            final loc = AppLocalizations.of(context);
-            await DialogUtils.showSimpleAlertDialog(
-              context,
-              loc.databaseExistsError,
-              loc.databaseExistsErrorDescription(e.path),
-              routeAppend: 'createFileExists',
-            );
-          } catch (e, stackTrace) {
-            _logger.severe('Error while creating file.', e, stackTrace);
-            rethrow;
-          }
+          //nfc
+          await showDialog<void>(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Register NFC Card'),
+              content: const Text('Please tap NFC Card'),
+              actions: [
+                FlatButton(
+                  child: const Text('Continue'),
+                  onPressed: () async {
+                    try {
+                      final created = await kdbxBloc.createFile(
+                        password: _password.text,
+                        databaseName: _databaseName.text,
+                        openAfterCreate: true,
+                      );
+                      assert(created != null);
+                      await Navigator.of(context).pushAndRemoveUntil(
+                          MainAppScaffold.route(), (route) => false);
+                    } on FileExistsException catch (e, stackTrace) {
+                      _logger.warning(
+                          'Showing file exists error dialog.', e, stackTrace);
+                      final loc = AppLocalizations.of(context);
+                      await DialogUtils.showSimpleAlertDialog(
+                        context,
+                        loc.databaseExistsError,
+                        loc.databaseExistsErrorDescription(e.path),
+                        routeAppend: 'createFileExists',
+                      );
+                    } catch (e, stackTrace) {
+                      _logger.severe(
+                          'Error while creating file.', e, stackTrace);
+                      rethrow;
+                    }
+                    Navigator.pop(context);
+                  },
+                ),
+                FlatButton(
+                    child: const Text('Cancel'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      return;
+                    }),
+              ],
+            ),
+          );
         }
       });
 }
