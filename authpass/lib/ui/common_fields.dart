@@ -12,6 +12,7 @@ class CommonField {
     @required this.displayName,
     this.includeInSearch = false,
     this.protect = false,
+    this.nfc = false,
     this.keyboardType,
     this.autocorrect = false,
     this.enableSuggestions = false,
@@ -19,7 +20,7 @@ class CommonField {
     this.icon = Icons.label_outline,
     this.showByDefault = true,
   });
-
+  final bool nfc;
   final KdbxKey key;
   final String displayName;
   final bool includeInSearch;
@@ -77,6 +78,12 @@ class CommonFields {
             icon: Icons.lock,
           ),
           CommonField(
+            key: KdbxKeyCommon.NOTES,
+            displayName: 'Notes',
+            includeInSearch: true,
+            icon: Icons.note,
+          ),
+          CommonField(
             key: KdbxKeyCommon.OTP,
             displayName: loc.fieldTotp,
             icon: Icons.watch_later,
@@ -90,6 +97,8 @@ class CommonFields {
   CommonField get title => _fieldByKey(KdbxKeyCommon.TITLE);
 
   CommonField get url => _fieldByKey(KdbxKeyCommon.URL);
+
+  CommonField get notes => _fieldByKey(KdbxKeyCommon.NOTES);
 
   CommonField get userName => _fieldByKey(KdbxKeyCommon.USER_NAME);
 
