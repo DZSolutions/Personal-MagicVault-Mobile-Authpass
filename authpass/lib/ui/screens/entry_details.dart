@@ -300,15 +300,23 @@ class _EntryDetailsState extends State<EntryDetails>
         _copyField(commonFields.userName);
       } else if (event.type == KeyboardShortcutType.escape) {
         FocusManager.instance.primaryFocus?.unfocus();
+      } else if (event.type == KeyboardShortcutType.openUrl) {
+        _fieldStateFor(commonFields.url)?.openUrl();
+      } else if (event.type == KeyboardShortcutType.copyUrl) {
+        _fieldStateFor(commonFields.url)?.copyValue();
       }
     }));
   }
 
+  _EntryFieldState _fieldStateFor(CommonField commonField) => _fieldKeys
+      .firstWhere((f) => f.item2 == commonField.key, orElse: () => null)
+      ?.item1
+      ?.currentState;
+
   Future<void> _copyField(CommonField commonField) async {
-    final field = _fieldKeys.firstWhere((f) => f.item2 == commonField.key,
-        orElse: () => null);
+    final field = _fieldStateFor(commonField);
     if (field != null) {
-      if (await field.item1.currentState.copyValue()) {
+      if (await field.copyValue()) {
         return;
       }
     }
@@ -924,8 +932,14 @@ enum EntryAction {
   generateEmail,
 }
 
+abstract class FieldDelegate {
+  Future<void> generatePassword();
+  Future<void> openUrl();
+}
+
 class _EntryFieldState extends State<EntryField>
-    with StreamSubscriberMixin, TaskStateMixin {
+    with StreamSubscriberMixin, TaskStateMixin
+    implements FieldDelegate {
   final GlobalKey _formFieldKey = GlobalKey();
   TextEditingController _controller;
   bool _isValueObscured = false;
@@ -1160,6 +1174,7 @@ class _EntryFieldState extends State<EntryField>
         });
         break;
       case EntryAction.generateEmail:
+        context.events.trackEntryAction(EntryActionType.generateEmail);
         final bloc = context.read<AuthPassCloudBloc>();
         if (bloc.tokenStatus != TokenStatus.confirmed) {
           await Navigator.of(context).push(AuthPassCloudAuthScreen.route());
@@ -1243,7 +1258,39 @@ class _EntryFieldState extends State<EntryField>
     ];
   }
 
+  @override
+  Future<void> openUrl() async {
+    context.events.trackEntryAction(EntryActionType.openUrl);
+    final url = _valueCurrent;
+    final loc = AppLocalizations.of(context);
+    String openError;
+    try {
+      var parsed = Uri.parse(url);
+      _logger.finer('Opening url $url ($parsed)');
+      if (!parsed.hasScheme) {
+        parsed = parsed.replace(scheme: 'http'); // NON-NLS
+      }
+      if (await DialogUtils.openUrl(parsed.toString())) {
+        Scaffold.of(context)
+            .showSnackBar(SnackBar(content: Text(loc.launchedUrl(url))));
+      } else {
+        openError = loc.unableToLaunchUrlNoHandler;
+      }
+    } catch (e, stackTrace) {
+      openError = '$e';
+      _logger.severe('Unable to open url, $url', e, stackTrace);
+    }
+    if (openError != null) {
+      await DialogUtils.showErrorDialog(context, loc.unableToLaunchUrlTitle,
+          loc.unableToLaunchUrlDescription(url, openError));
+    }
+  }
+
+  @override
+  Future<void> generatePassword() => _generatePassword();
+
   Future<void> _generatePassword() async {
+    context.events.trackEntryAction(EntryActionType.generatePassword);
     final appData =
         await Provider.of<AppDataBloc>(context, listen: false).store.load();
     final characterSets = CharacterSet.characterSetFromIds(
@@ -1346,7 +1393,7 @@ class _EntryFieldState extends State<EntryField>
       controller: _controller,
       formFieldKey: _formFieldKey,
       focusNode: _focusNode,
-      passwordGeneratorPressed: _generatePassword,
+      delegate: this,
     );
   }
 
@@ -1375,7 +1422,7 @@ class _EntryFieldState extends State<EntryField>
           child: ListTile(
             leading: const Icon(Icons.cloud),
             title: Text(loc.fieldGenerateEmail),
-            subtitle: const Text(Env.AuthPassCLoud),
+            subtitle: const Text(Env.AuthPassCloud),
           )),
     ];
   }
@@ -1714,7 +1761,7 @@ class StringEntryFieldEditor extends StatelessWidget {
     @required this.focusNode,
     @required this.commonField,
     @required this.fieldKey,
-    @required this.passwordGeneratorPressed,
+    @required this.delegate,
   }) : super(key: key);
 
   final Key formFieldKey;
@@ -1723,11 +1770,12 @@ class StringEntryFieldEditor extends StatelessWidget {
   final KdbxKey fieldKey;
   final TextEditingController controller;
   final FormFieldSetter<String> onSaved;
-  final VoidCallback passwordGeneratorPressed;
+  final FieldDelegate delegate;
 
   @override
   Widget build(BuildContext context) {
     final commonFields = Provider.of<CommonFields>(context);
+    final loc = AppLocalizations.of(context);
     return TextFormField(
       key: formFieldKey,
       maxLines: null,
@@ -1737,21 +1785,36 @@ class StringEntryFieldEditor extends StatelessWidget {
         filled: true,
         prefixIcon: commonField?.icon == null ? null : Icon(commonField.icon),
         suffixIcon: ValueListenableBuilder<TextEditingValue>(
-          valueListenable: controller,
-          builder: (context, value, child) =>
-              fieldKey == commonFields.password.key && controller.text.isEmpty
-                  ? IconButton(
+            valueListenable: controller,
+            builder: (context, value, child) {
+              if (fieldKey == commonFields.password.key &&
+                  controller.text.isEmpty) {
+                return IconButton(
 //                            padding: EdgeInsets.zero,
-                      tooltip: 'Generate Password (cmd+g)',
-                      icon: const Icon(Icons.refresh),
-                      onPressed: passwordGeneratorPressed,
-                    )
-                  : const SizedBox(),
-        ),
+                  tooltip: loc.menuItemGeneratePassword + ' (cmd+g)', // NON-NLS
+                  icon: const Icon(Icons.refresh),
+                  onPressed: delegate.generatePassword,
+                );
+              }
+              if (fieldKey == commonFields.url.key &&
+                  controller.text.isNotEmpty) {
+                return IconButton(
+//                            padding: EdgeInsets.zero,
+                  tooltip: loc.actionOpenUrl + ' (shift+cmd+U)', // NON-NLS
+                  icon: const Icon(Icons.open_in_new),
+                  onPressed: delegate.openUrl,
+                );
+              }
+              return const SizedBox();
+            }),
 //                        suffixIcon: _isProtected ? Icon(Icons.lock) : null,
         labelText: commonField?.displayName ?? fieldKey.key,
       ),
       keyboardType: commonField?.keyboardType,
+      autocorrect: commonField?.autocorrect ?? true,
+      enableSuggestions: commonField?.enableSuggestions ?? true,
+      textCapitalization:
+          commonField?.textCapitalization ?? TextCapitalization.sentences,
       controller: controller,
       onSaved: onSaved,
     );
@@ -1820,7 +1883,7 @@ class HighlightWidgetState extends State<HighlightWidget>
             ))
           ])*/
         : Stack(
-            overflow: Overflow.visible,
+            clipBehavior: Clip.none,
             children: [
               widget.child,
               Positioned.fill(

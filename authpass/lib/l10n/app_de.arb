@@ -12,16 +12,16 @@
     "@fieldTotp": {
         "description": "Label for fields of TOTP (Time based one time passwords)"
     },
-    "selectDZPassFile": "ProxiPass - Wähle eine DZPass Datei",
-    "@selectDZPassFile": {
+    "selectKeepassFile": "AuthPass - Wähle eine KeePass Datei",
+    "@selectKeepassFile": {
         "context": "appbar title - select file screen"
     },
     "quickUnlockingFiles": "Quick-Unlock Dateien",
     "@quickUnlockingFiles": {
         "context": "select file screen"
     },
-    "selectDZPassFileLabel": "Bitte wähle eine DZPass (.kdbx) Datei.",
-    "@selectDZPassFileLabel": {
+    "selectKeepassFileLabel": "Bitte wähle eine KeePass (.kdbx) Datei.",
+    "@selectKeepassFileLabel": {
         "context": "select file screen, used as label."
     },
     "openLocalFile": "Öffne\nLokale Datei",
@@ -42,9 +42,13 @@
         }
     },
     "loadFromUrl": "Lade von URL",
-    "@loadFromUrl": {},
-    "createNewDZPass": "DZPass noch nie verwendet?\nJetzt neue Passwort Datenbank erstellen",
-    "@createNewDZPass": {},
+    "@loadFromUrl": {
+        "description": "deprecated"
+    },
+    "createNewKeepass": "KeePass noch nie verwendet?\nJetzt neue Passwort Datenbank erstellen",
+    "@createNewKeepass": {
+        "description": "deprecated"
+    },
     "labelLastOpenFiles": "Zuletzt geöffnete Dateien:",
     "@labelLastOpenFiles": {},
     "noFilesHaveBeenOpenYet": "Keine Dateien bisher geöffnet.",
@@ -77,7 +81,7 @@
     "@preferenceAutoFillDescription": {},
     "preferenceTitle": "Einstellungen",
     "@preferenceTitle": {},
-    "aboutAppName": "ProxiPass",
+    "aboutAppName": "AuthPass",
     "@aboutAppName": {},
     "aboutLinkFeedback": "Wir freuen uns über jede Art von Feedback!",
     "@aboutLinkFeedback": {},
@@ -110,7 +114,7 @@
     "@menuItemHelp": {},
     "menuItemHelpSubtitle": "Dokumentation anzeigen",
     "@menuItemHelpSubtitle": {},
-    "menuItemAbout": "Über ProxiPass",
+    "menuItemAbout": "Über AuthPass",
     "@menuItemAbout": {},
     "passwordPlainText": "Passwort anzeigen",
     "@passwordPlainText": {
@@ -258,12 +262,12 @@
     },
     "internalFile": "Interne Dateien",
     "@internalFile": {
-        "description": "Choose a file previously created in ProxiPass app sandbox",
+        "description": "Choose a file previously created in AuthPass app sandbox",
         "context": "open file picker: internal file vs. file picker"
     },
-    "internalFileSubtitle": "Datenbank zuvor mit ProxiPass erstellt",
+    "internalFileSubtitle": "Datenbank zuvor mit AuthPass erstellt",
     "@internalFileSubtitle": {
-        "description": "Choose a file previously created in ProxiPass app sandbox",
+        "description": "Choose a file previously created in AuthPass app sandbox",
         "context": "open file picker: internal file vs. file picker"
     },
     "filePicker": "File Picker",

@@ -1,3 +1,486 @@
 {
-    "@@locale": "es"
+    "@@locale": "es",
+    "fieldUserName": "Usuario",
+    "@fieldUserName": {},
+    "fieldPassword": "Contraseña",
+    "@fieldPassword": {},
+    "fieldWebsite": "Sitio web",
+    "@fieldWebsite": {},
+    "fieldTitle": "Título",
+    "@fieldTitle": {},
+    "fieldTotp": "Contraseña de una sola vez (basada en el tiempo)",
+    "@fieldTotp": {
+        "description": "Label for fields of TOTP (Time based one time passwords)"
+    },
+    "english": "Inglés",
+    "@english": {
+        "description": "language switcher subtitle"
+    },
+    "german": "Alemán",
+    "@german": {
+        "description": "language switcher subtitle"
+    },
+    "russian": "Ruso",
+    "@russian": {
+        "description": "language switcher subtitle"
+    },
+    "ukrainian": "Ucraniano",
+    "@ukrainian": {
+        "description": "language switcher subtitle"
+    },
+    "lithuanian": "Lituano",
+    "@lithuanian": {
+        "description": "language switcher subtitle"
+    },
+    "french": "Francés",
+    "@french": {
+        "description": "language switcher subtitle"
+    },
+    "spanish": "Español",
+    "@spanish": {
+        "description": "language switcher subtitle"
+    },
+    "selectKeepassFile": "AuthPass - Seleccionar archivo KeePass",
+    "@selectKeepassFile": {
+        "context": "appbar title - select file screen"
+    },
+    "quickUnlockingFiles": "Desbloqueo rápido de archivos",
+    "@quickUnlockingFiles": {
+        "context": "select file screen"
+    },
+    "selectKeepassFileLabel": "Por favor seleccione un archivo KeePass (.kdbx).",
+    "@selectKeepassFileLabel": {
+        "context": "select file screen, used as label."
+    },
+    "createNewFile": "Crear nuevo archivo",
+    "@createNewFile": {
+        "description": "button on select file screen to create a new password database."
+    },
+    "openLocalFile": "Abrir archivo local",
+    "@openLocalFile": {
+        "context": "select file screen, big button open local file."
+    },
+    "openFile": "Abrir archivo",
+    "@openFile": {
+        "description": "Displayed as placeholder in password list when no file is open."
+    },
+    "loadFrom": "Cargar desde {cloudStorageName}",
+    "@loadFrom": {
+        "placeholders": {
+            "cloudStorageName": {
+                "type": "String",
+                "example": "Dropbox"
+            }
+        }
+    },
+    "loadFromUrl": "Descargar desde URL",
+    "@loadFromUrl": {
+        "description": "deprecated"
+    },
+    "loadFromRemoteUrl": "Abrir kdbx desde URL",
+    "@loadFromRemoteUrl": {
+        "description": "Overflow menu option to load KeePass file from URL."
+    },
+    "createNewKeepass": "¿Nuevo en KeePass?\nCrear nueva base de datos de contraseñas",
+    "@createNewKeepass": {
+        "description": "deprecated"
+    },
+    "labelLastOpenFiles": "Últimos archivos abiertos:",
+    "@labelLastOpenFiles": {},
+    "noFilesHaveBeenOpenYet": "Aún no se han abierto archivos.",
+    "@noFilesHaveBeenOpenYet": {},
+    "preferenceSelectLanguage": "Seleccionar Idioma",
+    "@preferenceSelectLanguage": {},
+    "preferenceLanguage": "Idioma",
+    "@preferenceLanguage": {},
+    "preferenceTextScaleFactor": "Escala de texto",
+    "@preferenceTextScaleFactor": {},
+    "preferenceVisualDensity": "Densidad visual",
+    "@preferenceVisualDensity": {},
+    "preferenceTheme": "Tema",
+    "@preferenceTheme": {},
+    "preferenceThemeLight": "Claro",
+    "@preferenceThemeLight": {},
+    "preferenceThemeDark": "Oscuro",
+    "@preferenceThemeDark": {},
+    "preferenceSystemDefault": "Predeterminado del sistema",
+    "@preferenceSystemDefault": {},
+    "preferenceDefault": "Predeterminado",
+    "@preferenceDefault": {},
+    "lockAllFiles": "Bloquear todos los archivos abiertos",
+    "@lockAllFiles": {},
+    "preferenceAllowScreenshots": "Permitir capturas de pantalla de la aplicación",
+    "@preferenceAllowScreenshots": {},
+    "preferenceEnableAutoFill": "Habilitar autocompletar",
+    "@preferenceEnableAutoFill": {},
+    "preferenceAutoFillDescription": "Sólo compatible con Android Oreo (8.0) o posterior.",
+    "@preferenceAutoFillDescription": {},
+    "preferenceTitle": "Preferencias",
+    "@preferenceTitle": {},
+    "aboutAppName": "AuthPass",
+    "@aboutAppName": {},
+    "aboutLinkFeedback": "¡Agradecemos cualquier tipo de comentarios!",
+    "@aboutLinkFeedback": {},
+    "aboutLinkVisitWebsite": "También asegúrese de visitar nuestro sitio web",
+    "@aboutLinkVisitWebsite": {},
+    "aboutLinkGitHub": "Y el proyecto de Código Abierto",
+    "@aboutLinkGitHub": {},
+    "aboutLogFile": "Archivo Log: {logFilePath}",
+    "@aboutLogFile": {
+        "placeholders": {
+            "logFilePath": {
+                "type": "String",
+                "example": "/Users/mustermann/log.txt"
+            }
+        }
+    },
+    "menuItemGeneratePassword": "Generar contraseña",
+    "@menuItemGeneratePassword": {},
+    "menuItemPreferences": "Preferencias",
+    "@menuItemPreferences": {},
+    "menuItemOpenAnotherFile": "Abrir otro archivo",
+    "@menuItemOpenAnotherFile": {},
+    "menuItemCheckForUpdates": "Buscar actualizaciones",
+    "@menuItemCheckForUpdates": {},
+    "menuItemSupport": "Email de Soporte",
+    "@menuItemSupport": {},
+    "menuItemSupportSubtitle": "Enviar logs por correo electrónico/pedir ayuda.",
+    "@menuItemSupportSubtitle": {},
+    "menuItemHelp": "Ayuda",
+    "@menuItemHelp": {},
+    "menuItemHelpSubtitle": "Mostrar documentación",
+    "@menuItemHelpSubtitle": {},
+    "menuItemAbout": "Acerca de",
+    "@menuItemAbout": {},
+    "passwordPlainText": "Mostrar contraseña",
+    "@passwordPlainText": {
+        "description": "Master password input: show password as plain text during input. (shown as tooltip)"
+    },
+    "generatorPassword": "Contraseña",
+    "@generatorPassword": {
+        "description": "Label for generated password"
+    },
+    "generatePassword": "Generar contraseña",
+    "@generatePassword": {
+        "description": "screen title for password generator"
+    },
+    "doneButtonLabel": "Listo",
+    "@doneButtonLabel": {
+        "description": "generic button label for 'Done' action."
+    },
+    "useAsDefault": "Usar como predeterminado",
+    "@useAsDefault": {
+        "description": "Button Label for Password generator settings: use as defaults",
+        "context": "Password generator"
+    },
+    "characterSetLowerCase": "Minúsculas (a-z)",
+    "@characterSetLowerCase": {
+        "context": "Password generator"
+    },
+    "characterSetUpperCase": "Mayúsculas (A-Z)",
+    "@characterSetUpperCase": {
+        "context": "Password generator"
+    },
+    "characterSetNumeric": "Numérico (0-9)",
+    "@characterSetNumeric": {
+        "context": "Password generator"
+    },
+    "characterSetUmlauts": "Umlaut (ä)",
+    "@characterSetUmlauts": {
+        "context": "Password generator"
+    },
+    "characterSetSpecial": "Especial (@%+)",
+    "@characterSetSpecial": {
+        "context": "Password generator"
+    },
+    "length": "Longitud",
+    "@length": {
+        "description": "Length of password",
+        "context": "Password generator"
+    },
+    "customLength": "Longitud personalizada",
+    "@customLength": {
+        "description": "Label for custom length field",
+        "context": "Password generator"
+    },
+    "customLengthHelperText": "Solo usado para longitud > {customMinLength}",
+    "@customLengthHelperText": {
+        "description": "Help text for custom length field",
+        "context": "Password generator",
+        "placeholders": {
+            "customMinLength": {
+                "example": "40"
+            }
+        }
+    },
+    "savedFiles": "{numFiles, plural, one {Un archivo guardado: {files}} other {{numFiles} archivos guardados: {files}}}",
+    "@savedFiles": {
+        "description": "Message displayed when files were saved. (One or more).",
+        "context": "Password list",
+        "placeholders": {
+            "numFiles": {
+                "description": "Number of files that have been saved (at least 1)",
+                "type": "int",
+                "format": "compactLong"
+            },
+            "files": {
+                "description": "Comma separated list of vault names."
+            }
+        }
+    },
+    "manageGroups": "Gestionar Grupos",
+    "@manageGroups": {
+        "description": ""
+    },
+    "lockFiles": "Bloquear Archivos",
+    "@lockFiles": {
+        "description": "Close all files and return to start screen."
+    },
+    "searchHint": "Buscar",
+    "@searchHint": {
+        "description": "Placeholder in the password list search box"
+    },
+    "clear": "Borrar",
+    "@clear": {
+        "description": "Remove existing group filter from password list"
+    },
+    "autofillFilterPrefix": "Filtro:",
+    "@autofillFilterPrefix": {
+        "description": "Label displayed for android auto fill"
+    },
+    "autofillPrompt": "Seleccione campo de contraseña para autollenado.",
+    "@autofillPrompt": {
+        "description": ""
+    },
+    "copiedToClipboard": "Copiado al portapapeles.",
+    "@copiedToClipboard": {
+        "description": "Snackbar text when copying text to clipboard."
+    },
+    "noTitle": "(sin título)",
+    "@noTitle": {
+        "description": "Text to display in place of a title, when password entry has no name assigned."
+    },
+    "noUsername": "(sin usuario)",
+    "@noUsername": {
+        "description": "Text to display in place of a user name in the password list if none is defined."
+    },
+    "filterCustomize": "Personalizar …",
+    "@filterCustomize": {
+        "description": "Customize filter in password list"
+    },
+    "swipeCopyPassword": "Copiar contraseña",
+    "@swipeCopyPassword": {
+        "description": "swipe action in password list to copy password"
+    },
+    "swipeCopyUsername": "Copiar Usuario",
+    "@swipeCopyUsername": {
+        "description": "swipe action in password list to copy username"
+    },
+    "doneCopiedPassword": "Contraseña copiada al portapapeles.",
+    "@doneCopiedPassword": {
+        "description": "snackbar confirmation that password was copied."
+    },
+    "doneCopiedUsername": "Usuario copiado al portapapeles.",
+    "@doneCopiedUsername": {
+        "description": "snackbar confirmation that username was copied."
+    },
+    "doneCopiedField": "Copiado.",
+    "@doneCopiedField": {
+        "description": ""
+    },
+    "emptyPasswordVaultPlaceholder": "Aún no tienes ninguna contraseña en tu base de datos.",
+    "@emptyPasswordVaultPlaceholder": {
+        "description": "Placeholder text shown when a user opens an empty password file."
+    },
+    "emptyPasswordVaultButtonLabel": "Crea tu primera contraseña",
+    "@emptyPasswordVaultButtonLabel": {
+        "description": "Button shown under placeholder text when password database is empty"
+    },
+    "loadingFile": "Cargando archivo …",
+    "@loadingFile": {
+        "description": "credential screen while unlocking file."
+    },
+    "internalFile": "Archivo interno",
+    "@internalFile": {
+        "description": "Choose a file previously created in AuthPass app sandbox",
+        "context": "open file picker: internal file vs. file picker"
+    },
+    "internalFileSubtitle": "Base de datos previamente creada con AuthPass",
+    "@internalFileSubtitle": {
+        "description": "Choose a file previously created in AuthPass app sandbox",
+        "context": "open file picker: internal file vs. file picker"
+    },
+    "filePicker": "Selector de archivos",
+    "@filePicker": {
+        "description": "Choose a file with the system's file picker. (ios/android)",
+        "context": "open file picker: internal file vs. file picker"
+    },
+    "filePickerSubtitle": "Abrir archivo desde el dispositivo.",
+    "@filePickerSubtitle": {
+        "description": "Choose a file with the system's file picker. (ios/android)",
+        "context": "open file picker: internal file vs. file picker"
+    },
+    "credentialsAppBarTitle": "Credenciales",
+    "@credentialsAppBarTitle": {
+        "description": "Credential screen to enter master password when opening kdbx file.",
+        "context": "credential screen"
+    },
+    "credentialLabel": "Introduzca la contraseña para:",
+    "@credentialLabel": {
+        "description": "Label for the file/database being opened",
+        "context": "credential screen"
+    },
+    "masterPasswordInputLabel": "Contraseña",
+    "@masterPasswordInputLabel": {
+        "description": "",
+        "context": "credential screen"
+    },
+    "masterPasswordEmptyValidator": "Por favor, introduzca su contraseña.",
+    "@masterPasswordEmptyValidator": {
+        "description": "",
+        "context": "credential screen"
+    },
+    "masterPasswordIncorrectValidator": "Contraseña inválida",
+    "@masterPasswordIncorrectValidator": {
+        "description": "",
+        "context": "credential screen"
+    },
+    "useKeyFile": "Usar archivo clave",
+    "@useKeyFile": {
+        "description": "label for a key file in combination with mater password",
+        "context": "credential screen"
+    },
+    "saveMasterPasswordBiometric": "¿Guardar contraseña con clave biométrica?",
+    "@saveMasterPasswordBiometric": {
+        "description": "Label for the checkbox to save master password for quick unlock.",
+        "context": "credential screen"
+    },
+    "errorOpenFileAlreadyOpenTitle": "Archivo ya abierto",
+    "@errorOpenFileAlreadyOpenTitle": {
+        "description": "Trying to open a database from a second file source which is already open.",
+        "context": "credential screen"
+    },
+    "errorOpenFileAlreadyOpenBody": "La base de datos seleccionada {databaseName} ya está abierta desde {openFileSource} (Se intentó abrir desde {newFileSource})",
+    "@errorOpenFileAlreadyOpenBody": {
+        "description": "Trying to open a database from a second file source which is already open.",
+        "context": "credential screen",
+        "placeholders": {
+            "databaseName": {},
+            "openFileSource": {},
+            "newFileSource": {}
+        }
+    },
+    "errorUnlockFileTitle": "No se puede abrir el archivo",
+    "@errorUnlockFileTitle": {
+        "description": "generic error when opening a file (dialog title)",
+        "context": "credential screen"
+    },
+    "errorUnlockFileBody": "Error desconocido al intentar abrir el archivo. {error}",
+    "@errorUnlockFileBody": {
+        "description": "generic error when opening a file (description)",
+        "context": "credential screen",
+        "placeholders": {
+            "error": {
+                "description": "Error details."
+            }
+        }
+    },
+    "dialogContinue": "Continuar",
+    "@dialogContinue": {
+        "description": "Dialog action to continue to next step (e.g. credential screen when finished with master password)"
+    },
+    "dialogSendErrorReport": "Enviar informe de errores/Ayuda",
+    "@dialogSendErrorReport": {
+        "description": "action button in error dialogs to send email to support with log file.",
+        "context": "error dialog"
+    },
+    "groupFilterDescription": "Seleccione qué grupos mostrar (recursivamente)",
+    "@groupFilterDescription": {
+        "description": "Description shown in the group list for filtering (e.g. app drawer)",
+        "context": "group filter"
+    },
+    "groupFilterSelectAll": "Seleccionar todo",
+    "@groupFilterSelectAll": {
+        "context": "group filter"
+    },
+    "groupFilterDeselectAll": "Deseleccionar todo",
+    "@groupFilterDeselectAll": {
+        "context": "group filter"
+    },
+    "createSubgroup": "Crear subgrupo",
+    "@createSubgroup": {
+        "description": "menu action: create nested group inside another group"
+    },
+    "editAction": "Editar",
+    "@editAction": {
+        "description": "menu action: edit item (e.g. delete a group)"
+    },
+    "deleteAction": "Eliminar",
+    "@deleteAction": {
+        "description": "menu action: delete item (e.g. delete a group)"
+    },
+    "successfullyDeletedGroup": "Grupo eliminado.",
+    "@successfullyDeletedGroup": {
+        "description": "snackbar after deleting a group."
+    },
+    "undoButtonLabel": "Deshacer",
+    "@undoButtonLabel": {
+        "description": "undo action label (e.g. in a snackbar after deleting a group, or some other action)"
+    },
+    "saveButtonLabel": "Guardar",
+    "@saveButtonLabel": {
+        "description": "save file, for example button displayed in entry details"
+    },
+    "initialNewGroupName": "Nuevo grupo",
+    "@initialNewGroupName": {
+        "description": "initial name of groups when user creates a new one."
+    },
+    "deleteGroupErrorTitle": "No se puede eliminar el grupo",
+    "@deleteGroupErrorTitle": {
+        "description": "Title of error dialog when group could not be deleted."
+    },
+    "groupListAppBarTitle": "Grupos",
+    "@groupListAppBarTitle": {
+        "description": "title in the app bar for the groups list"
+    },
+    "groupListFilterAppbarTitle": "Filtrar por grupos",
+    "@groupListFilterAppbarTitle": {
+        "description": "title in the app bar for group lists when displayed for filtering password list"
+    },
+    "clearQuickUnlock": "Borrar almacenamiento biométrico",
+    "@clearQuickUnlock": {
+        "description": ""
+    },
+    "unlock": "Desbloquear archivos",
+    "@unlock": {
+        "description": ""
+    },
+    "closePasswordFiles": "cerrar archivos de contraseñas",
+    "@closePasswordFiles": {
+        "description": "delete quick unlock (passwords stored in biometric storage)"
+    },
+    "databaseExistsError": "El archivo ya existe",
+    "@databaseExistsError": {
+        "description": "dialog title for error message when creating a new database with a name which already exists."
+    },
+    "entryAddField": "Añadir campo",
+    "@entryAddField": {
+        "description": ""
+    },
+    "swipeCopyField": "Copiar campo",
+    "@swipeCopyField": {
+        "description": ""
+    },
+    "fieldRename": "Renombrar",
+    "@fieldRename": {
+        "description": ""
+    },
+    "onboardingHeadline": "¡Hagamos que tus contraseñas sean seguras!",
+    "@onboardingHeadline": {
+        "description": ""
+    },
+    "onboardingYesOpenPasswords": "Sí, abrir mis contraseñas",
+    "@onboardingYesOpenPasswords": {
+        "description": ""
+    }
 }

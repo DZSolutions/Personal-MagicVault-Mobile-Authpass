@@ -13,6 +13,7 @@ import 'app_localizations_es.dart';
 import 'app_localizations_et.dart';
 import 'app_localizations_fi.dart';
 import 'app_localizations_fr.dart';
+import 'app_localizations_id.dart';
 import 'app_localizations_lt.dart';
 import 'app_localizations_ru.dart';
 import 'app_localizations_uk.dart';
@@ -105,6 +106,7 @@ abstract class AppLocalizations {
     Locale('et'),
     Locale('fi'),
     Locale('fr'),
+    Locale('id'),
     Locale('lt'),
     Locale('ru'),
     Locale('uk')
@@ -143,14 +145,23 @@ abstract class AppLocalizations {
   // language switcher subtitle
   String get french;
 
-  // No description provided in @selectDZPassFile
-  String get selectDZPassFile;
+  // language switcher subtitle
+  String get spanish;
+
+  // language switcher subtitle
+  String get indonesian;
+
+  // No description provided in @selectKeepassFile
+  String get selectKeepassFile;
 
   // No description provided in @quickUnlockingFiles
   String get quickUnlockingFiles;
 
-  // No description provided in @selectDZPassFileLabel
-  String get selectDZPassFileLabel;
+  // No description provided in @selectKeepassFileLabel
+  String get selectKeepassFileLabel;
+
+  // button on select file screen to create a new password database.
+  String get createNewFile;
 
   // No description provided in @openLocalFile
   String get openLocalFile;
@@ -161,11 +172,14 @@ abstract class AppLocalizations {
   // No description provided in @loadFrom
   String loadFrom(String cloudStorageName);
 
-  // No description provided in @loadFromUrl
+  // deprecated
   String get loadFromUrl;
 
-  // No description provided in @createNewDZPass
-  String get createNewDZPass;
+  // Overflow menu option to load KeePass file from URL.
+  String get loadFromRemoteUrl;
+
+  // deprecated
+  String get createNewKeepass;
 
   // No description provided in @labelLastOpenFiles
   String get labelLastOpenFiles;
@@ -230,6 +244,18 @@ abstract class AppLocalizations {
   // No description provided in @aboutLogFile
   String aboutLogFile(String logFilePath);
 
+  // 
+  String get unableToLaunchUrlTitle;
+
+  // 
+  String unableToLaunchUrlDescription(Object url, Object openError);
+
+  // 
+  String get unableToLaunchUrlNoHandler;
+
+  // snackbar confirmation after opening a url externally
+  String launchedUrl(Object url);
+
   // No description provided in @menuItemGeneratePassword
   String get menuItemGeneratePassword;
 
@@ -256,6 +282,9 @@ abstract class AppLocalizations {
 
   // No description provided in @menuItemAbout
   String get menuItemAbout;
+
+  // tooltip for button to open URL/Website of an entry.
+  String get actionOpenUrl;
 
   // Master password input: show password as plain text during input. (shown as tooltip)
   String get passwordPlainText;
@@ -353,10 +382,10 @@ abstract class AppLocalizations {
   // credential screen while unlocking file.
   String get loadingFile;
 
-  // Choose a file previously created in ProxiPass app sandbox
+  // Choose a file previously created in AuthPass app sandbox
   String get internalFile;
 
-  // Choose a file previously created in ProxiPass app sandbox
+  // Choose a file previously created in AuthPass app sandbox
   String get internalFileSubtitle;
 
   // Choose a file with the system's file picker. (ios/android)
@@ -485,8 +514,11 @@ abstract class AppLocalizations {
   // Error message when no password database name is given.
   String get validatorNameMissing;
 
-  // help text for master password when creating new password database
+  // DEPRECATED FOR NOW help text for master password when creating new password database
   String get masterPasswordHelpText;
+
+  // Creating new file: input field for master password
+  String get inputMasterPasswordText;
 
   // Text displayed when master password is empty while creating new password database
   String get masterPasswordMissingCreate;
@@ -566,6 +598,24 @@ abstract class AppLocalizations {
   // 
   String get fieldGenerateEmail;
 
+  // Context menu entry which reverts to onboarding
+  String get onboardingBackToOnboarding;
+
+  // Context menu entry which reverts to onboarding
+  String get onboardingBackToOnboardingSubtitle;
+
+  // 
+  String get onboardingHeadline;
+
+  // 
+  String get onboardingQuestion;
+
+  // 
+  String get onboardingYesOpenPasswords;
+
+  // 
+  String get onboardingNoCreate;
+
   // No description provided in @unexpectedError
   String unexpectedError(String error);
 }
@@ -579,7 +629,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['de', 'en', 'es', 'et', 'fi', 'fr', 'lt', 'ru', 'uk'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['de', 'en', 'es', 'et', 'fi', 'fr', 'id', 'lt', 'ru', 'uk'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -597,6 +647,7 @@ AppLocalizations _lookupAppLocalizations(Locale locale) {
     case 'et': return AppLocalizationsEt();
     case 'fi': return AppLocalizationsFi();
     case 'fr': return AppLocalizationsFr();
+    case 'id': return AppLocalizationsId();
     case 'lt': return AppLocalizationsLt();
     case 'ru': return AppLocalizationsRu();
     case 'uk': return AppLocalizationsUk();

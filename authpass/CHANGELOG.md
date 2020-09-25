@@ -1,4 +1,11 @@
-# (unreleased) 1.7.8
+# (unreleased)
+
+* Allow opening of URLs of entries. (On desktop using shift+cmd+U). #140
+* Disable autocorrect/suggestions and text capitalization for URL and Username fields. #145
+* Translations: Added Indonesian.
+* DEV: update flutter to 1.22.0-12.1.pre (from 1.22.0-1.0.pre)
+
+# 1.7.8 - 2020-09-18
 
 * Android: improve autofill input field detection for usernames.
 * Improve locking with biometric storage.
@@ -6,6 +13,9 @@
 * File Create: Show password strength #143
 * Password generator: include accented characters in 'Umlauts'
 * French translations.
+* Create "Onboarding" screen for new users.
+* Cleanup 'Select File' dialog.
+* Use 'JetBrains Mono' font in "Present' view.
 
 # 1.7.7
 

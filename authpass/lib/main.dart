@@ -14,6 +14,7 @@ import 'package:authpass/env/fdroid.dart';
 import 'package:authpass/l10n/app_localizations.dart';
 import 'package:authpass/theme.dart';
 import 'package:authpass/ui/common_fields.dart';
+import 'package:authpass/ui/screens/onboarding/onboarding.dart';
 import 'package:authpass/ui/screens/select_file_screen.dart';
 import 'package:authpass/utils/cache_manager.dart';
 import 'package:authpass/utils/diac_utils.dart';
@@ -51,7 +52,12 @@ void initIsolate({bool fromMain = false}) {
 
 void main() => throw Exception('Run some env/*.dart');
 
+final startupStopwatch = Stopwatch();
+
 Future<void> startApp(Env env) async {
+  startupStopwatch
+    ..start()
+    ..reset();
   // TODO: Remove the following four lines once path provider endorses the linux plugin
   if (AuthPassPlatform.isLinux) {
     WidgetsFlutterBinding.ensureInitialized();
@@ -62,8 +68,8 @@ Future<void> startApp(Env env) async {
 
   initIsolate(fromMain: true);
   _setTargetPlatformForDesktop();
-  _logger.info(
-      'Initialized logger. (${AuthPassPlatform.operatingSystem}, ${AuthPassPlatform.operatingSystemVersion})');
+  _logger.info('Initialized logger. '
+      '(${AuthPassPlatform.operatingSystem}, ${AuthPassPlatform.operatingSystemVersion}) ${startupStopwatch.elapsedMilliseconds}');
 
   FlutterError.onError = (errorDetails) {
     _logger.shout(
@@ -85,7 +91,15 @@ Future<void> startApp(Env env) async {
   final navigatorKey = GlobalKey<NavigatorState>();
 
   await runZonedGuarded<Future<void>>(() async {
-    runApp(AuthPassApp(env: env, navigatorKey: navigatorKey));
+    WidgetsFlutterBinding.ensureInitialized();
+    final deps = Deps(env: env);
+    final appData = await deps.appDataBloc.store.load();
+    runApp(AuthPassApp(
+      env: env,
+      deps: deps,
+      navigatorKey: navigatorKey,
+      isFirstRun: appData.previousFiles.isEmpty,
+    ));
   }, (dynamic error, StackTrace stackTrace) {
     _logger.shout('Unhandled error in app.', error, stackTrace);
     Analytics.trackError(error.toString(), true);
@@ -125,11 +139,18 @@ void _setTargetPlatformForDesktop() {
 }
 
 class AuthPassApp extends StatefulWidget {
-  const AuthPassApp({Key key, @required this.env, this.navigatorKey})
-      : super(key: key);
+  const AuthPassApp({
+    Key key,
+    @required this.env,
+    this.navigatorKey,
+    @required this.deps,
+    @required this.isFirstRun,
+  }) : super(key: key);
 
   final Env env;
+  final Deps deps;
   final GlobalKey<NavigatorState> navigatorKey;
+  final bool isFirstRun;
   @visibleForTesting
   static GlobalKey<NavigatorState> currentNavigatorKey;
 
@@ -149,7 +170,7 @@ class _AuthPassAppState extends State<AuthPassApp> with StreamSubscriberMixin {
   void initState() {
     super.initState();
     final _navigatorKey = widget.navigatorKey;
-    _deps = Deps(env: widget.env);
+    _deps = widget.deps;
     PathUtils.runAppFinished.complete(true);
     _appData = _deps.appDataBloc.store.cachedValue;
     handleSubscription(
@@ -325,6 +346,18 @@ class _AuthPassAppState extends State<AuthPassApp> with StreamSubscriberMixin {
         onGenerateInitialRoutes: (initialRoute) {
           _logger.fine('initialRoute: $initialRoute');
           _deps.analytics.trackScreen(initialRoute);
+          _deps.analytics.events.trackLaunch(
+              systemBrightness:
+                  WidgetsBinding.instance.window.platformBrightness);
+          if (startupStopwatch.isRunning) {
+            startupStopwatch.stop();
+            _deps.analytics.trackTiming(
+              'startup',
+              startupStopwatch.elapsedMilliseconds,
+              category: 'startup',
+              label: widget.isFirstRun ? 'startup firstRun' : 'startup run',
+            );
+          }
           if (initialRoute.startsWith('/openFile')) {
             final uri = Uri.parse(initialRoute);
             final file = uri.queryParameters['file'];
@@ -337,7 +370,9 @@ class _AuthPassAppState extends State<AuthPassApp> with StreamSubscriberMixin {
             ];
           }
           return [
-            SelectFileScreen.route(),
+            widget.isFirstRun && widget.env.featureOnboarding
+                ? OnboardingScreen.route()
+                : SelectFileScreen.route(),
           ];
         },
         // this is actually never used. But i still have to define it,

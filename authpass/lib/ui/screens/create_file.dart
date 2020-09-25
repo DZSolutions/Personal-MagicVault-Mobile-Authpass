@@ -50,6 +50,7 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context);
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(loc.createPasswordDatabase),
@@ -58,68 +59,78 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
         key: _formKey,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 4),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              TextFormField(
-                controller: _databaseName,
-                decoration: InputDecoration(
-                  labelText: loc.nameNewPasswordDatabase,
-                  suffixText: '.dzpx', // NON-NLS
-                  filled: true,
-                ),
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (val) => _passwordFocus.requestFocus(),
-                validator: (val) {
-                  if (val.isEmpty) {
-                    return loc.validatorNameMissing;
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              PasswordInputField(
-                labelText: loc.masterPasswordHelpText,
-                controller: _password,
-                focusNode: _passwordFocus,
-                autofocus: true,
-                onFieldSubmitted: (val) => _submitCallback()(),
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                onChanged: (value) {
-                  final userInput = _databaseName.text.pathCase.split('/');
-                  setState(() {
-                    if (value.isEmpty) {
-                      _strength = null;
-                    } else {
-                      _strength =
-                          _zxcvbn.evaluate(value, userInputs: userInput);
+          child: Theme(
+            data: theme.copyWith(
+                inputDecorationTheme:
+                    theme.inputDecorationTheme.copyWith(filled: true)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                TextFormField(
+                  controller: _databaseName,
+                  decoration: InputDecoration(
+                    labelText: loc.nameNewPasswordDatabase,
+                    suffixText: '.kdbx', // NON-NLS
+                    filled: true,
+                  ),
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (val) => _passwordFocus.requestFocus(),
+                  validator: (val) {
+                    if (val.isEmpty) {
+                      return loc.validatorNameMissing;
                     }
-                  });
-                },
-                validator: (val) {
-                  if (val.isEmpty) {
-                    return loc.masterPasswordMissingCreate;
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 8),
-              PasswordStrengthDisplay(strength: _strength),
-              Container(
-                padding: const EdgeInsets.only(top: 8),
-                alignment: Alignment.centerRight,
-                child: task != null
-                    ? const CircularProgressIndicator(
-                        backgroundColor: Colors.transparent,
-                      )
-                    : PrimaryButton(
-                        large: false,
-                        child: Text(loc.createDatabaseAction),
-                        onPressed: _submitCallback(),
-                      ),
-              ),
-            ],
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                PasswordInputField(
+                  labelText: loc.inputMasterPasswordText,
+                  controller: _password,
+                  focusNode: _passwordFocus,
+                  autofocus: true,
+                  onFieldSubmitted: (val) => _submitCallback()(),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: (value) {
+                    final userInput = _databaseName.text.pathCase.split('/');
+                    setState(() {
+                      if (value.isEmpty) {
+                        _strength = null;
+                      } else {
+                        _strength =
+                            _zxcvbn.evaluate(value, userInputs: userInput);
+                      }
+                    });
+                  },
+                  validator: (val) {
+                    if (val.isEmpty) {
+                      return loc.masterPasswordMissingCreate;
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 8),
+                PasswordStrengthDisplay(strength: _strength),
+                const SizedBox(height: 8),
+                Text(
+                  'The master password is used to securely encrypt your password database. Make sure to remember it, it can not be restored.',
+                  style: Theme.of(context).textTheme.caption,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(top: 8),
+                  alignment: Alignment.centerRight,
+                  child: task != null
+                      ? const CircularProgressIndicator(
+                          backgroundColor: Colors.red,
+                        )
+                      : PrimaryButton(
+                          large: false,
+                          child: Text(loc.createDatabaseAction),
+                          onPressed: _submitCallback(),
+                        ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -129,52 +140,28 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
   VoidCallback _submitCallback() => asyncTaskCallback((progress) async {
         if (_formKey.currentState.validate()) {
           final kdbxBloc = Provider.of<KdbxBloc>(context, listen: false);
-          //nfc
-          await showDialog<void>(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Register NFC Card'),
-              content: const Text('Please tap NFC Card'),
-              actions: [
-                FlatButton(
-                  child: const Text('Continue'),
-                  onPressed: () async {
-                    try {
-                      final created = await kdbxBloc.createFile(
-                        password: _password.text,
-                        databaseName: _databaseName.text,
-                        openAfterCreate: true,
-                      );
-                      assert(created != null);
-                      await Navigator.of(context).pushAndRemoveUntil(
-                          MainAppScaffold.route(), (route) => false);
-                    } on FileExistsException catch (e, stackTrace) {
-                      _logger.warning(
-                          'Showing file exists error dialog.', e, stackTrace);
-                      final loc = AppLocalizations.of(context);
-                      await DialogUtils.showSimpleAlertDialog(
-                        context,
-                        loc.databaseExistsError,
-                        loc.databaseExistsErrorDescription(e.path),
-                        routeAppend: 'createFileExists',
-                      );
-                    } catch (e, stackTrace) {
-                      _logger.severe(
-                          'Error while creating file.', e, stackTrace);
-                      rethrow;
-                    }
-                    Navigator.pop(context);
-                  },
-                ),
-                FlatButton(
-                    child: const Text('Cancel'),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      return;
-                    }),
-              ],
-            ),
-          );
+          try {
+            final created = await kdbxBloc.createFile(
+              password: _password.text,
+              databaseName: _databaseName.text,
+              openAfterCreate: true,
+            );
+            assert(created != null);
+            await Navigator.of(context)
+                .pushAndRemoveUntil(MainAppScaffold.route(), (route) => false);
+          } on FileExistsException catch (e, stackTrace) {
+            _logger.warning('Showing file exists error dialog.', e, stackTrace);
+            final loc = AppLocalizations.of(context);
+            await DialogUtils.showSimpleAlertDialog(
+              context,
+              loc.databaseExistsError,
+              loc.databaseExistsErrorDescription(e.path),
+              routeAppend: 'createFileExists',
+            );
+          } catch (e, stackTrace) {
+            _logger.severe('Error while creating file.', e, stackTrace);
+            rethrow;
+          }
         }
       });
 }
@@ -194,9 +181,9 @@ class _PasswordStrengthDisplayState
     extends AnimatedWidgetBaseState<PasswordStrengthDisplay> {
   static final _strengthColors = [
     Colors.redAccent,
+    Colors.deepOrange,
     Colors.orange,
     Colors.yellow,
-    Colors.blueAccent,
     Colors.lightGreenAccent
   ];
 
@@ -217,14 +204,14 @@ class _PasswordStrengthDisplayState
         (dynamic value) => ColorTween(begin: value as Color)) as ColorTween;
     _backgroundColorTween = visitor(
         _backgroundColorTween,
-        widget.strength == null ? Colors.transparent : Colors.grey,
+        widget.strength == null ? Colors.redAccent : Colors.grey,
         (dynamic value) => ColorTween(begin: value as Color)) as ColorTween;
   }
 
   @override
   Widget build(BuildContext context) {
     final _strength = widget.strength;
-    final loc = AppLocalizations.of(context);
+    // final loc = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final feedback = _strength?.feedback?.warning?.takeUnlessBlank() ??
         // _strength?.feedback?.suggestions?.firstOrNull ??
@@ -243,17 +230,17 @@ class _PasswordStrengthDisplayState
           ),
           const SizedBox(height: 4),
           Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
-                child: Text(
-                  loc.passwordScore(_strength.score.toInt()),
-                  style: theme.textTheme.caption,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                ),
-              ),
+              // Expanded(
+              //   child: Text(
+              //     loc.passwordScore(_strength.score.toInt()),
+              //     style: theme.textTheme.caption,
+              //     overflow: TextOverflow.ellipsis,
+              //     maxLines: 1,
+              //   ),
+              // ),
               Text(
                 feedback,
                 textAlign: TextAlign.right,

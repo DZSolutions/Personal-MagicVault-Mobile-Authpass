@@ -36,9 +36,17 @@
   "@french": {
     "description": "language switcher subtitle"
   },
+  "spanish": "Spanish",
+  "@spanish": {
+    "description": "language switcher subtitle"
+  },
+  "indonesian": "Indonesian",
+  "@indonesian": {
+    "description": "language switcher subtitle"
+  },
 
-  "selectDZPassFile": "ProxiPass - Select DZPass File",
-  "@selectDZPassFile": {
+  "selectKeepassFile": "AuthPass - Select KeePass File",
+  "@selectKeepassFile": {
     "context": "appbar title - select file screen"
   },
   "quickUnlockingFiles": "Quick unlocking files",
@@ -46,9 +54,13 @@
     "context": "select file screen"
   },
 
-  "selectDZPassFileLabel": "Please select a DZPass (.dzpx) file.",
-  "@selectDZPassFileLabel": {
+  "selectKeepassFileLabel": "Please select a KeePass (.kdbx) file.",
+  "@selectKeepassFileLabel": {
     "context": "select file screen, used as label."
+  },
+  "createNewFile": "Create New File",
+  "@createNewFile": {
+    "description": "button on select file screen to create a new password database."
   },
 
   "openLocalFile": "Open\nLocal File",
@@ -71,9 +83,18 @@
     }
   },
   "loadFromUrl": "Download from URL",
-  "@loadFromUrl": {},
-  "createNewDZPass": "New to DZPass?\nCreate New Password Database",
-  "@createNewDZPass": {},
+  "@loadFromUrl": {
+    "description": "deprecated"
+  },
+  "loadFromRemoteUrl": "Open kdbx from URL",
+  "@loadFromRemoteUrl": {
+    "description": "Overflow menu option to load KeePass file from URL."
+  },
+
+  "createNewKeepass": "New to KeePass?\nCreate New Password Database",
+  "@createNewKeepass": {
+    "description": "deprecated"
+  },
 
   "labelLastOpenFiles": "Last opened files:",
   "@labelLastOpenFiles": {},
@@ -111,7 +132,7 @@
   "@preferenceAutoFillDescription": {},
   "preferenceTitle": "Preferences",
   "@preferenceTitle": {},
-  "aboutAppName": "ProxiPass",
+  "aboutAppName": "AuthPass",
   "@aboutAppName": {},
   "aboutLinkFeedback": "We welcome any kind of feedback!",
   "@aboutLinkFeedback": {},
@@ -125,6 +146,33 @@
       "logFilePath": {
         "type": "String",
         "example": "/Users/mustermann/log.txt"
+      }
+    }
+  },
+  "unableToLaunchUrlTitle": "Unable to open Url",
+  "@unableToLaunchUrlTitle": {
+    "description": ""
+  },
+  "unableToLaunchUrlDescription": "Unable to launch {url}: {openError}",
+  "@unableToLaunchUrlDescription": {
+    "description": "",
+    "placeholders": {
+      "url": {"description": "URL which we tried to open."},
+      "openError": {
+        "description": "Information about the error"
+      }
+    }
+  },
+  "unableToLaunchUrlNoHandler": "No application available for url.",
+  "@unableToLaunchUrlNoHandler": {
+    "description": ""
+  },
+  "launchedUrl": "Opened URL: {url}",
+  "@launchedUrl": {
+    "description": "snackbar confirmation after opening a url externally",
+    "placeholders": {
+      "url": {
+        "description": "URL which was just launched."
       }
     }
   },
@@ -147,6 +195,10 @@
   "@menuItemHelpSubtitle": {},
   "menuItemAbout": "About",
   "@menuItemAbout": {},
+  "actionOpenUrl": "Open URL",
+  "@actionOpenUrl": {
+    "description": "tooltip for button to open URL/Website of an entry."
+  },
 
   "passwordPlainText": "Reveal password",
   "@passwordPlainText": {
@@ -300,12 +352,12 @@
   },
   "internalFile": "Internal file",
   "@internalFile": {
-    "description": "Choose a file previously created in ProxiPass app sandbox",
+    "description": "Choose a file previously created in AuthPass app sandbox",
     "context": "open file picker: internal file vs. file picker"
   },
-  "internalFileSubtitle": "Database previously created with ProxiPass",
+  "internalFileSubtitle": "Database previously created with AuthPass",
   "@internalFileSubtitle": {
-    "description": "Choose a file previously created in ProxiPass app sandbox",
+    "description": "Choose a file previously created in AuthPass app sandbox",
     "context": "open file picker: internal file vs. file picker"
   },
   "filePicker": "File Picker",
@@ -504,7 +556,11 @@
   },
   "masterPasswordHelpText": "Select a secure master Password. Make sure to remember it.",
   "@masterPasswordHelpText": {
-    "description": "help text for master password when creating new password database"
+    "description": "DEPRECATED FOR NOW help text for master password when creating new password database"
+  },
+  "inputMasterPasswordText": "Master Password",
+  "@inputMasterPasswordText": {
+    "description": "Creating new file: input field for master password"
   },
   "masterPasswordMissingCreate": "Please enter a secure, rememberable password.",
   "@masterPasswordMissingCreate": {
@@ -635,6 +691,30 @@
   },
   "fieldGenerateEmail": "Generate Email",
   "@fieldGenerateEmail": {
+    "description": ""
+  },
+  "onboardingBackToOnboarding": "Tour",
+  "@onboardingBackToOnboarding": {
+    "description": "Context menu entry which reverts to onboarding"
+  },
+  "onboardingBackToOnboardingSubtitle": "Relive the first run experience \uD83D\uDE05️",
+  "@onboardingBackToOnboardingSubtitle": {
+    "description": "Context menu entry which reverts to onboarding"
+  },
+  "onboardingHeadline": "Let's make your Passwords Secure!",
+  "@onboardingHeadline": {
+    "description": ""
+  },
+  "onboardingQuestion": "Have you used a password manager before?",
+  "@onboardingQuestion": {
+    "description": ""
+  },
+  "onboardingYesOpenPasswords": "Yes, open my passwords",
+  "@onboardingYesOpenPasswords": {
+    "description": ""
+  },
+  "onboardingNoCreate": "I'm all new! Get me started.",
+  "@onboardingNoCreate": {
     "description": ""
   },
 

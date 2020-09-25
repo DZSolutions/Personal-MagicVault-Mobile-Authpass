@@ -1,7 +1,9 @@
-import 'package:built_value/built_value.dart';
+import 'package:built_value/built_value.dart' hide nullable;
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:meta/meta.dart';
 
 part '_base.g.dart';
+part '_base.freezed.dart';
 
 enum EnvType { production, development }
 
@@ -14,22 +16,23 @@ abstract class AppInfo implements Built<AppInfo, AppInfoBuilder> {
   int get buildNumber;
   String get packageName;
 
-  String get versionLabel => '$version+$buildNumber';
+  String get versionLabel => '$version+$buildNumber'; // NON-NLS
 
-  String get shortString => '$appName ($versionLabel)';
+  String get shortString => '$appName ($versionLabel)'; // NON-NLS
 }
 
-class EnvSecrets {
-  const EnvSecrets({
-    @required this.analyticsAmplitudeApiKey,
-    @required this.analyticsGoogleAnalyticsId,
-    @required this.googleClientId,
-    @required this.googleClientSecret,
-    @required this.dropboxKey,
-    @required this.dropboxSecret,
-    @required this.microsoftClientId,
-    @required this.microsoftClientSecret,
-  });
+@freezed
+abstract class EnvSecrets with _$EnvSecrets {
+  const factory EnvSecrets({
+    @required @nullable String analyticsAmplitudeApiKey,
+    @required @nullable String analyticsGoogleAnalyticsId,
+    @required @nullable String googleClientId,
+    @required @nullable String googleClientSecret,
+    @required @nullable String dropboxKey,
+    @required @nullable String dropboxSecret,
+    @required @nullable String microsoftClientId,
+    @required @nullable String microsoftClientSecret,
+  }) = _EnvSecrets;
 
   static const nullSecrets = EnvSecrets(
     analyticsAmplitudeApiKey: null,
@@ -41,15 +44,6 @@ class EnvSecrets {
     microsoftClientId: null,
     microsoftClientSecret: null,
   );
-
-  final String analyticsAmplitudeApiKey;
-  final String analyticsGoogleAnalyticsId;
-  final String googleClientId;
-  final String googleClientSecret;
-  final String dropboxKey;
-  final String dropboxSecret;
-  final String microsoftClientId;
-  final String microsoftClientSecret;
 }
 
 abstract class FeatureFlags
@@ -68,15 +62,16 @@ abstract class Env {
   }
 
   /// app name ;) basically it's just here so I don't have to translate it.
-  static const AuthPass = 'ProxiPass'; // NON-NLS
-  static const AuthPassCLoud = 'ProxiPass Cloud'; // NON-NLS
+  static const AuthPass = 'AuthPass'; // NON-NLS
+  static const AuthPassCloud = 'AuthPass Cloud'; // NON-NLS
+  static const KeePassExtension = 'kdbx'; // NON-NLS
 
   static Env value;
 
   final EnvType type;
   EnvSecrets get secrets;
 
-  String get diacEndpoint => 'https://cloud.authpass.app/diac';
+  String get diacEndpoint => 'https://cloud.authpass.app/diac'; // NON-NLS
 
   bool get diacHidden => false;
 
@@ -95,6 +90,9 @@ abstract class Env {
   /// debug build vs. production/app store build.
   String get storageNamespace => storageNamespaceFromEnvironment;
 
+  /// allow disabling of "onboarding".
+  bool get featureOnboarding => true;
+
   /// Support for dropbox, google drive.
   bool get featureCloudStorageProprietary => true;
 
@@ -111,7 +109,7 @@ abstract class Env {
   final FeatureFlags featureFlags = FeatureFlags(
     (b) => b
       ..authpassCloud = true
-      ..authpassCloudUri = 'https://cloud.authpass.app/',
+      ..authpassCloudUri = 'https://cloud.authpass.app/', // NON-NLS
   );
 
   Future<AppInfo> getAppInfo();

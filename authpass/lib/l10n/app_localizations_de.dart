@@ -43,13 +43,22 @@ class AppLocalizationsDe extends AppLocalizations {
   String get french => 'French';
 
   @override
-  String get selectDZPassFile => 'ProxiPass - Wähle eine DZPass Datei';
+  String get spanish => 'Spanish';
+
+  @override
+  String get indonesian => 'Indonesian';
+
+  @override
+  String get selectKeepassFile => 'AuthPass - Wähle eine KeePass Datei';
 
   @override
   String get quickUnlockingFiles => 'Quick-Unlock Dateien';
 
   @override
-  String get selectDZPassFileLabel => 'Bitte wähle eine DZPass (.kdbx) Datei.';
+  String get selectKeepassFileLabel => 'Bitte wähle eine KeePass (.kdbx) Datei.';
+
+  @override
+  String get createNewFile => 'Create New File';
 
   @override
   String get openLocalFile => 'Öffne\nLokale Datei';
@@ -66,7 +75,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get loadFromUrl => 'Lade von URL';
 
   @override
-  String get createNewDZPass => 'DZPass noch nie verwendet?\nJetzt neue Passwort Datenbank erstellen';
+  String get loadFromRemoteUrl => 'Open kdbx from URL';
+
+  @override
+  String get createNewKeepass => 'KeePass noch nie verwendet?\nJetzt neue Passwort Datenbank erstellen';
 
   @override
   String get labelLastOpenFiles => 'Zuletzt geöffnete Dateien:';
@@ -117,7 +129,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get preferenceTitle => 'Einstellungen';
 
   @override
-  String get aboutAppName => 'ProxiPass';
+  String get aboutAppName => 'AuthPass';
 
   @override
   String get aboutLinkFeedback => 'Wir freuen uns über jede Art von Feedback!';
@@ -131,6 +143,22 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String aboutLogFile(String logFilePath) {
     return 'Log-Datei: ${logFilePath}';
+  }
+
+  @override
+  String get unableToLaunchUrlTitle => 'Unable to open Url';
+
+  @override
+  String unableToLaunchUrlDescription(Object url, Object openError) {
+    return 'Unable to launch ${url}: ${openError}';
+  }
+
+  @override
+  String get unableToLaunchUrlNoHandler => 'No application available for url.';
+
+  @override
+  String launchedUrl(Object url) {
+    return 'Opened URL: ${url}';
   }
 
   @override
@@ -158,7 +186,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get menuItemHelpSubtitle => 'Dokumentation anzeigen';
 
   @override
-  String get menuItemAbout => 'Über ProxiPass';
+  String get menuItemAbout => 'Über AuthPass';
+
+  @override
+  String get actionOpenUrl => 'Open URL';
 
   @override
   String get passwordPlainText => 'Passwort anzeigen';
@@ -274,7 +305,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get internalFile => 'Interne Dateien';
 
   @override
-  String get internalFileSubtitle => 'Datenbank zuvor mit ProxiPass erstellt';
+  String get internalFileSubtitle => 'Datenbank zuvor mit AuthPass erstellt';
 
   @override
   String get filePicker => 'File Picker';
@@ -410,6 +441,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get masterPasswordHelpText => 'Select a secure master Password. Make sure to remember it.';
 
   @override
+  String get inputMasterPasswordText => 'Master Password';
+
+  @override
   String get masterPasswordMissingCreate => 'Please enter a secure, rememberable password.';
 
   @override
@@ -496,6 +530,24 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get fieldGenerateEmail => 'Generate Email';
+
+  @override
+  String get onboardingBackToOnboarding => 'Tour';
+
+  @override
+  String get onboardingBackToOnboardingSubtitle => 'Relive the first run experience 😅️';
+
+  @override
+  String get onboardingHeadline => 'Let\'s make your Passwords Secure!';
+
+  @override
+  String get onboardingQuestion => 'Have you used a password manager before?';
+
+  @override
+  String get onboardingYesOpenPasswords => 'Yes, open my passwords';
+
+  @override
+  String get onboardingNoCreate => 'I\'m all new! Get me started.';
 
   @override
   String unexpectedError(String error) {

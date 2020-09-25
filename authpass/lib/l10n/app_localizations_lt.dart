@@ -43,13 +43,22 @@ class AppLocalizationsLt extends AppLocalizations {
   String get french => 'French';
 
   @override
-  String get selectDZPassFile => '„ProxiPass“ - Pasirinkti „DZPass“ failą';
+  String get spanish => 'Spanish';
+
+  @override
+  String get indonesian => 'Indonesian';
+
+  @override
+  String get selectKeepassFile => '„AuthPass“ - Pasirinkti „KeePass“ failą';
 
   @override
   String get quickUnlockingFiles => 'Greitas failų atrakinimas';
 
   @override
-  String get selectDZPassFileLabel => 'Prašome pasirinkti „DZPass“ (.kdbx) failą.';
+  String get selectKeepassFileLabel => 'Prašome pasirinkti „KeePass“ (.kdbx) failą.';
+
+  @override
+  String get createNewFile => 'Create New File';
 
   @override
   String get openLocalFile => 'Atidaryti\nVietinis failas';
@@ -66,7 +75,10 @@ class AppLocalizationsLt extends AppLocalizations {
   String get loadFromUrl => 'Atsisiųsti iš URL';
 
   @override
-  String get createNewDZPass => 'Esate naujas „DZPass“ programoje?\nSukurti naują slaptažodžių duomenų bazę';
+  String get loadFromRemoteUrl => 'Open kdbx from URL';
+
+  @override
+  String get createNewKeepass => 'Esate naujas „KeePass“ programoje?\nSukurti naują slaptažodžių duomenų bazę';
 
   @override
   String get labelLastOpenFiles => 'Paskiausiai atidaryti failai:';
@@ -117,7 +129,7 @@ class AppLocalizationsLt extends AppLocalizations {
   String get preferenceTitle => 'Nustatymai';
 
   @override
-  String get aboutAppName => '„ProxiPass“';
+  String get aboutAppName => '„AuthPass“';
 
   @override
   String get aboutLinkFeedback => 'Mes laukiame bet kokių atsiliepimų!';
@@ -131,6 +143,22 @@ class AppLocalizationsLt extends AppLocalizations {
   @override
   String aboutLogFile(String logFilePath) {
     return 'Log failas: ${logFilePath}';
+  }
+
+  @override
+  String get unableToLaunchUrlTitle => 'Unable to open Url';
+
+  @override
+  String unableToLaunchUrlDescription(Object url, Object openError) {
+    return 'Unable to launch ${url}: ${openError}';
+  }
+
+  @override
+  String get unableToLaunchUrlNoHandler => 'No application available for url.';
+
+  @override
+  String launchedUrl(Object url) {
+    return 'Opened URL: ${url}';
   }
 
   @override
@@ -159,6 +187,9 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get menuItemAbout => 'Apie';
+
+  @override
+  String get actionOpenUrl => 'Open URL';
 
   @override
   String get passwordPlainText => 'Rodyti slaptažodį';
@@ -274,7 +305,7 @@ class AppLocalizationsLt extends AppLocalizations {
   String get internalFile => 'Vidinis failas';
 
   @override
-  String get internalFileSubtitle => 'Duomenų bazė prieš tai sukurta su „ProxiPass“';
+  String get internalFileSubtitle => 'Duomenų bazė prieš tai sukurta su „AuthPass“';
 
   @override
   String get filePicker => 'Failų parinkėjas';
@@ -410,6 +441,9 @@ class AppLocalizationsLt extends AppLocalizations {
   String get masterPasswordHelpText => 'Select a secure master Password. Make sure to remember it.';
 
   @override
+  String get inputMasterPasswordText => 'Master Password';
+
+  @override
   String get masterPasswordMissingCreate => 'Please enter a secure, rememberable password.';
 
   @override
@@ -496,6 +530,24 @@ class AppLocalizationsLt extends AppLocalizations {
 
   @override
   String get fieldGenerateEmail => 'Generate Email';
+
+  @override
+  String get onboardingBackToOnboarding => 'Tour';
+
+  @override
+  String get onboardingBackToOnboardingSubtitle => 'Relive the first run experience 😅️';
+
+  @override
+  String get onboardingHeadline => 'Let\'s make your Passwords Secure!';
+
+  @override
+  String get onboardingQuestion => 'Have you used a password manager before?';
+
+  @override
+  String get onboardingYesOpenPasswords => 'Yes, open my passwords';
+
+  @override
+  String get onboardingNoCreate => 'I\'m all new! Get me started.';
 
   @override
   String unexpectedError(String error) {

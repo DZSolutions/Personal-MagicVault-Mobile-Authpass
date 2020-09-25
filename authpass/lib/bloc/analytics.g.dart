@@ -14,13 +14,36 @@ class _$AnalyticsEvents extends AnalyticsEvents with AnalyticsEventStubsImpl {
   }
 
   @override
-  void trackLaunch() => trackEvent('launch', <String, dynamic>{});
+  void trackLaunch({Brightness systemBrightness}) =>
+      trackEvent('launch', <String, dynamic>{
+        'systemBrightness': systemBrightness?.toString()?.substring(11)
+      });
   @override
   void _trackInit({String userType, String device, int value}) =>
       trackEvent('init', <String, dynamic>{
         'userType': userType,
         'device': device,
         'value': value
+      });
+  @override
+  void trackOnboardingNew(
+          {String category = 'onboarding',
+          String action = 'click',
+          String label = 'onboardingNewbie'}) =>
+      trackEvent('onboardingNew', <String, dynamic>{
+        'category': category,
+        'action': action,
+        'label': label
+      });
+  @override
+  void trackOnboardingExisting(
+          {String category = 'onboarding',
+          String action = 'click',
+          String label = 'onboardingExisting'}) =>
+      trackEvent('onboardingExisting', <String, dynamic>{
+        'category': category,
+        'action': action,
+        'label': label
       });
   @override
   void trackActionPressed({String action}) =>
@@ -131,6 +154,12 @@ class _$AnalyticsEvents extends AnalyticsEvents with AnalyticsEventStubsImpl {
         'ext': ext,
         'source': source,
         'category': category
+      });
+  @override
+  void trackEntryAction(EntryActionType label, {String action = 'entry'}) =>
+      trackEvent('entryAction', <String, dynamic>{
+        'label': label?.toString()?.substring(16),
+        'action': action
       });
 }
 

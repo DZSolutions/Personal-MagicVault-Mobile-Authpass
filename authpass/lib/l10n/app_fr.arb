@@ -8,21 +8,53 @@
     "@fieldWebsite": {},
     "fieldTitle": "Titre",
     "@fieldTitle": {},
-    "fieldTotp": "Mot de passe à usage unique (base de temps)",
+    "fieldTotp": "Mot de passe à usage unique (basé sur le temps)",
     "@fieldTotp": {
         "description": "Label for fields of TOTP (Time based one time passwords)"
     },
-    "selectDZPassFile": "ProxiPass - Sélectionnez un fichier DZPass",
-    "@selectDZPassFile": {
+    "english": "Anglais",
+    "@english": {
+        "description": "language switcher subtitle"
+    },
+    "german": "Allemand",
+    "@german": {
+        "description": "language switcher subtitle"
+    },
+    "russian": "Russe",
+    "@russian": {
+        "description": "language switcher subtitle"
+    },
+    "ukrainian": "Ukrainien",
+    "@ukrainian": {
+        "description": "language switcher subtitle"
+    },
+    "lithuanian": "Lituanien",
+    "@lithuanian": {
+        "description": "language switcher subtitle"
+    },
+    "french": "Français",
+    "@french": {
+        "description": "language switcher subtitle"
+    },
+    "spanish": "Espagnol",
+    "@spanish": {
+        "description": "language switcher subtitle"
+    },
+    "selectKeepassFile": "AuthPass - Sélectionnez un fichier KeePass",
+    "@selectKeepassFile": {
         "context": "appbar title - select file screen"
     },
     "quickUnlockingFiles": "Déverrouillage rapide des fichiers",
     "@quickUnlockingFiles": {
         "context": "select file screen"
     },
-    "selectDZPassFileLabel": "Veuillez sélectionner un fichier DZPass (.kdbx).",
-    "@selectDZPassFileLabel": {
+    "selectKeepassFileLabel": "Veuillez sélectionner un fichier KeePass (.kdbx).",
+    "@selectKeepassFileLabel": {
         "context": "select file screen, used as label."
+    },
+    "createNewFile": "Créer un nouveau fichier",
+    "@createNewFile": {
+        "description": "button on select file screen to create a new password database."
     },
     "openLocalFile": "Ouvrir un fichier local",
     "@openLocalFile": {
@@ -41,10 +73,18 @@
             }
         }
     },
-    "loadFromUrl": "Télécharger depuis une adresse Web",
-    "@loadFromUrl": {},
-    "createNewDZPass": "Nouveau sur DZPass?\nCréez une nouvelle base de données de mots de passe",
-    "@createNewDZPass": {},
+    "loadFromUrl": "Télécharger depuis une adresse URL",
+    "@loadFromUrl": {
+        "description": "deprecated"
+    },
+    "loadFromRemoteUrl": "Ouvrir kdbx à partir d'une adresse URL",
+    "@loadFromRemoteUrl": {
+        "description": "Overflow menu option to load KeePass file from URL."
+    },
+    "createNewKeepass": "Nouveau sur KeePass?\nCréez une nouvelle base de données de mots de passe",
+    "@createNewKeepass": {
+        "description": "deprecated"
+    },
     "labelLastOpenFiles": "Derniers fichiers ouverts :",
     "@labelLastOpenFiles": {},
     "noFilesHaveBeenOpenYet": "Aucun fichier n'a été ouvert pour le moment.",
@@ -53,9 +93,9 @@
     "@preferenceSelectLanguage": {},
     "preferenceLanguage": "Langue",
     "@preferenceLanguage": {},
-    "preferenceTextScaleFactor": "Facteur d'échelle du texte",
+    "preferenceTextScaleFactor": "Taille du texte",
     "@preferenceTextScaleFactor": {},
-    "preferenceVisualDensity": "Densité visuelle",
+    "preferenceVisualDensity": "Espacement",
     "@preferenceVisualDensity": {},
     "preferenceTheme": "Thème",
     "@preferenceTheme": {},
@@ -69,7 +109,7 @@
     "@preferenceDefault": {},
     "lockAllFiles": "Verrouiller tous les fichiers ouverts",
     "@lockAllFiles": {},
-    "preferenceAllowScreenshots": "Autoriser les captures d'écran de l'appli",
+    "preferenceAllowScreenshots": "Autoriser les captures d'écran de l'application",
     "@preferenceAllowScreenshots": {},
     "preferenceEnableAutoFill": "Activer la saisie automatique",
     "@preferenceEnableAutoFill": {},
@@ -77,13 +117,13 @@
     "@preferenceAutoFillDescription": {},
     "preferenceTitle": "Paramètres",
     "@preferenceTitle": {},
-    "aboutAppName": "ProxiPass",
+    "aboutAppName": "AuthPass",
     "@aboutAppName": {},
     "aboutLinkFeedback": "Tout type de commentaire est le bienvenu !",
     "@aboutLinkFeedback": {},
     "aboutLinkVisitWebsite": "N'oubliez pas de visiter notre site Web",
     "@aboutLinkVisitWebsite": {},
-    "aboutLinkGitHub": "Et le projet Open Source",
+    "aboutLinkGitHub": "Et également le projet Open Source",
     "@aboutLinkGitHub": {},
     "aboutLogFile": "Fichier Log : {logFilePath}",
     "@aboutLogFile": {
@@ -244,6 +284,10 @@
     "@doneCopiedUsername": {
         "description": "snackbar confirmation that username was copied."
     },
+    "doneCopiedField": "Copié.",
+    "@doneCopiedField": {
+        "description": ""
+    },
     "emptyPasswordVaultPlaceholder": "Vous n'avez pas encore de mot de passe dans votre base de données.",
     "@emptyPasswordVaultPlaceholder": {
         "description": "Placeholder text shown when a user opens an empty password file."
@@ -258,15 +302,15 @@
     },
     "internalFile": "Fichier interne",
     "@internalFile": {
-        "description": "Choose a file previously created in ProxiPass app sandbox",
+        "description": "Choose a file previously created in AuthPass app sandbox",
         "context": "open file picker: internal file vs. file picker"
     },
-    "internalFileSubtitle": "Base de données précédemment créée avec ProxiPass",
+    "internalFileSubtitle": "Base de données précédemment créée avec AuthPass",
     "@internalFileSubtitle": {
-        "description": "Choose a file previously created in ProxiPass app sandbox",
+        "description": "Choose a file previously created in AuthPass app sandbox",
         "context": "open file picker: internal file vs. file picker"
     },
-    "filePicker": "Sélecteur de fichier",
+    "filePicker": "Gestionnaire de fichiers",
     "@filePicker": {
         "description": "Choose a file with the system's file picker. (ios/android)",
         "context": "open file picker: internal file vs. file picker"
@@ -306,7 +350,7 @@
         "description": "label for a key file in combination with mater password",
         "context": "credential screen"
     },
-    "saveMasterPasswordBiometric": "Enregistrer le mot de passe dans les clés biométriques ?",
+    "saveMasterPasswordBiometric": "Enregistrer le mot de passe dans les données biométriques ?",
     "@saveMasterPasswordBiometric": {
         "description": "Label for the checkbox to save master password for quick unlock.",
         "context": "credential screen"
@@ -345,7 +389,7 @@
     "@dialogContinue": {
         "description": "Dialog action to continue to next step (e.g. credential screen when finished with master password)"
     },
-    "dialogSendErrorReport": "Envoyer un rapport d'erreur/aide",
+    "dialogSendErrorReport": "Envoyer un rapport d'erreur/Aide",
     "@dialogSendErrorReport": {
         "description": "action button in error dialogs to send email to support with log file.",
         "context": "error dialog"
@@ -383,6 +427,10 @@
     "@undoButtonLabel": {
         "description": "undo action label (e.g. in a snackbar after deleting a group, or some other action)"
     },
+    "saveButtonLabel": "Sauvegarder",
+    "@saveButtonLabel": {
+        "description": "save file, for example button displayed in entry details"
+    },
     "initialNewGroupName": "Nouveau groupe",
     "@initialNewGroupName": {
         "description": "initial name of groups when user creates a new one."
@@ -406,6 +454,213 @@
     "groupListFilterAppbarTitle": "Filtrer par groupes",
     "@groupListFilterAppbarTitle": {
         "description": "title in the app bar for group lists when displayed for filtering password list"
+    },
+    "clearQuickUnlock": "Effacer le stockage des données biométriques",
+    "@clearQuickUnlock": {
+        "description": ""
+    },
+    "clearQuickUnlockSubtitle": "Supprimer les mots de passe principaux enregistrés",
+    "@clearQuickUnlockSubtitle": {
+        "description": ""
+    },
+    "unlock": "Déverrouiller les fichiers",
+    "@unlock": {
+        "description": ""
+    },
+    "closePasswordFiles": "fermer les fichiers contenant les mots de passe",
+    "@closePasswordFiles": {
+        "description": "delete quick unlock (passwords stored in biometric storage)"
+    },
+    "clearQuickUnlockSuccess": "Supprimer les mots de passe maître sauvegardés dans l’espace de stockage des données biométriques.",
+    "@clearQuickUnlockSuccess": {
+        "description": ""
+    },
+    "diacOptIn": "Inscrivez-vous pour les actualités et sondages concernant l'application.",
+    "@diacOptIn": {},
+    "diacOptInSubtitle": "Envoie occasionnellement une requête réseau pour récupérer les actualités.",
+    "@diacOptInSubtitle": {},
+    "enableAutofillDebug": "Remplissage automatique : Activer le débogage",
+    "@enableAutofillDebug": {
+        "description": "only visible in debug build. Preference to enable Auto-Fill Debugging."
+    },
+    "enableAutofillDebugSubtitle": "Affiche des informations supplémentaires pour chaque champ de saisie",
+    "@enableAutofillDebugSubtitle": {
+        "description": "only visible in debug build. Preference to enable Auto-Fill Debugging."
+    },
+    "createPasswordDatabase": "Créer une base de données de mots de passe",
+    "@createPasswordDatabase": {
+        "description": ""
+    },
+    "nameNewPasswordDatabase": "Nom de votre nouvelle base de données",
+    "@nameNewPasswordDatabase": {
+        "description": "creating new kdbx file, prompt"
+    },
+    "validatorNameMissing": "Veuillez entrer un nom pour votre nouvelle base de données.",
+    "@validatorNameMissing": {
+        "description": "Error message when no password database name is given."
+    },
+    "masterPasswordHelpText": "Sélectionnez un mot de passe principal sécurisé. Assurez-vous de vous en souvenir.",
+    "@masterPasswordHelpText": {
+        "description": "DEPRECATED FOR NOW help text for master password when creating new password database"
+    },
+    "inputMasterPasswordText": "Mot de passe principal",
+    "@inputMasterPasswordText": {
+        "description": "Creating new file: input field for master password"
+    },
+    "masterPasswordMissingCreate": "S’il vous plait entrer un mot de passe sécurisé, que vous pouvez retenir.",
+    "@masterPasswordMissingCreate": {
+        "description": "Text displayed when master password is empty while creating new password database"
+    },
+    "createDatabaseAction": "Créer une base de données",
+    "@createDatabaseAction": {
+        "description": "Label for button to create new database"
+    },
+    "databaseExistsError": "Le fichier existe déjà",
+    "@databaseExistsError": {
+        "description": "dialog title for error message when creating a new database with a name which already exists."
+    },
+    "databaseExistsErrorDescription": "Erreur lors de la création de la base de données {filePath}. Le fichier existe déjà. Veuillez choisir un autre nom.",
+    "@databaseExistsErrorDescription": {
+        "description": "dialog body for error message when creating a new database with a name which already exists.",
+        "placeholders": {
+            "filePath": {
+                "description": "file path which already existed."
+            }
+        }
+    },
+    "databaseCreateDefaultName": "Mots de passe personnel",
+    "@databaseCreateDefaultName": {
+        "description": "Default database name when creating a new database file. (WITHOUT .kdbx extension)"
+    },
+    "preferenceDynamicLoadIcons": "Chargement dynamique des icônes",
+    "@preferenceDynamicLoadIcons": {
+        "description": "preferences: dynamically load website icons"
+    },
+    "preferenceDynamicLoadIconsSubtitle": "Effectuera des requêtes http avec la valeur du champ {urlFieldName} pour charger les icônes du site web.",
+    "@preferenceDynamicLoadIconsSubtitle": {
+        "description": "preferences: dynamically load website icons help text.",
+        "placeholders": {
+            "urlFieldName": {
+                "example": "Website"
+            }
+        }
+    },
+    "passwordScore": "Force : {score} sur 4",
+    "@passwordScore": {
+        "description": "choosing a master password - calculated password strength.",
+        "placeholders": {
+            "score": {
+                "description": "integer of the score.",
+                "example": "3"
+            }
+        }
+    },
+    "entryInfoFile": "Fichier :",
+    "@entryInfoFile": {
+        "description": ""
+    },
+    "entryInfoGroup": "Groupe :",
+    "@entryInfoGroup": {
+        "description": ""
+    },
+    "entryInfoLastModified": "Dernière modification :",
+    "@entryInfoLastModified": {
+        "description": ""
+    },
+    "movedEntryToGroup": "Entrée déplacée vers {groupName}",
+    "@movedEntryToGroup": {
+        "description": "",
+        "placeholders": {
+            "groupName": {
+                "description": "Name of the group the entry was moved to."
+            }
+        }
+    },
+    "sizeBytes": "{count} octets",
+    "@sizeBytes": {
+        "description": "",
+        "placeholders": {
+            "bytes": {
+                "description": "file size in bytes",
+                "example": "123"
+            }
+        }
+    },
+    "entryAddAttachment": "Ajouter une pièce jointe",
+    "@entryAddAttachment": {
+        "description": ""
+    },
+    "entryAttachmentSizeWarning": "Les fichiers joints seront intégrés au fichier de mots de passe. Cela peut considérablement augmenter le temps nécessaire pour ouvrir/enregistrer les mots de passe.",
+    "@entryAttachmentSizeWarning": {
+        "description": ""
+    },
+    "entryAddField": "Ajouter un champ",
+    "@entryAddField": {
+        "description": ""
+    },
+    "entryCustomField": "Champ personnalisé",
+    "@entryCustomField": {
+        "description": ""
+    },
+    "entryCustomFieldTitle": "Ajout d'un nouveau champ personnalisé",
+    "@entryCustomFieldTitle": {
+        "description": ""
+    },
+    "entryCustomFieldInputLabel": "Entrez un nom pour le champ",
+    "@entryCustomFieldInputLabel": {
+        "description": ""
+    },
+    "swipeCopyField": "Copier le champ",
+    "@swipeCopyField": {
+        "description": ""
+    },
+    "fieldRename": "Renommer",
+    "@fieldRename": {
+        "description": ""
+    },
+    "fieldGeneratePassword": "Générer un mot de passe …",
+    "@fieldGeneratePassword": {
+        "description": ""
+    },
+    "fieldProtect": "Protéger la valeur",
+    "@fieldProtect": {
+        "description": ""
+    },
+    "fieldUnprotect": "Déprotéger la valeur",
+    "@fieldUnprotect": {
+        "description": ""
+    },
+    "fieldPresent": "Afficher",
+    "@fieldPresent": {
+        "description": ""
+    },
+    "fieldGenerateEmail": "Générer une adresse e-mail",
+    "@fieldGenerateEmail": {
+        "description": ""
+    },
+    "onboardingBackToOnboarding": "Visite guidée",
+    "@onboardingBackToOnboarding": {
+        "description": "Context menu entry which reverts to onboarding"
+    },
+    "onboardingBackToOnboardingSubtitle": "Revivez l'expérience de la première exécution 😅",
+    "@onboardingBackToOnboardingSubtitle": {
+        "description": "Context menu entry which reverts to onboarding"
+    },
+    "onboardingHeadline": "Sécurisons vos mots de passe !",
+    "@onboardingHeadline": {
+        "description": ""
+    },
+    "onboardingQuestion": "Avez-vous déjà utilisé un gestionnaire de mots de passe ?",
+    "@onboardingQuestion": {
+        "description": ""
+    },
+    "onboardingYesOpenPasswords": "Oui, ouvrir mes mots de passe",
+    "@onboardingYesOpenPasswords": {
+        "description": ""
+    },
+    "onboardingNoCreate": "Je suis tout nouveau ! Commençons ensemble.",
+    "@onboardingNoCreate": {
+        "description": ""
     },
     "unexpectedError": "Erreur inattendue : {error}",
     "@unexpectedError": {

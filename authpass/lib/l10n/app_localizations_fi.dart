@@ -43,13 +43,22 @@ class AppLocalizationsFi extends AppLocalizations {
   String get french => 'French';
 
   @override
-  String get selectDZPassFile => 'ProxiPass - Select DZPass File';
+  String get spanish => 'Spanish';
+
+  @override
+  String get indonesian => 'Indonesian';
+
+  @override
+  String get selectKeepassFile => 'AuthPass - Select KeePass File';
 
   @override
   String get quickUnlockingFiles => 'Quick unlocking files';
 
   @override
-  String get selectDZPassFileLabel => 'Please select a DZPass (.dzpx) file.';
+  String get selectKeepassFileLabel => 'Please select a KeePass (.kdbx) file.';
+
+  @override
+  String get createNewFile => 'Create New File';
 
   @override
   String get openLocalFile => 'Open\nLocal File';
@@ -66,7 +75,10 @@ class AppLocalizationsFi extends AppLocalizations {
   String get loadFromUrl => 'Download from URL';
 
   @override
-  String get createNewDZPass => 'New to DZPass?\nCreate New Password Database';
+  String get loadFromRemoteUrl => 'Open kdbx from URL';
+
+  @override
+  String get createNewKeepass => 'New to KeePass?\nCreate New Password Database';
 
   @override
   String get labelLastOpenFiles => 'Last opened files:';
@@ -117,7 +129,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get preferenceTitle => 'Preferences';
 
   @override
-  String get aboutAppName => 'ProxiPass';
+  String get aboutAppName => 'AuthPass';
 
   @override
   String get aboutLinkFeedback => 'We welcome any kind of feedback!';
@@ -131,6 +143,22 @@ class AppLocalizationsFi extends AppLocalizations {
   @override
   String aboutLogFile(String logFilePath) {
     return 'Log File: ${logFilePath}';
+  }
+
+  @override
+  String get unableToLaunchUrlTitle => 'Unable to open Url';
+
+  @override
+  String unableToLaunchUrlDescription(Object url, Object openError) {
+    return 'Unable to launch ${url}: ${openError}';
+  }
+
+  @override
+  String get unableToLaunchUrlNoHandler => 'No application available for url.';
+
+  @override
+  String launchedUrl(Object url) {
+    return 'Opened URL: ${url}';
   }
 
   @override
@@ -159,6 +187,9 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get menuItemAbout => 'About';
+
+  @override
+  String get actionOpenUrl => 'Open URL';
 
   @override
   String get passwordPlainText => 'Reveal password';
@@ -274,7 +305,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get internalFile => 'Internal file';
 
   @override
-  String get internalFileSubtitle => 'Database previously created with ProxiPass';
+  String get internalFileSubtitle => 'Database previously created with AuthPass';
 
   @override
   String get filePicker => 'File Picker';
@@ -410,6 +441,9 @@ class AppLocalizationsFi extends AppLocalizations {
   String get masterPasswordHelpText => 'Select a secure master Password. Make sure to remember it.';
 
   @override
+  String get inputMasterPasswordText => 'Master Password';
+
+  @override
   String get masterPasswordMissingCreate => 'Please enter a secure, rememberable password.';
 
   @override
@@ -496,6 +530,24 @@ class AppLocalizationsFi extends AppLocalizations {
 
   @override
   String get fieldGenerateEmail => 'Generate Email';
+
+  @override
+  String get onboardingBackToOnboarding => 'Tour';
+
+  @override
+  String get onboardingBackToOnboardingSubtitle => 'Relive the first run experience 😅️';
+
+  @override
+  String get onboardingHeadline => 'Let\'s make your Passwords Secure!';
+
+  @override
+  String get onboardingQuestion => 'Have you used a password manager before?';
+
+  @override
+  String get onboardingYesOpenPasswords => 'Yes, open my passwords';
+
+  @override
+  String get onboardingNoCreate => 'I\'m all new! Get me started.';
 
   @override
   String unexpectedError(String error) {

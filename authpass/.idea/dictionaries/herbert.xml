@@ -2,6 +2,7 @@
   <dictionary name="herbert">
     <words>
       <w>authpass</w>
+      <w>autocorrect</w>
       <w>autofill</w>
       <w>autofocus</w>
       <w>autovalidate</w>
@@ -13,7 +14,9 @@
       <w>flushbar</w>
       <w>kdbx</w>
       <w>namespaced</w>
+      <w>onboarding</w>
       <w>otpauth</w>
+      <w>propfind</w>
       <w>samsung</w>
       <w>snackbar</w>
       <w>sqflite</w>

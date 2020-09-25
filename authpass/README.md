@@ -43,19 +43,23 @@ One day I have to automate this...
     ```
   * update `public_html/authpass-data/data/fdroid-version.txt`
 * Create GitHub Release
-  * Upload:
+  * Create draft with v1.7.7
+  * Run `_tools/release/github-release.sh` - this will upload:
     * AuthPass-setup-1.7.7_1519.exe
     * authpass-sideload-1519.apk
     * AuthPass.app-1.7.7-b1519.zip
     * authpass-linux-1.7.7_1519.tar.gz
 * Upload Artifacts to [fosshub.com](https://devzone.fosshub.com/dashboard/projects)
-  * run `_tools/fosshub-releaes.sh`
+  * run `_tools/release/fosshub-releaes.sh`
 * Submit release to
   * https://play.google.com/apps/publish
   * https://appstoreconnect.apple.com/apps
   * [Samsung Apps](https://seller.samsungapps.com/main/sellerMain.as#)
+    * https://galaxy.store/authpass
   * [Huawei App Gallery](https://developer.huawei.com/consumer/en/service/josp/agc/index.html)
+    * https://appgallery.huawei.com/#/app/C101955193
   * [Amazon Appstore](https://developer.amazon.com/apps-and-games/console/apps/list.html)
+    * https://www.amazon.com/CodeUX-design-AuthPass-Password-Manageer/dp/B088X48S61
   * Linux PPA - use [authpass/authpass-deb](https://github.com/authpass/authpass-deb)
     ```shell
     docker-compose run bionic ./update.sh focal

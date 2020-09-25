@@ -97,10 +97,12 @@ packages:
   badges:
     dependency: "direct main"
     description:
-      name: badges
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.1.1"
+      path: "."
+      ref: "1d989d27d8a6cabbd6d5694719f1957684e481b9"
+      resolved-ref: "1d989d27d8a6cabbd6d5694719f1957684e481b9"
+      url: "https://github.com/worldofsites/flutter_badges.git"
+    source: git
+    version: "1.1.2"
   barcode_scan:
     dependency: "direct main"
     description:
@@ -522,9 +524,11 @@ packages:
   flutter_speed_dial:
     dependency: "direct main"
     description:
-      name: flutter_speed_dial
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: "7ad1672e22627d1106151ed8602b52bb99b9a8d2"
+      resolved-ref: "7ad1672e22627d1106151ed8602b52bb99b9a8d2"
+      url: "https://github.com/authpass/flutter_speed_dial.git"
+    source: git
     version: "1.2.5"
   flutter_store_listing:
     dependency: "direct main"
@@ -953,6 +957,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+  pigment:
+    dependency: transitive
+    description:
+      name: pigment
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   platform:
     dependency: transitive
     description:
@@ -1263,6 +1274,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.1+2"
+  tinycolor:
+    dependency: "direct main"
+    description:
+      name: tinycolor
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.3"
   tuple:
     dependency: "direct main"
     description:

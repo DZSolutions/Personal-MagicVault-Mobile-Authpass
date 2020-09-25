@@ -17,9 +17,11 @@ import 'package:authpass/l10n/app_localizations.dart';
 import 'package:authpass/ui/screens/app_bar_menu.dart';
 import 'package:authpass/ui/screens/create_file.dart';
 import 'package:authpass/ui/screens/main_app_scaffold.dart';
+import 'package:authpass/ui/screens/onboarding/onboarding.dart';
 import 'package:authpass/ui/widgets/link_button.dart';
 import 'package:authpass/ui/widgets/password_input_field.dart';
 import 'package:authpass/utils/dialog_utils.dart';
+import 'package:authpass/utils/extension_methods.dart';
 import 'package:authpass/utils/format_utils.dart';
 import 'package:authpass/utils/path_utils.dart';
 import 'package:authpass/utils/platform.dart';
@@ -41,6 +43,7 @@ import 'package:path/path.dart' as path;
 import 'package:pedantic/pedantic.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_form_field_validator/simple_form_field_validator.dart';
+import 'package:tinycolor/color_extension.dart';
 
 import '../../theme.dart';
 
@@ -66,14 +69,44 @@ class SelectFileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<Analytics>(context).events.trackLaunch();
     final cloudBloc = CloudStorageBloc(Provider.of<Env>(context), PathUtils());
     final loc = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(loc.selectDZPassFile),
+        title: Text(loc.selectKeepassFile),
         actions: <Widget>[
-          AppBarMenu.createOverflowMenuButton(context),
+          AppBarMenu.createOverflowMenuButton(context,
+              secondaryBuilder: (context) {
+            return [
+              PopupMenuItem(
+                child: ListTile(
+                  leading: const FaIcon(FontAwesomeIcons.route),
+                  title: Text(loc.onboardingBackToOnboarding),
+                  subtitle: Text(loc.onboardingBackToOnboardingSubtitle),
+                ),
+                value: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                      OnboardingScreen.route(), (route) => false);
+                },
+              ),
+              PopupMenuItem(
+                  child: ListTile(
+                    key: const ValueKey('downloadFromUrl'),
+                    leading: const FaIcon(FontAwesomeIcons.fileCode),
+                    title: Text(loc.loadFromRemoteUrl),
+                  ),
+                  value: () async {
+                    final source = await showDialog<FileSourceUrl>(
+                        context: context,
+                        builder: (context) => SelectUrlDialog());
+                    if (source != null) {
+                      // _loadAndGoToCredentials(source);
+                      await Navigator.of(context)
+                          .push(CredentialsScreen.route(source));
+                    }
+                  }),
+            ];
+          }),
         ],
       ),
       body: Provider<CloudStorageBloc>.value(
@@ -261,6 +294,7 @@ class _SelectFileWidgetState extends State<SelectFileWidget>
     final appData = Provider.of<AppData>(context);
     final cloudStorageBloc = Provider.of<CloudStorageBloc>(context);
     final loc = AppLocalizations.of(context);
+    final theme = Theme.of(context);
     return ProgressOverlay(
       task: task,
       child: Container(
@@ -274,14 +308,14 @@ class _SelectFileWidgetState extends State<SelectFileWidget>
                   ? [
                       const SizedBox(height: 16),
                       Text(
-                        'ProxiPass requires permission to communicate with '
+                        'AuthPass requires permission to communicate with '
                         'Secret Service to store credentials for cloud storage.\n'
                         'Please run the following command:',
                         textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.caption.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Theme.of(context).errorColor,
-                            ),
+                        style: theme.textTheme.caption.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: theme.errorColor,
+                        ),
                       ),
                       LinkButton(
                           icon: const Icon(Icons.content_copy),
@@ -306,8 +340,15 @@ class _SelectFileWidgetState extends State<SelectFileWidget>
                     ]
                   : null),
               const SizedBox(height: 16),
-              Text(loc.selectDZPassFileLabel),
-              const SizedBox(height: 16),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  loc.selectKeepassFileLabel,
+                  style: theme.textTheme.caption,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const SizedBox(height: 8),
               Wrap(
                 alignment: WrapAlignment.center,
                 spacing: 16,
@@ -354,55 +395,17 @@ class _SelectFileWidgetState extends State<SelectFileWidget>
                       },
                     ),
                   ),
+                  SelectFileAction(
+                    icon: Icons.create_new_folder,
+                    label: loc.createNewFile,
+                    backgroundColor: theme.primaryColor.darken(),
+                    onPressed: () {
+                      Navigator.of(context).push(CreateFile.route());
+                    },
+                  ),
                 ],
               ),
-              const SizedBox(
-                height: 4,
-              ),
-              IntrinsicHeight(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: LinkButton(
-                          key: const Key('downloadFromUrl'),
-                          onPressed: () async {
-                            final source = await showDialog<FileSourceUrl>(
-                                context: context,
-                                builder: (context) => SelectUrlDialog());
-                            if (source != null) {
-                              _loadAndGoToCredentials(source);
-                            }
-                          },
-                          child: Text(
-                            loc.loadFromUrl,
-                            textAlign: TextAlign.right,
-                          ),
-                        ),
-                      ),
-                    ),
-                    VerticalDivider(
-                      indent: 8,
-                      endIndent: 8,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    Expanded(
-                      child: LinkButton(
-                        onPressed: () {
-                          Navigator.of(context).push(CreateFile.route());
-                        },
-                        icon: const Icon(Icons.create_new_folder),
-                        child: Expanded(
-                            child: Text(loc.createNewDZPass, softWrap: true)),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               IntrinsicWidth(
                 stepWidth: 100,
                 child: ConstrainedBox(
@@ -413,27 +416,36 @@ class _SelectFileWidgetState extends State<SelectFileWidget>
                     children: <Widget>[
                       Text(
                         loc.labelLastOpenFiles,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText2
-                            .copyWith(fontWeight: FontWeight.bold),
+                        style: theme.textTheme.caption,
                         textAlign: TextAlign.center,
                       ),
                       ...ListTile.divideTiles(
-                          context: context,
-                          tiles: appData?.previousFiles?.reversed?.take(5)?.map(
-                                    (f) => OpenedFileTile(
-                                      openedFile:
-                                          f.toFileSource(cloudStorageBloc),
-                                      color: f.color,
-                                      onPressed: () {
-                                        final source =
-                                            f.toFileSource(cloudStorageBloc);
-                                        _loadAndGoToCredentials(source);
-                                      },
-                                    ),
-                                  ) ??
-                              [Text(loc.noFilesHaveBeenOpenYet)]),
+                        context: context,
+                        tiles: appData?.previousFiles?.reversed
+                                ?.take(5)
+                                ?.takeIfNotEmpty()
+                                ?.map(
+                                  (f) => OpenedFileTile(
+                                    openedFile:
+                                        f.toFileSource(cloudStorageBloc),
+                                    color: f.color,
+                                    onPressed: () {
+                                      final source =
+                                          f.toFileSource(cloudStorageBloc);
+                                      _loadAndGoToCredentials(source);
+                                    },
+                                  ),
+                                ) ??
+                            [
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  loc.noFilesHaveBeenOpenYet,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            ],
+                      ),
                     ],
                   ),
                 ),
@@ -470,7 +482,7 @@ class _SelectFileWidgetState extends State<SelectFileWidget>
         ),
       );
     } else {
-      _logger.fine('No dzpx files found, open FilePickerWritable');
+      _logger.fine('No kdbx files found, open FilePickerWritable');
       await openFilePickerWritable();
     }
   }
@@ -484,7 +496,7 @@ class _SelectFileWidgetState extends State<SelectFileWidget>
         continue;
       }
       _logger.finest('contains: ${dir.path}');
-      if (f.path.endsWith('dzpx')) {
+      if (f.path.endsWith(Env.KeePassExtension)) {
         // NON-NLS
         return true;
       }
@@ -537,7 +549,7 @@ class OpenFileBottomSheet extends StatelessWidget {
                 rootDirectory:
                     await PathUtils().getAppDocDirectory(ensureCreated: true),
                 fsType: FilesystemType.file,
-                allowedExtensions: ['.dzpx'],
+                allowedExtensions: ['.kdbx'],
                 fileTileSelectMode: FileTileSelectMode.wholeTile,
               );
               if (filePath == null) {
@@ -568,11 +580,13 @@ class OpenedFileTile extends StatelessWidget {
     Key key,
     @required this.openedFile,
     this.onPressed,
+    this.onLongPressed,
     @required this.color,
   }) : super(key: key);
 
   final FileSource openedFile;
   final VoidCallback onPressed;
+  final VoidCallback onLongPressed;
   final Color color;
 
   @override
@@ -583,6 +597,7 @@ class OpenedFileTile extends StatelessWidget {
             theme.textTheme.caption.color);
     return InkWell(
       onTap: onPressed,
+      onLongPress: onLongPressed,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
@@ -621,11 +636,17 @@ class OpenedFileTile extends StatelessWidget {
 }
 
 class SelectFileAction extends StatelessWidget {
-  const SelectFileAction({Key key, this.icon, this.label, this.onPressed})
-      : super(key: key);
+  const SelectFileAction({
+    Key key,
+    this.icon,
+    this.label,
+    this.onPressed,
+    this.backgroundColor,
+  }) : super(key: key);
 
   final IconData icon;
   final String label;
+  final Color backgroundColor;
   final VoidCallback onPressed;
 
   @override
@@ -642,7 +663,7 @@ class SelectFileAction extends StatelessWidget {
       child: Material(
 //      shape: Border.all(),
         borderRadius: const BorderRadius.all(Radius.circular(8)),
-        color: theme.primaryColor,
+        color: backgroundColor ?? theme.primaryColor,
         elevation: 4,
         child: InkWell(
           onTap: onPressed,
@@ -866,7 +887,9 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
                 child: PasswordInputField(
                   controller: _controller,
                   labelText: loc.masterPasswordInputLabel,
-                  autovalidate: _invalidPassword != null,
+                  autovalidateMode: _invalidPassword != null
+                      ? AutovalidateMode.always
+                      : AutovalidateMode.onUserInteraction,
                   validator: (_keyFile == null || _invalidPassword != null
                           ? SValidator.notEmpty(
                               msg: loc.masterPasswordEmptyValidator)
@@ -881,50 +904,49 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
                   },
                 ),
               ),
-//KeyFile
-//               Container(
-//                 alignment: Alignment.centerLeft,
-//                 padding: const EdgeInsets.only(right: 32, left: 32),
-//                 child: FlatButton.icon(
-// //                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-//                   icon: Icon(_keyFile == null
-//                       ? FontAwesomeIcons.folderOpen
-//                       : FontAwesomeIcons.edit),
-//                   label: Text(_keyFile == null
-//                       ? loc.useKeyFile
-//                       : path.basename(_keyFile.displayName)),
-//                   onPressed: () async {
-//                     _invalidPassword = null;
-//                     if (AuthPassPlatform.isIOS || AuthPassPlatform.isAndroid) {
-//                       final fileInfo = await FilePickerWritable()
-//                           .openFile((fileInfo, file) async {
-//                         final keyFile = KeyFileInfo(
-//                             fileInfo: fileInfo,
-//                             bytes: await file.readAsBytes());
-//                         setState(() {
-// //                          writeTe
-//                           _keyFile = keyFile;
-//                         });
-//                         return fileInfo;
-//                       });
-//                       if (fileInfo == null) {
-//                         setState(() => _keyFile = null);
-//                       }
-//                     } else {
-//                       final result = await showOpenPanel();
-//                       if (!result.canceled) {
-//                         setState(() {
-//                           _keyFile = KeyFileFile(File(result.paths[0]));
-//                         });
-//                       } else {
-//                         setState(() {
-//                           _keyFile = null;
-//                         });
-//                       }
-//                     }
-//                   },
-//                 ),
-//               ),
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(right: 32, left: 32),
+                child: FlatButton.icon(
+//                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  icon: Icon(_keyFile == null
+                      ? FontAwesomeIcons.folderOpen
+                      : FontAwesomeIcons.edit),
+                  label: Text(_keyFile == null
+                      ? loc.useKeyFile
+                      : path.basename(_keyFile.displayName)),
+                  onPressed: () async {
+                    _invalidPassword = null;
+                    if (AuthPassPlatform.isIOS || AuthPassPlatform.isAndroid) {
+                      final fileInfo = await FilePickerWritable()
+                          .openFile((fileInfo, file) async {
+                        final keyFile = KeyFileInfo(
+                            fileInfo: fileInfo,
+                            bytes: await file.readAsBytes());
+                        setState(() {
+//                          writeTe
+                          _keyFile = keyFile;
+                        });
+                        return fileInfo;
+                      });
+                      if (fileInfo == null) {
+                        setState(() => _keyFile = null);
+                      }
+                    } else {
+                      final result = await showOpenPanel();
+                      if (!result.canceled) {
+                        setState(() {
+                          _keyFile = KeyFileFile(File(result.paths[0]));
+                        });
+                      } else {
+                        setState(() {
+                          _keyFile = null;
+                        });
+                      }
+                    }
+                  },
+                ),
+              ),
               ...(_biometricQuickUnlockSupported
                   ? [
                       Container(
@@ -972,7 +994,6 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
   }
 
   Future<void> _tryUnlock() async {
-    //nfc
     if (_formKey.currentState.validate()) {
       final deps = Provider.of<Deps>(context, listen: false);
       final loc = AppLocalizations.of(context);
@@ -1042,15 +1063,12 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
           stopWatch: stopWatch,
         );
       } catch (e, stackTrace) {
-        _logger.fine('Unable to open dzpx file. ', e, stackTrace);
+        _logger.fine('Unable to open kdbx file. ', e, stackTrace);
         await _handleOpenError(
           analytics: analytics,
           result: TryUnlockResult.failure,
           errorTitle: loc.errorUnlockFileTitle,
-          //DZSOLUTIONS
-          // errorBody: loc.errorUnlockFileBody(e),
-          errorBody:
-              'In order to import the Keepass file KDB* files, Please use ProxiPass desktop version and create a new ProxiPass database file (.dzpx) first then click "File" -> "Import" in the main menu. In the import dialog, choose "Keepass (.kdbx)" as file format.',
+          errorBody: loc.errorUnlockFileBody(e),
           stopWatch: stopWatch,
         );
       } finally {

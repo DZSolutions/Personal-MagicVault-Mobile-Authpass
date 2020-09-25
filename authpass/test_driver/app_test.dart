@@ -32,6 +32,7 @@ void main() {
             'Resuming isolate: ${isolateRef.numberAsString}:${isolateRef.name}');
         isolateRef.resume();
       });
+      await driver.waitUntilFirstFrameRasterized();
     });
 
     // Close the connection to the driver after the tests have completed.
@@ -43,6 +44,7 @@ void main() {
     });
 
     test('open kdbx 3 file', () async {
+      await driver.tap(find.byValueKey('appBarOverflowMenu'));
       await driver.tap(downloadButton);
 
       await driver.waitUntilNoTransientCallbacks();

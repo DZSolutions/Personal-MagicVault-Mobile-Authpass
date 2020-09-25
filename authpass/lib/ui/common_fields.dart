@@ -1,4 +1,5 @@
 import 'package:authpass/l10n/app_localizations.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:kdbx/kdbx.dart';
@@ -11,8 +12,10 @@ class CommonField {
     @required this.displayName,
     this.includeInSearch = false,
     this.protect = false,
-    this.nfc = false,
     this.keyboardType,
+    this.autocorrect = false,
+    this.enableSuggestions = false,
+    this.textCapitalization = TextCapitalization.none,
     this.icon = Icons.label_outline,
     this.showByDefault = true,
   });
@@ -21,8 +24,10 @@ class CommonField {
   final String displayName;
   final bool includeInSearch;
   final bool protect;
-  final bool nfc;
   final TextInputType keyboardType;
+  final bool autocorrect;
+  final bool enableSuggestions;
+  final TextCapitalization textCapitalization;
   final IconData icon;
   final bool showByDefault;
 
@@ -46,44 +51,35 @@ class CommonFields {
             key: KdbxKeyCommon.TITLE,
             displayName: loc.fieldTitle,
             includeInSearch: true,
-            nfc: false,
             icon: Icons.label,
+            autocorrect: true,
+            enableSuggestions: true,
+            textCapitalization: TextCapitalization.sentences,
+          ),
+          CommonField(
+            key: KdbxKeyCommon.URL,
+            displayName: loc.fieldWebsite,
+            includeInSearch: true,
+            keyboardType: TextInputType.url,
+            icon: Icons.link,
           ),
           CommonField(
             key: KdbxKeyCommon.USER_NAME,
             displayName: loc.fieldUserName,
             includeInSearch: true,
-            nfc: false,
             keyboardType: TextInputType.emailAddress,
             icon: Icons.account_circle,
           ),
           CommonField(
             key: KdbxKeyCommon.PASSWORD,
             displayName: loc.fieldPassword,
-            nfc: false,
             protect: true,
             icon: Icons.lock,
-          ),
-          CommonField(
-            key: KdbxKeyCommon.URL,
-            displayName: loc.fieldWebsite,
-            includeInSearch: true,
-            nfc: false,
-            keyboardType: TextInputType.url,
-            icon: Icons.link,
-          ),
-          CommonField(
-            key: KdbxKeyCommon.NOTES,
-            displayName: 'Notes',
-            includeInSearch: true,
-            nfc: false,
-            icon: Icons.note,
           ),
           CommonField(
             key: KdbxKeyCommon.OTP,
             displayName: loc.fieldTotp,
             icon: Icons.watch_later,
-            nfc: false,
             protect: true,
             showByDefault: false,
           ),
@@ -94,8 +90,6 @@ class CommonFields {
   CommonField get title => _fieldByKey(KdbxKeyCommon.TITLE);
 
   CommonField get url => _fieldByKey(KdbxKeyCommon.URL);
-
-  CommonField get notes => _fieldByKey(KdbxKeyCommon.NOTES);
 
   CommonField get userName => _fieldByKey(KdbxKeyCommon.USER_NAME);
 
