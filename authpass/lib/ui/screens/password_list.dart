@@ -873,6 +873,7 @@ class _PasswordListContentState extends State<PasswordListContent>
                 final kdbxBloc = Provider.of<KdbxBloc>(context, listen: false);
                 final entry = kdbxBloc.createEntry();
 //                Navigator.of(context).push(EntryDetailsScreen.route(entry: entry));
+                entry.isNewOnCreated = true;
                 widget.onEntrySelected(
                     context, entry, EntrySelectionType.activeOpen);
               },
@@ -996,6 +997,7 @@ class _PasswordListContentState extends State<PasswordListContent>
                       file: group?.file,
                       group: group,
                     );
+                    entry.isNewOnCreated = true;
                     widget.onEntrySelected(
                         context, entry, EntrySelectionType.activeOpen);
                   },

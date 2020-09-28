@@ -521,6 +521,7 @@ class GroupListFlatList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final kdbxBloc = Provider.of<KdbxBloc>(context);
     final loc = AppLocalizations.of(context);
     return Scrollbar(
       child: ListView.builder(
@@ -561,9 +562,19 @@ class GroupListFlatList extends StatelessWidget {
                         title: Text(loc.editAction),
                       ),
                     ),
-                    if (!group.isRoot && !group.inRecycleBin) ...[
+                    if (!group.isRoot) ...[
                       SimpleDialogOption(
-                        onPressed: () => Navigator.of(context).pop('delete'),
+                        onPressed: () async {
+                          final savedFiles = <String>[];
+                          for (final entry in kdbxBloc.openedFiles.entries) {
+                            if (entry.key.supportsWrite &&
+                                entry.value.kdbxFile.dirtyObjects.isNotEmpty) {
+                              await kdbxBloc.saveFile(entry.value.kdbxFile);
+                              savedFiles.add(entry.key.displayName);
+                            }
+                          }
+                          Navigator.of(context).pop('delete');
+                        },
                         child: ListTile(
                           leading: const Icon(Icons.delete),
                           title: Text(loc.deleteAction),

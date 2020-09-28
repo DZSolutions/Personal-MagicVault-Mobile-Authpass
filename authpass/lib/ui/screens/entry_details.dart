@@ -52,18 +52,25 @@ import 'package:tuple/tuple.dart';
 final _logger = Logger('entry_details');
 
 class EntryDetailsScreen extends StatefulWidget {
-  const EntryDetailsScreen({Key key, @required this.entry}) : super(key: key);
+  const EntryDetailsScreen(
+      {Key key, @required this.entry, this.isNewOnCreated = false})
+      : super(key: key);
 
-  static Route<void> route({@required KdbxEntry entry}) => MaterialPageRoute(
-      settings: const RouteSettings(name: '/entry'),
-      builder: (context) => EntryDetailsScreen(
-            entry: entry,
-          ));
+  static Route<void> route(
+          {@required KdbxEntry entry, bool isNewOnCreated = false}) =>
+      MaterialPageRoute(
+          settings: const RouteSettings(name: '/entry'),
+          builder: (context) => EntryDetailsScreen(
+                entry: entry,
+                isNewOnCreated: isNewOnCreated,
+              ));
 
   final KdbxEntry entry;
+  final bool isNewOnCreated;
 
   @override
-  _EntryDetailsScreenState createState() => _EntryDetailsScreenState();
+  _EntryDetailsScreenState createState() =>
+      _EntryDetailsScreenState(isNewOnCreated);
 }
 
 class _EntryDetailsScreenState extends State<EntryDetailsScreen>
@@ -71,12 +78,16 @@ class _EntryDetailsScreenState extends State<EntryDetailsScreen>
         TaskStateMixin<EntryDetailsScreen>,
         StreamSubscriberMixin<EntryDetailsScreen>,
         KdbxObjectSavableStateMixin<EntryDetailsScreen> {
+  _EntryDetailsScreenState(this.isNewOnCreated);
+
   @override
   KdbxFile get file => widget.entry.file;
   @override
   Changeable get kdbxObject => widget.entry;
   @override
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  bool isNewOnCreated;
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +104,10 @@ class _EntryDetailsScreenState extends State<EntryDetailsScreen>
               : [
                   IconButton(
                     icon: const Icon(Icons.save),
-                    onPressed: saveCallback,
+                    onPressed: () {
+                      entry.isNewOnCreated = false;
+                      saveCallback();
+                    },
                   ),
                 ],
           AppBarMenu.createOverflowMenuButton(
@@ -156,9 +170,10 @@ class _EntryDetailsScreenState extends State<EntryDetailsScreen>
         ),
         onWillPop: () async {
           if (!isDirty && !entry.isDirty) {
+            // if (!isDirty) {
             return true;
           }
-          return DialogUtils.showConfirmDialog(
+          final isDiscard = await DialogUtils.showConfirmDialog(
             context: context,
             params: ConfirmDialogParams(
                 title: 'Unsaved Changes',
@@ -166,6 +181,12 @@ class _EntryDetailsScreenState extends State<EntryDetailsScreen>
                     'There are still unsaved changes. Do you want to discard changes?',
                 positiveButtonText: 'Discard Changes'),
           );
+          if (isDiscard && entry.isNewOnCreated) {
+            entry.file.deleteEntry(entry, forceDelete: true);
+            await entry.file.save();
+            return true;
+          }
+          return isDiscard;
         },
       ),
     );

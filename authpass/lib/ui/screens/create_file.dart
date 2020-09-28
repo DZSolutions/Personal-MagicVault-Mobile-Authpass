@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:authpass/bloc/kdbx_bloc.dart';
 import 'package:authpass/l10n/app_localizations.dart';
 import 'package:authpass/ui/screens/main_app_scaffold.dart';
@@ -10,6 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_async_utils/flutter_async_utils.dart';
 import 'package:logging/logging.dart';
+import 'package:nfc_manager/nfc_manager.dart';
+import 'package:nfc_manager/platform_tags.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
 // ignore: implementation_imports
@@ -163,9 +166,27 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
                 FlatButton(
                   child: const Text('Continue'),
                   onPressed: () async {
+                    String passwordText;
+                    await NfcManager.instance.startSession(
+                        onDiscovered: (tag) async {
+                      final card = IsoDep.from(tag);
+                      await card.transceive(
+                          data: Uint8List.fromList(
+                              '00A4040C0Aa00000006203010c0701'.toListHex()));
+                      final passwordlenhex = _password.text.length
+                          .toRadixString(16)
+                          .padLeft(2, '0');
+                      final r = await card.transceive(
+                          data: Uint8List.fromList(
+                              'B0010000$passwordlenhex'.toListHex()
+                                ..addAll(_password.text.codeUnits)));
+                      print(r);
+                      passwordText =
+                          String.fromCharCodes(r.sublist(0, r.length - 2));
+                    });
                     try {
                       final created = await kdbxBloc.createFile(
-                        password: _password.text,
+                        password: passwordText,
                         databaseName: _databaseName.text,
                         openAfterCreate: true,
                       );
@@ -298,5 +319,25 @@ class _PasswordStrengthDisplayState
         ],
       ],
     );
+  }
+}
+
+extension StringParsing on String {
+  List<int> toListHex() {
+    List<int> temp = [];
+    for (var i = 0; i < this.length; i += 2) {
+      temp.add(int.parse(this.substring(i, i + 2), radix: 16));
+    }
+    return temp;
+  }
+}
+
+extension ListParsing on Uint8List {
+  String toStringHex() {
+    var temp = '';
+    for (final u8 in this) {
+      temp += u8.toRadixString(16);
+    }
+    return temp;
   }
 }
