@@ -49,13 +49,13 @@ class AppLocalizationsEt extends AppLocalizations {
   String get indonesian => 'Indonesian';
 
   @override
-  String get selectKeepassFile => 'AuthPass - Select KeePass File';
+  String get selectKeepassFile => 'ProxiPass - Select DZPass File';
 
   @override
   String get quickUnlockingFiles => 'Quick unlocking files';
 
   @override
-  String get selectKeepassFileLabel => 'Please select a KeePass (.kdbx) file.';
+  String get selectKeepassFileLabel => 'Please select a DZPass (.dzpx) file.';
 
   @override
   String get createNewFile => 'Create New File';
@@ -75,10 +75,10 @@ class AppLocalizationsEt extends AppLocalizations {
   String get loadFromUrl => 'Download from URL';
 
   @override
-  String get loadFromRemoteUrl => 'Open kdbx from URL';
+  String get loadFromRemoteUrl => 'Open dzpx from URL';
 
   @override
-  String get createNewKeepass => 'New to KeePass?\nCreate New Password Database';
+  String get createNewKeepass => 'New to DZPass?\nCreate New Password Database';
 
   @override
   String get labelLastOpenFiles => 'Last opened files:';
@@ -129,7 +129,7 @@ class AppLocalizationsEt extends AppLocalizations {
   String get preferenceTitle => 'Preferences';
 
   @override
-  String get aboutAppName => 'AuthPass';
+  String get aboutAppName => 'ProxiPass';
 
   @override
   String get aboutLinkFeedback => 'We welcome any kind of feedback!';
@@ -305,7 +305,7 @@ class AppLocalizationsEt extends AppLocalizations {
   String get internalFile => 'Internal file';
 
   @override
-  String get internalFileSubtitle => 'Database previously created with AuthPass';
+  String get internalFileSubtitle => 'Database previously created with ProxiPass';
 
   @override
   String get filePicker => 'File Picker';

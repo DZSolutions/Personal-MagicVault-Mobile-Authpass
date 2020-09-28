@@ -75,7 +75,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get loadFromUrl => 'Загрузить из URL';
 
   @override
-  String get loadFromRemoteUrl => 'Open kdbx from URL';
+  String get loadFromRemoteUrl => 'Open dzpx from URL';
 
   @override
   String get createNewKeepass => 'Впервые в KeePass?\nСоздать новую базу данных паролей';
@@ -305,7 +305,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get internalFile => 'Internal file';
 
   @override
-  String get internalFileSubtitle => 'Database previously created with AuthPass';
+  String get internalFileSubtitle => 'Database previously created with ProxiPass';
 
   @override
   String get filePicker => 'File Picker';

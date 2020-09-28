@@ -75,7 +75,7 @@ class AppLocalizationsLt extends AppLocalizations {
   String get loadFromUrl => 'Atsisiųsti iš URL';
 
   @override
-  String get loadFromRemoteUrl => 'Open kdbx from URL';
+  String get loadFromRemoteUrl => 'Open dzpx from URL';
 
   @override
   String get createNewKeepass => 'Esate naujas „KeePass“ programoje?\nSukurti naują slaptažodžių duomenų bazę';

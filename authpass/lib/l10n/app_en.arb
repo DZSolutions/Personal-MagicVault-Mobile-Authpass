@@ -45,7 +45,7 @@
     "description": "language switcher subtitle"
   },
 
-  "selectKeepassFile": "AuthPass - Select KeePass File",
+  "selectKeepassFile": "ProxiPass - Select DZPass File",
   "@selectKeepassFile": {
     "context": "appbar title - select file screen"
   },
@@ -54,7 +54,7 @@
     "context": "select file screen"
   },
 
-  "selectKeepassFileLabel": "Please select a KeePass (.kdbx) file.",
+  "selectKeepassFileLabel": "Please select a DZPass (.dzpx) file.",
   "@selectKeepassFileLabel": {
     "context": "select file screen, used as label."
   },
@@ -86,12 +86,12 @@
   "@loadFromUrl": {
     "description": "deprecated"
   },
-  "loadFromRemoteUrl": "Open kdbx from URL",
+  "loadFromRemoteUrl": "Open dzpx from URL",
   "@loadFromRemoteUrl": {
-    "description": "Overflow menu option to load KeePass file from URL."
+    "description": "Overflow menu option to load DZPass file from URL."
   },
 
-  "createNewKeepass": "New to KeePass?\nCreate New Password Database",
+  "createNewKeepass": "New to DZPass?\nCreate New Password Database",
   "@createNewKeepass": {
     "description": "deprecated"
   },
@@ -132,7 +132,7 @@
   "@preferenceAutoFillDescription": {},
   "preferenceTitle": "Preferences",
   "@preferenceTitle": {},
-  "aboutAppName": "AuthPass",
+  "aboutAppName": "ProxiPass",
   "@aboutAppName": {},
   "aboutLinkFeedback": "We welcome any kind of feedback!",
   "@aboutLinkFeedback": {},
@@ -352,12 +352,12 @@
   },
   "internalFile": "Internal file",
   "@internalFile": {
-    "description": "Choose a file previously created in AuthPass app sandbox",
+    "description": "Choose a file previously created in ProxiPass app sandbox",
     "context": "open file picker: internal file vs. file picker"
   },
-  "internalFileSubtitle": "Database previously created with AuthPass",
+  "internalFileSubtitle": "Database previously created with ProxiPass",
   "@internalFileSubtitle": {
-    "description": "Choose a file previously created in AuthPass app sandbox",
+    "description": "Choose a file previously created in ProxiPass app sandbox",
     "context": "open file picker: internal file vs. file picker"
   },
   "filePicker": "File Picker",
@@ -372,7 +372,7 @@
   },
   "credentialsAppBarTitle": "Credentials",
   "@credentialsAppBarTitle": {
-    "description": "Credential screen to enter master password when opening kdbx file.",
+    "description": "Credential screen to enter master password when opening dzpx file.",
     "context": "credential screen"
   },
   "credentialLabel": "Enter the password for:",
@@ -548,7 +548,7 @@
   },
   "nameNewPasswordDatabase": "Name of your new Database",
   "@nameNewPasswordDatabase": {
-    "description": "creating new kdbx file, prompt"
+    "description": "creating new dzpx file, prompt"
   },
   "validatorNameMissing": "Please enter a name for your new database.",
   "@validatorNameMissing": {

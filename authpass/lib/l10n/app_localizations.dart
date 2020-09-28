@@ -175,7 +175,7 @@ abstract class AppLocalizations {
   // deprecated
   String get loadFromUrl;
 
-  // Overflow menu option to load KeePass file from URL.
+  // Overflow menu option to load DZPass file from URL.
   String get loadFromRemoteUrl;
 
   // deprecated
@@ -382,10 +382,10 @@ abstract class AppLocalizations {
   // credential screen while unlocking file.
   String get loadingFile;
 
-  // Choose a file previously created in AuthPass app sandbox
+  // Choose a file previously created in ProxiPass app sandbox
   String get internalFile;
 
-  // Choose a file previously created in AuthPass app sandbox
+  // Choose a file previously created in ProxiPass app sandbox
   String get internalFileSubtitle;
 
   // Choose a file with the system's file picker. (ios/android)
@@ -394,7 +394,7 @@ abstract class AppLocalizations {
   // Choose a file with the system's file picker. (ios/android)
   String get filePickerSubtitle;
 
-  // Credential screen to enter master password when opening kdbx file.
+  // Credential screen to enter master password when opening dzpx file.
   String get credentialsAppBarTitle;
 
   // Label for the file/database being opened
@@ -508,7 +508,7 @@ abstract class AppLocalizations {
   // 
   String get createPasswordDatabase;
 
-  // creating new kdbx file, prompt
+  // creating new dzpx file, prompt
   String get nameNewPasswordDatabase;
 
   // Error message when no password database name is given.
