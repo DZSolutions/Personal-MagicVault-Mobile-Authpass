@@ -52,25 +52,18 @@ import 'package:tuple/tuple.dart';
 final _logger = Logger('entry_details');
 
 class EntryDetailsScreen extends StatefulWidget {
-  const EntryDetailsScreen(
-      {Key key, @required this.entry, this.isNewOnCreated = false})
-      : super(key: key);
+  const EntryDetailsScreen({Key key, @required this.entry}) : super(key: key);
 
-  static Route<void> route(
-          {@required KdbxEntry entry, bool isNewOnCreated = false}) =>
-      MaterialPageRoute(
-          settings: const RouteSettings(name: '/entry'),
-          builder: (context) => EntryDetailsScreen(
-                entry: entry,
-                isNewOnCreated: isNewOnCreated,
-              ));
+  static Route<void> route({@required KdbxEntry entry}) => MaterialPageRoute(
+      settings: const RouteSettings(name: '/entry'),
+      builder: (context) => EntryDetailsScreen(
+            entry: entry,
+          ));
 
   final KdbxEntry entry;
-  final bool isNewOnCreated;
 
   @override
-  _EntryDetailsScreenState createState() =>
-      _EntryDetailsScreenState(isNewOnCreated);
+  _EntryDetailsScreenState createState() => _EntryDetailsScreenState();
 }
 
 class _EntryDetailsScreenState extends State<EntryDetailsScreen>
@@ -78,7 +71,7 @@ class _EntryDetailsScreenState extends State<EntryDetailsScreen>
         TaskStateMixin<EntryDetailsScreen>,
         StreamSubscriberMixin<EntryDetailsScreen>,
         KdbxObjectSavableStateMixin<EntryDetailsScreen> {
-  _EntryDetailsScreenState(this.isNewOnCreated);
+  _EntryDetailsScreenState();
 
   @override
   KdbxFile get file => widget.entry.file;
@@ -86,8 +79,6 @@ class _EntryDetailsScreenState extends State<EntryDetailsScreen>
   Changeable get kdbxObject => widget.entry;
   @override
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  bool isNewOnCreated;
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +110,7 @@ class _EntryDetailsScreenState extends State<EntryDetailsScreen>
                   title: Text('Delete'),
                 ),
                 value: () {
-                  final oldGroup = entry.parent;
+                  final oldGroup = entry.parent; // for undo
                   entry.file.deleteEntry(entry);
                   entry.file.save();
                   Navigator.pop(context);
