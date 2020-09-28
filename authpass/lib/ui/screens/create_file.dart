@@ -35,7 +35,6 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
   final TextEditingController _databaseName = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final FocusNode _passwordFocus = FocusNode();
-
   Result _strength;
 
   @override
@@ -51,6 +50,7 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context);
     final theme = Theme.of(context);
+    bool _checked = true;
     return Scaffold(
       appBar: AppBar(
         title: Text(loc.createPasswordDatabase),
@@ -115,6 +115,19 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
                 Text(
                   'The master password is used to securely encrypt your password database. Make sure to remember it, it can not be restored.',
                   style: Theme.of(context).textTheme.caption,
+                ),
+                CheckboxListTile(
+                  title: Text('Protected by NFC'),
+                  secondary: Icon(Icons.nfc),
+                  controlAffinity: ListTileControlAffinity.platform,
+                  value: _checked,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _checked = value;
+                    });
+                  },
+                  activeColor: Colors.grey,
+                  checkColor: Colors.black,
                 ),
                 Container(
                   padding: const EdgeInsets.only(top: 8),
