@@ -1225,7 +1225,9 @@ class PasswordEntryTile extends StatelessWidget {
     final theme = Theme.of(context);
     final isDarkTheme = theme.brightness == Brightness.dark;
     final fgColor = isSelected
-        ? isDarkTheme ? theme.primaryColorLight : theme.primaryColorDark
+        ? isDarkTheme
+            ? theme.primaryColorLight
+            : theme.primaryColorDark
         : null;
     final iconTheme = IconTheme.of(context);
     final size = iconTheme.size * 1.5;

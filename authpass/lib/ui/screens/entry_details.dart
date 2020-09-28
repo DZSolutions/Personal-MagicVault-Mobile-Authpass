@@ -107,17 +107,19 @@ class _EntryDetailsScreenState extends State<EntryDetailsScreen>
                 value: () {
                   final oldGroup = entry.parent;
                   entry.file.deleteEntry(entry);
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                    content: const Text('Deleted entry.'),
-                    action: SnackBarAction(
-                        label: 'Undo',
-                        onPressed: () {
-                          entry.file.move(entry, oldGroup);
-                        }),
-                  ));
+                  entry.file.save();
+                  Navigator.pop(context);
+                  // Scaffold.of(context).showSnackBar(SnackBar(
+                  //   content: const Text('Deleted entry.'),
+                  //   action: SnackBarAction(
+                  //       label: 'Undo',
+                  //       onPressed: () {
+                  //         entry.file.move(entry, oldGroup);
+                  //       }),
+                  // ));
                 },
               ),
-              ...?env.isDebug
+              ...?!env.isDebug
                   ? null
                   : [
                       PopupMenuItem(
@@ -156,7 +158,7 @@ class _EntryDetailsScreenState extends State<EntryDetailsScreen>
           if (!isDirty && !entry.isDirty) {
             return true;
           }
-          return await DialogUtils.showConfirmDialog(
+          return DialogUtils.showConfirmDialog(
             context: context,
             params: ConfirmDialogParams(
                 title: 'Unsaved Changes',
@@ -1226,10 +1228,14 @@ class _EntryFieldState extends State<EntryField>
         child: ListTile(
           leading: Icon(_isProtected
               ? Icons.no_encryption
-              : _isNFC ? Icons.no_encryption : Icons.enhanced_encryption),
+              : _isNFC
+                  ? Icons.no_encryption
+                  : Icons.enhanced_encryption),
           title: Text(_isProtected
               ? loc.fieldUnprotect
-              : _isNFC ? loc.fieldUnprotect : loc.fieldProtect),
+              : _isNFC
+                  ? loc.fieldUnprotect
+                  : loc.fieldProtect),
         ),
       ),
       PopupMenuItem(
@@ -1385,7 +1391,9 @@ class _EntryFieldState extends State<EntryField>
       onSaved: (value) {
         final newValue = _isProtected
             ? ProtectedValue.fromString(value)
-            : _isNFC ? NFCValue.fromString(value) : PlainValue(value);
+            : _isNFC
+                ? NFCValue.fromString(value)
+                : PlainValue(value);
         _fieldValue = newValue;
       },
       fieldKey: widget.fieldKey,
