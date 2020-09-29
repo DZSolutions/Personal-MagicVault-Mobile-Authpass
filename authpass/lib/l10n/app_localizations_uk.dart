@@ -543,7 +543,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get onboardingHeadline => 'Let\'s make your Passwords Secure!';
 
   @override
-  String get onboardingQuestion => 'Have you used a password manager before?';
+  String get onboardingQuestion => 'Have you used a MagicVault before?';
 
   @override
   String get onboardingYesOpenPasswords => 'Так, відкрити мої паролі';

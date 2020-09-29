@@ -166,27 +166,27 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
                 FlatButton(
                   child: const Text('Continue'),
                   onPressed: () async {
-                    String passwordText;
-                    await NfcManager.instance.startSession(
-                        onDiscovered: (tag) async {
-                      final card = IsoDep.from(tag);
-                      await card.transceive(
-                          data: Uint8List.fromList(
-                              '00A4040C0Aa00000006203010c0701'.toListHex()));
-                      final passwordlenhex = _password.text.length
-                          .toRadixString(16)
-                          .padLeft(2, '0');
-                      final r = await card.transceive(
-                          data: Uint8List.fromList(
-                              'B0010000$passwordlenhex'.toListHex()
-                                ..addAll(_password.text.codeUnits)));
-                      print(r);
-                      passwordText =
-                          String.fromCharCodes(r.sublist(0, r.length - 2));
-                    });
+                    // String passwordText;
+                    // await NfcManager.instance.startSession(
+                    //     onDiscovered: (tag) async {
+                    //   final card = IsoDep.from(tag);
+                    //   await card.transceive(
+                    //       data: Uint8List.fromList(
+                    //           '00A4040C0Aa00000006203010c0701'.toListHex()));
+                    //   final passwordlenhex = _password.text.length
+                    //       .toRadixString(16)
+                    //       .padLeft(2, '0');
+                    //   final r = await card.transceive(
+                    //       data: Uint8List.fromList(
+                    //           'B0010000$passwordlenhex'.toListHex()
+                    //             ..addAll(_password.text.codeUnits)));
+                    //   print(r);
+                    //   passwordText =
+                    //       String.fromCharCodes(r.sublist(0, r.length - 2));
+                    // });
                     try {
                       final created = await kdbxBloc.createFile(
-                        password: passwordText,
+                        password: _password.text,
                         databaseName: _databaseName.text,
                         openAfterCreate: true,
                       );

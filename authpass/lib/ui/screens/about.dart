@@ -58,7 +58,7 @@ class AuthPassAboutDialog extends StatelessWidget {
               ),
               UrlLink(
                 caption: loc.aboutLinkGitHub,
-                url: 'https://github.com/dzsolutions/proxipass/',
+                url: 'https://google.com/',
               ),
               const SizedBox(height: 32),
               Text(

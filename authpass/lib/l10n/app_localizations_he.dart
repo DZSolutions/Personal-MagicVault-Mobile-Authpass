@@ -138,7 +138,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get aboutLinkVisitWebsite => 'Also make sure to visit our website';
 
   @override
-  String get aboutLinkGitHub => 'And Open Source Project';
+  String get aboutLinkGitHub => 'Test Test Test Test Test';
 
   @override
   String aboutLogFile(String logFilePath) {
@@ -541,7 +541,7 @@ class AppLocalizationsHe extends AppLocalizations {
   String get onboardingHeadline => 'Let\'s make your Passwords Secure!';
 
   @override
-  String get onboardingQuestion => 'Have you used a password manager before?';
+  String get onboardingQuestion => 'Have you used a MagicVault before?';
 
   @override
   String get onboardingYesOpenPasswords => 'Yes, open my passwords';

@@ -96,7 +96,7 @@ class FileSourceCloudStorage extends FileSource {
         yield FileContent(content, cacheInfo.metadata, FileContentSource.cache);
       }
     } catch (e, stackTrace) {
-      _logger.severe('Error while loading cached kdbx file', e, stackTrace);
+      _logger.severe('Error while loading cached dzpx file', e, stackTrace);
     }
 
     // after cache got loaded, download new version.

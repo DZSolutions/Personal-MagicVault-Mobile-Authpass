@@ -50,7 +50,8 @@ class AuthPassTheme {
     Colors.black,
   ];
   static const defaultColorOrder = [
-    Colors.teal,
+    //DEFAULT COLOR
+    Colors.green,
     Colors.orange,
     Colors.blueGrey,
     Colors.deepPurple,

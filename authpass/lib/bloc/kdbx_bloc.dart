@@ -529,13 +529,13 @@ class KdbxBloc {
   static Future<ReadFileResponse> readKdbxFile(
       KdbxFormat kdbxFormat, KdbxReadArgs readArgs) async {
     try {
-      _logger.finer('reading kdbx file ...');
+      _logger.finer('reading dzpx file ...');
       final fileContent = readArgs.content;
       final kdbxFile = await kdbxFormat.read(fileContent, readArgs.credentials);
       _logger.finer('done reading');
       return ReadFileResponse(kdbxFile, null, null);
     } catch (e, stackTrace) {
-      _logger.warning('Error while reading kdbx file.', e, stackTrace);
+      _logger.warning('Error while reading dzpx file.', e, stackTrace);
       return ReadFileResponse(null, e.toString(), e.runtimeType.toString());
     }
   }
@@ -554,7 +554,7 @@ class KdbxBloc {
     final kdbxFile = kdbxFormat.create(
       credentials,
       databaseName,
-      generator: 'AuthPass',
+      generator: 'ProxiPass',
     );
     final localSource = await _localFileSourceForDbName(databaseName);
     await localSource.file
@@ -623,7 +623,7 @@ class KdbxBloc {
   KdbxOpenedFile fileForKdbxFile(KdbxFile file) =>
       _openedFilesByKdbxFile[file] ??
       (() {
-        throw StateError('Missing file source for kdbxFile.');
+        throw StateError('Missing file source for dzpxFile.');
       })();
 
   KdbxOpenedFile fileForFileSource(FileSource fileSource) =>

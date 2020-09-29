@@ -63,7 +63,7 @@ abstract class Env {
 
   /// app name ;) basically it's just here so I don't have to translate it.
   static const AuthPass = 'MagicVault'; // NON-NLS
-  static const AuthPassCloud = 'AuthPass Cloud'; // NON-NLS
+  static const AuthPassCloud = 'MagicVault Cloud'; // NON-NLS
   static const KeePassExtension = 'dzpx'; // NON-NLS
 
   static Env value;
@@ -71,7 +71,8 @@ abstract class Env {
   final EnvType type;
   EnvSecrets get secrets;
 
-  String get diacEndpoint => 'https://cloud.authpass.app/diac'; // NON-NLS
+  // String get diacEndpoint => 'https://cloud.authpass.app/diac'; // NON-NLS
+  String get diacEndpoint => 'https://google.com'; // NON-NLS
 
   bool get diacHidden => false;
 

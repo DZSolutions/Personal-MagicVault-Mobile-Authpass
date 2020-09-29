@@ -544,7 +544,7 @@ abstract class AppLocalizations {
   // dialog body for error message when creating a new database with a name which already exists.
   String databaseExistsErrorDescription(Object filePath);
 
-  // Default database name when creating a new database file. (WITHOUT .kdbx extension)
+  // Default database name when creating a new database file. (WITHOUT .dzpx extension)
   String get databaseCreateDefaultName;
 
   // preferences: dynamically load website icons
