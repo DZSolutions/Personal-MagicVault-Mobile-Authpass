@@ -25,10 +25,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get fieldTotp => 'Einmalpasswort (Zeitbasiert)';
 
   @override
-  String get english => 'English';
+  String get english => 'Englisch';
 
   @override
-  String get german => 'German';
+  String get german => 'Deutsch';
 
   @override
   String get russian => 'Russian';

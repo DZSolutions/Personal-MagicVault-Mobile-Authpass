@@ -110,16 +110,19 @@ class PasswordList extends StatelessWidget {
 
   static const routeSettings = RouteSettings(name: '/passwordList');
 
+  static Widget phonePasswordList(BuildContext context) {
+    return PasswordList(
+      onEntrySelected: (entry, type) {
+        if (type == EntrySelectionType.activeOpen) {
+          Navigator.of(context).push(EntryDetailsScreen.route(entry: entry));
+        }
+      },
+    );
+  }
+
   static Route<void> route() => MaterialPageRoute(
         settings: routeSettings,
-        builder: (context) => PasswordList(
-          onEntrySelected: (entry, type) {
-            if (type == EntrySelectionType.activeOpen) {
-              Navigator.of(context)
-                  .push(EntryDetailsScreen.route(entry: entry));
-            }
-          },
-        ),
+        builder: (context) => phonePasswordList(context),
       );
 
   final KdbxEntry selectedEntry;
