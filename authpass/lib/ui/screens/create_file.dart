@@ -6,13 +6,12 @@ import 'package:authpass/ui/widgets/password_input_field.dart';
 import 'package:authpass/ui/widgets/primary_button.dart';
 import 'package:authpass/utils/dialog_utils.dart';
 import 'package:authpass/utils/extension_methods.dart';
+import 'package:authpass/utils/nfclib.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_async_utils/flutter_async_utils.dart';
 import 'package:logging/logging.dart';
-import 'package:nfc_manager/nfc_manager.dart';
-import 'package:nfc_manager/platform_tags.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
 // ignore: implementation_imports
@@ -157,69 +156,31 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
         if (_formKey.currentState.validate()) {
           final kdbxBloc = Provider.of<KdbxBloc>(context, listen: false);
           //nfc
-          await showDialog<void>(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Register NFC Card'),
-              content: const Text('Please tap NFC Card'),
-              actions: [
-                FlatButton(
-                  child: const Text('Continue'),
-                  onPressed: () async {
-                    // String passwordText;
-                    // await NfcManager.instance.startSession(
-                    //     onDiscovered: (tag) async {
-                    //   final card = IsoDep.from(tag);
-                    //   await card.transceive(
-                    //       data: Uint8List.fromList(
-                    //           '00A4040C0Aa00000006203010c0701'.toListHex()));
-                    //   final passwordlenhex = _password.text.length
-                    //       .toRadixString(16)
-                    //       .padLeft(2, '0');
-                    //   final r = await card.transceive(
-                    //       data: Uint8List.fromList(
-                    //           'B0010000$passwordlenhex'.toListHex()
-                    //             ..addAll(_password.text.codeUnits)));
-                    //   print(r);
-                    //   passwordText =
-                    //       String.fromCharCodes(r.sublist(0, r.length - 2));
-                    // });
-                    try {
-                      final created = await kdbxBloc.createFile(
-                        password: _password.text,
-                        databaseName: _databaseName.text,
-                        openAfterCreate: true,
-                      );
-                      assert(created != null);
-                      await Navigator.of(context).pushAndRemoveUntil(
-                          MainAppScaffold.route(), (route) => false);
-                    } on FileExistsException catch (e, stackTrace) {
-                      _logger.warning(
-                          'Showing file exists error dialog.', e, stackTrace);
-                      final loc = AppLocalizations.of(context);
-                      await DialogUtils.showSimpleAlertDialog(
-                        context,
-                        loc.databaseExistsError,
-                        loc.databaseExistsErrorDescription(e.path),
-                        routeAppend: 'createFileExists',
-                      );
-                    } catch (e, stackTrace) {
-                      _logger.severe(
-                          'Error while creating file.', e, stackTrace);
-                      rethrow;
-                    }
-                    Navigator.pop(context);
-                  },
-                ),
-                FlatButton(
-                    child: const Text('Cancel'),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      return;
-                    }),
-              ],
-            ),
-          );
+
+          await init(context: context, masterPasswordHash: _password.text);
+
+          try {
+            final created = await kdbxBloc.createFile(
+              password: _password.text,
+              databaseName: _databaseName.text,
+              openAfterCreate: true,
+            );
+            assert(created != null);
+            await Navigator.of(context)
+                .pushAndRemoveUntil(MainAppScaffold.route(), (route) => false);
+          } on FileExistsException catch (e, stackTrace) {
+            _logger.warning('Showing file exists error dialog.', e, stackTrace);
+            final loc = AppLocalizations.of(context);
+            await DialogUtils.showSimpleAlertDialog(
+              context,
+              loc.databaseExistsError,
+              loc.databaseExistsErrorDescription(e.path),
+              routeAppend: 'createFileExists',
+            );
+          } catch (e, stackTrace) {
+            _logger.severe('Error while creating file.', e, stackTrace);
+            rethrow;
+          }
         }
       });
 }

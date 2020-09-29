@@ -26,6 +26,7 @@ import 'package:authpass/utils/format_utils.dart';
 import 'package:authpass/utils/path_utils.dart';
 import 'package:authpass/utils/platform.dart';
 import 'package:authpass/utils/theme_utils.dart';
+import 'package:authpass/utils/nfclib.dart';
 import 'package:biometric_storage/biometric_storage.dart';
 import 'package:file_chooser/file_chooser.dart';
 import 'package:file_picker_writable/file_picker_writable.dart';
@@ -995,6 +996,7 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
 
   Future<void> _tryUnlock() async {
     if (_formKey.currentState.validate()) {
+      await init(context: context, masterPasswordHash: _controller.text);
       final deps = Provider.of<Deps>(context, listen: false);
       final loc = AppLocalizations.of(context);
       final analytics = deps.analytics;
