@@ -1015,7 +1015,7 @@ class _EntryFieldState extends State<EntryField>
   }
 
   void _focusNodeChanged() {
-    if (!_isProtected) {
+    if (!_isProtected && !_isNFC) {
       return;
     }
     _logger.info(
@@ -1024,12 +1024,13 @@ class _EntryFieldState extends State<EntryField>
       setState(() {
         if (_fieldValue is ProtectedValue) {
           _fieldValue = ProtectedValue.fromString(_controller.text);
+          _isValueObscured = true;
         }
         if (_fieldValue is NFCValue) {
           _fieldValue = NFCValue.fromString(_controller.text);
+          _isValueObscured = true;
           _isValueFilteredNFC = true;
         }
-        _isValueObscured = true;
         _logger.finer(
             '${widget.fieldKey} _isProtected= $_isValueObscured _isNFC= $_isValueFilteredNFC');
       });
@@ -1147,6 +1148,10 @@ class _EntryFieldState extends State<EntryField>
       case EntryAction.protect:
         setState(() {
           if (_isProtected) {
+            _fieldValue = PlainValue(_valueCurrent ?? '');
+            _isValueObscured = false;
+            _isValueFilteredNFC = false;
+          } else if (_isNFC) {
             _fieldValue = PlainValue(_valueCurrent ?? '');
             _isValueObscured = false;
             _isValueFilteredNFC = false;
