@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ProxiPass Debug</string>
-    <string name="autofill_service_label">ProxiPass Autofill Debug</string>
+    <string name="app_name">MagicVault Debug</string>
+    <string name="autofill_service_label">MagicVault Autofill Debug</string>
 </resources>

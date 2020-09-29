@@ -187,7 +187,7 @@ abstract class AppLocalizations {
   // deprecated
   String get loadFromUrl;
 
-  // Overflow menu option to load DZPass file from URL.
+  // Overflow menu option to load a file from URL.
   String get loadFromRemoteUrl;
 
   // deprecated
@@ -394,10 +394,10 @@ abstract class AppLocalizations {
   // credential screen while unlocking file.
   String get loadingFile;
 
-  // Choose a file previously created in ProxiPass app sandbox
+  // Choose a file previously created in MagicVault app sandbox
   String get internalFile;
 
-  // Choose a file previously created in ProxiPass app sandbox
+  // Choose a file previously created in MagicVault app sandbox
   String get internalFileSubtitle;
 
   // Choose a file with the system's file picker. (ios/android)

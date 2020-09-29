@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>ProxiPass</string>
+	<string>MagicVault</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -15,7 +15,7 @@
 				<string>kdbx_doc_type</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>DZPass</string>
+			<string>ProxiPass</string>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>LSHandlerRank</key>
@@ -98,7 +98,7 @@
 				<string>public.data</string>
 			</array>
 			<key>UTTypeDescription</key>
-			<string>DZPass password database</string>
+			<string>ProxiPass password database</string>
 			<key>UTTypeIconFiles</key>
 			<array>
 				<string>kdbx_doc_type</string>

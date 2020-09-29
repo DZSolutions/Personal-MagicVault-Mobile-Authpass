@@ -21,7 +21,7 @@ class AuthPassCloudAuthScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ProxiPass Cloud'),
+        title: const Text('MagicVault Cloud'),
       ),
       body: Center(
         child: Container(
@@ -79,7 +79,7 @@ class __EnterEmailAddressState extends State<_EnterEmailAddress>
         children: <Widget>[
           LinkButton(
             child: const Text(
-              'ProxiPass Cloud\n'
+              'MagicVault Cloud\n'
               'For details visit https://authpass.app/docs/authpass-cloud/',
               textAlign: TextAlign.center,
             ),

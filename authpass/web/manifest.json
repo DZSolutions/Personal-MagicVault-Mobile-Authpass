@@ -1,11 +1,11 @@
 {
-    "name": "ProxiPass",
-    "short_name": "ProxiPass",
+    "name": "MagicVault",
+    "short_name": "MagicVault",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#626BC6",
     "theme_color": "#626BC6",
-    "description": "ProxiPass - Cross Platform Password Manager.",
+    "description": "MagicVault - Cross Platform Password Manager.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

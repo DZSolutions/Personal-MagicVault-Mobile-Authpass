@@ -129,7 +129,7 @@ class AppLocalizationsUk extends AppLocalizations {
   String get preferenceTitle => 'Налаштування';
 
   @override
-  String get aboutAppName => 'AuthPass';
+  String get aboutAppName => 'MagicVault';
 
   @override
   String get aboutLinkFeedback => 'Ми раді будь-яким відгукам!';

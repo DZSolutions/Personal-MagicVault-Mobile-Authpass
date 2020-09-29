@@ -49,13 +49,13 @@ class AppLocalizationsEt extends AppLocalizations {
   String get indonesian => 'Indonesian';
 
   @override
-  String get selectKeepassFile => 'ProxiPass - Select DZPass File';
+  String get selectKeepassFile => 'MagicVault - Select a File';
 
   @override
   String get quickUnlockingFiles => 'Quick unlocking files';
 
   @override
-  String get selectKeepassFileLabel => 'Please select a DZPass (.dzpx) file.';
+  String get selectKeepassFileLabel => 'Please select a ProxiPass file (.dzpx) file.';
 
   @override
   String get createNewFile => 'Create New File';
@@ -78,7 +78,7 @@ class AppLocalizationsEt extends AppLocalizations {
   String get loadFromRemoteUrl => 'Open dzpx from URL';
 
   @override
-  String get createNewKeepass => 'New to DZPass?\nCreate New Password Database';
+  String get createNewKeepass => 'New to a?\nCreate New Password Database';
 
   @override
   String get labelLastOpenFiles => 'Last opened files:';
@@ -129,7 +129,7 @@ class AppLocalizationsEt extends AppLocalizations {
   String get preferenceTitle => 'Preferences';
 
   @override
-  String get aboutAppName => 'ProxiPass';
+  String get aboutAppName => 'MagicVault';
 
   @override
   String get aboutLinkFeedback => 'We welcome any kind of feedback!';
@@ -305,7 +305,7 @@ class AppLocalizationsEt extends AppLocalizations {
   String get internalFile => 'Internal file';
 
   @override
-  String get internalFileSubtitle => 'Database previously created with ProxiPass';
+  String get internalFileSubtitle => 'Database previously created with MagicVault';
 
   @override
   String get filePicker => 'File Picker';

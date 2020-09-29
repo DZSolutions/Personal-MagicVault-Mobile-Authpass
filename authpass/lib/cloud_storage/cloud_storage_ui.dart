@@ -111,7 +111,7 @@ class CloudStorageAuthentication extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'You will be redirected to authenticate ProxiPass to access your data.',
+            'You will be redirected to authenticate MagicVault to access your data.',
             style: Theme.of(context).textTheme.caption,
             textAlign: TextAlign.center,
           ),

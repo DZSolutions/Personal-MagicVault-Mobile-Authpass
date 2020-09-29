@@ -129,7 +129,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get preferenceTitle => 'Настройки';
 
   @override
-  String get aboutAppName => 'AuthPass';
+  String get aboutAppName => 'MagicVault';
 
   @override
   String get aboutLinkFeedback => 'Мы рады любым отзывам!';
@@ -305,7 +305,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get internalFile => 'Internal file';
 
   @override
-  String get internalFileSubtitle => 'Database previously created with ProxiPass';
+  String get internalFileSubtitle => 'Database previously created with MagicVault';
 
   @override
   String get filePicker => 'File Picker';

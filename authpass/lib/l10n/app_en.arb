@@ -45,7 +45,7 @@
     "description": "language switcher subtitle"
   },
 
-  "selectKeepassFile": "ProxiPass - Select DZPass File",
+  "selectKeepassFile": "MagicVault - Select a File",
   "@selectKeepassFile": {
     "context": "appbar title - select file screen"
   },
@@ -54,7 +54,7 @@
     "context": "select file screen"
   },
 
-  "selectKeepassFileLabel": "Please select a DZPass (.dzpx) file.",
+  "selectKeepassFileLabel": "Please select a ProxiPass file (.dzpx) file.",
   "@selectKeepassFileLabel": {
     "context": "select file screen, used as label."
   },
@@ -88,10 +88,10 @@
   },
   "loadFromRemoteUrl": "Open dzpx from URL",
   "@loadFromRemoteUrl": {
-    "description": "Overflow menu option to load DZPass file from URL."
+    "description": "Overflow menu option to load a file from URL."
   },
 
-  "createNewKeepass": "New to DZPass?\nCreate New Password Database",
+  "createNewKeepass": "New to a?\nCreate New Password Database",
   "@createNewKeepass": {
     "description": "deprecated"
   },
@@ -132,7 +132,7 @@
   "@preferenceAutoFillDescription": {},
   "preferenceTitle": "Preferences",
   "@preferenceTitle": {},
-  "aboutAppName": "ProxiPass",
+  "aboutAppName": "MagicVault",
   "@aboutAppName": {},
   "aboutLinkFeedback": "We welcome any kind of feedback!",
   "@aboutLinkFeedback": {},
@@ -352,12 +352,12 @@
   },
   "internalFile": "Internal file",
   "@internalFile": {
-    "description": "Choose a file previously created in ProxiPass app sandbox",
+    "description": "Choose a file previously created in MagicVault app sandbox",
     "context": "open file picker: internal file vs. file picker"
   },
-  "internalFileSubtitle": "Database previously created with ProxiPass",
+  "internalFileSubtitle": "Database previously created with MagicVault",
   "@internalFileSubtitle": {
-    "description": "Choose a file previously created in ProxiPass app sandbox",
+    "description": "Choose a file previously created in MagicVault app sandbox",
     "context": "open file picker: internal file vs. file picker"
   },
   "filePicker": "File Picker",

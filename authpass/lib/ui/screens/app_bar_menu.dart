@@ -120,8 +120,9 @@ class AppBarMenu {
         ),
         value: () async {
           analytics.events.trackActionPressed(action: 'help');
-          await DialogUtils.openUrl('https://authpass.app/docs/?utm_source=app'
-              '&utm_medium=app_help&utm_campaign=app_help#documentation');
+          // await DialogUtils.openUrl('https://authpass.app/docs/?utm_source=app'
+          //     '&utm_medium=app_help&utm_campaign=app_help#documentation');
+          await DialogUtils.openUrl('https://www.dzcard.com/');
         },
       ),
       AuthPassAboutDialog.createAboutMenuItem(context),

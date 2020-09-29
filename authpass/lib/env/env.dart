@@ -8,7 +8,7 @@ import 'package:logging/logging.dart';
 
 final _logger = Logger('env');
 
-const _DEFAULT_APP_NAME = 'ProxiPass';
+const _DEFAULT_APP_NAME = 'MagicVault';
 const _DEFAULT_VERSION =
     String.fromEnvironment('AUTHPASS_VERSION', defaultValue: '1.0.0');
 const _DEFAULT_BUILD_NUMBER =

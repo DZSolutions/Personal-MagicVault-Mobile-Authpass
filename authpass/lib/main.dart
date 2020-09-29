@@ -231,7 +231,7 @@ class _AuthPassAppState extends State<AuthPassApp> with StreamSubscriberMixin {
   @override
   Widget build(BuildContext context) {
     // TODO generate localizations.
-    _logger.fine('Building ProxiPass App state. route: '
+    _logger.fine('Building MagicVault App state. route: '
         '${WidgetsBinding.instance.window.defaultRouteName}');
     return MultiProvider(
       providers: [
@@ -298,7 +298,7 @@ class _AuthPassAppState extends State<AuthPassApp> with StreamSubscriberMixin {
       ],
       child: MaterialApp(
         navigatorObservers: [AnalyticsNavigatorObserver(_deps.analytics)],
-        title: 'ProxiPass',
+        title: 'MagicVault',
         navigatorKey: widget.navigatorKey,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales:
@@ -440,7 +440,7 @@ class _AuthPassAppState extends State<AuthPassApp> with StreamSubscriberMixin {
                     DiacMessage(
                       uuid: 'e7373fa7-a793-4ed5-a2d1-d0a037ad778a',
                       body:
-                          'Hello ${widget.env is FDroid ? 'F-Droid user' : 'there'}, thanks for using ProxiPass! '
+                          'Hello ${widget.env is FDroid ? 'F-Droid user' : 'there'}, thanks for using MagicVault! '
                           'I would love to occasionally display relevant news, surveys, etc (like this one ;), '
                           'no ads, spam, etc). You can disable it anytime.',
                       key: 'ask-opt-in',

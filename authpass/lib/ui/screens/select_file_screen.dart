@@ -308,7 +308,7 @@ class _SelectFileWidgetState extends State<SelectFileWidget>
                   ? [
                       const SizedBox(height: 16),
                       Text(
-                        'ProxiPass requires permission to communicate with '
+                        'MagicVault requires permission to communicate with '
                         'Secret Service to store credentials for cloud storage.\n'
                         'Please run the following command:',
                         textAlign: TextAlign.center,
@@ -1069,7 +1069,7 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
           result: TryUnlockResult.failure,
           errorTitle: loc.errorUnlockFileTitle,
           errorBody:
-              'In order to import the Keepass file KDB* files, Please use ProxiPass desktop version and create a new ProxiPass database file (.dzpx) first then click "File" -> "Import" in the main menu. In the import dialog, choose "Keepass (.kdbx)" as file format.',
+              'In order to import the Keepass file KDB* files, Please use MagicVault desktop version and create a new MagicVault database file (.dzpx) first then click "File" -> "Import" in the main menu. In the import dialog, choose "Keepass (.kdbx)" as file format.',
           stopWatch: stopWatch,
         );
       } finally {

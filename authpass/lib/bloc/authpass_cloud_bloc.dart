@@ -93,11 +93,13 @@ class AuthPassCloudBloc with ChangeNotifier {
 
   TokenStatus get tokenStatus => _storedToken?.isConfirmed == null
       ? TokenStatus.none
-      : _storedToken.isConfirmed ? TokenStatus.confirmed : TokenStatus.created;
+      : _storedToken.isConfirmed
+          ? TokenStatus.confirmed
+          : TokenStatus.created;
 
   Future<BiometricStorageFile> _getStorageFile() async {
     return await BiometricStorage().getStorage(
-      '${env.storageNamespace ?? ''}ProxiPassCloud',
+      '${env.storageNamespace ?? ''}MagicVaultCloud',
       options: StorageFileInitOptions(authenticationRequired: false),
     );
   }
