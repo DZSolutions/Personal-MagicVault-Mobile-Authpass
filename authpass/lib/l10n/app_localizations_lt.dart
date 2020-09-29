@@ -55,7 +55,7 @@ class AppLocalizationsLt extends AppLocalizations {
   String get quickUnlockingFiles => 'Greitas failų atrakinimas';
 
   @override
-  String get selectKeepassFileLabel => 'Prašome pasirinkti „KeePass“ (.kdbx) failą.';
+  String get selectKeepassFileLabel => 'Prašome pasirinkti „KeePass“ (.dzpx) failą.';
 
   @override
   String get createNewFile => 'Create New File';

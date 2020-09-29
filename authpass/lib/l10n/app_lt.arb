@@ -20,7 +20,7 @@
     "@quickUnlockingFiles": {
         "context": "select file screen"
     },
-    "selectKeepassFileLabel": "Prašome pasirinkti „KeePass“ (.kdbx) failą.",
+    "selectKeepassFileLabel": "Prašome pasirinkti „KeePass“ (.dzpx) failą.",
     "@selectKeepassFileLabel": {
         "context": "select file screen, used as label."
     },

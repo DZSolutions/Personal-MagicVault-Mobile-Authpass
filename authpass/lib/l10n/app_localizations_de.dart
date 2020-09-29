@@ -49,13 +49,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get indonesian => 'Indonesian';
 
   @override
-  String get selectKeepassFile => 'AuthPass - Wähle eine KeePass Datei';
+  String get selectKeepassFile => 'AuthPass - Wähle eine ProxiPass Datei';
 
   @override
   String get quickUnlockingFiles => 'Quick-Unlock Dateien';
 
   @override
-  String get selectKeepassFileLabel => 'Bitte wähle eine KeePass (.kdbx) Datei.';
+  String get selectKeepassFileLabel => 'Bitte wähle eine ProxiPass (.dzpx) Datei.';
 
   @override
   String get createNewFile => 'Create New File';

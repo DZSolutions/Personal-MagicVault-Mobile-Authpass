@@ -55,7 +55,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get quickUnlockingFiles => 'Desbloqueo rápido de archivos';
 
   @override
-  String get selectKeepassFileLabel => 'Por favor seleccione un archivo KeePass (.kdbx).';
+  String get selectKeepassFileLabel => 'Por favor seleccione un archivo ProxiPass (.dzpx).';
 
   @override
   String get createNewFile => 'Crear nuevo archivo';

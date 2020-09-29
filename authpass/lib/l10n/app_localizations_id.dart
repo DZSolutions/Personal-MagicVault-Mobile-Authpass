@@ -55,7 +55,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get quickUnlockingFiles => 'Buka cepat file';
 
   @override
-  String get selectKeepassFileLabel => 'Silahkan pilih file KeePass (.kdbx).';
+  String get selectKeepassFileLabel => 'Silahkan pilih fileProxiPass(.dzpx).';
 
   @override
   String get createNewFile => 'Pilih File Baru';

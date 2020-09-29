@@ -52,7 +52,7 @@
     "@quickUnlockingFiles": {
         "context": "select file screen"
     },
-    "selectKeepassFileLabel": "Por favor seleccione un archivo KeePass (.kdbx).",
+    "selectKeepassFileLabel": "Por favor seleccione un archivo ProxiPass (.dzpx).",
     "@selectKeepassFileLabel": {
         "context": "select file screen, used as label."
     },
@@ -83,7 +83,7 @@
     },
     "loadFromRemoteUrl": "Abrir kdbx desde URL",
     "@loadFromRemoteUrl": {
-        "description": "Overflow menu option to load KeePass file from URL."
+        "description": "Overflow menu option to load ProxiPass file from URL."
     },
     "createNewKeepass": "¿Nuevo en KeePass?\nCrear nueva base de datos de contraseñas",
     "@createNewKeepass": {

@@ -12,7 +12,7 @@
     "@fieldTotp": {
         "description": "Label for fields of TOTP (Time based one time passwords)"
     },
-    "selectKeepassFile": "AuthPass - виберіть KeePass файл",
+    "selectKeepassFile": "AuthPass - виберітьProxiPassфайл",
     "@selectKeepassFile": {
         "context": "appbar title - select file screen"
     },
@@ -20,7 +20,7 @@
     "@quickUnlockingFiles": {
         "context": "select file screen"
     },
-    "selectKeepassFileLabel": "Оберіть файл KeePass (.kdbx).",
+    "selectKeepassFileLabel": "Оберіть файлProxiPass(.dzpx).",
     "@selectKeepassFileLabel": {
         "context": "select file screen, used as label."
     },
@@ -47,7 +47,7 @@
     },
     "loadFromRemoteUrl": "Відкрити kdbx з URL-адреси",
     "@loadFromRemoteUrl": {
-        "description": "Overflow menu option to load KeePass file from URL."
+        "description": "Overflow menu option to loadProxiPassfile from URL."
     },
     "createNewKeepass": "Вперше у KeePass?\nСтворити нову базу паролів",
     "@createNewKeepass": {

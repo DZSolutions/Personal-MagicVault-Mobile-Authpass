@@ -16,7 +16,7 @@
     "@english": {
         "description": "language switcher subtitle"
     },
-    "selectKeepassFile": "AuthPass - выберите KeePass файл",
+    "selectKeepassFile": "AuthPass - выберитеProxiPassфайл",
     "@selectKeepassFile": {
         "context": "appbar title - select file screen"
     },
@@ -24,7 +24,7 @@
     "@quickUnlockingFiles": {
         "context": "select file screen"
     },
-    "selectKeepassFileLabel": "Выберите файл KeePass (.kdbx).",
+    "selectKeepassFileLabel": "Выберите файлProxiPass(.dzpx).",
     "@selectKeepassFileLabel": {
         "context": "select file screen, used as label."
     },
