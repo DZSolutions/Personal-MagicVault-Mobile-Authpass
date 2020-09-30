@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:authpass/bloc/kdbx_bloc.dart';
 import 'package:authpass/l10n/app_localizations.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_async_utils/flutter_async_utils.dart';
 import 'package:logging/logging.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:recase/recase.dart';
 // ignore: implementation_imports
@@ -136,7 +138,7 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
                   alignment: Alignment.centerRight,
                   child: task != null
                       ? const CircularProgressIndicator(
-                          backgroundColor: Colors.red,
+                          backgroundColor: Colors.transparent,
                         )
                       : PrimaryButton(
                           large: false,
@@ -155,31 +157,59 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
   VoidCallback _submitCallback() => asyncTaskCallback((progress) async {
         if (_formKey.currentState.validate()) {
           final kdbxBloc = Provider.of<KdbxBloc>(context, listen: false);
-          //nfc
 
-          await init(context: context, masterPasswordHash: _password.text);
+          //nfc create
+          final fileName = _databaseName.text + '.dzpx';
+          final dir = (await getApplicationDocumentsDirectory()).path;
+          final savePath = '$dir/$fileName';
 
-          try {
-            final created = await kdbxBloc.createFile(
-              password: _password.text,
-              databaseName: _databaseName.text,
-              openAfterCreate: true,
-            );
-            assert(created != null);
-            await Navigator.of(context)
-                .pushAndRemoveUntil(MainAppScaffold.route(), (route) => false);
-          } on FileExistsException catch (e, stackTrace) {
-            _logger.warning('Showing file exists error dialog.', e, stackTrace);
-            final loc = AppLocalizations.of(context);
+          if (await File(savePath).exists()) {
             await DialogUtils.showSimpleAlertDialog(
               context,
-              loc.databaseExistsError,
-              loc.databaseExistsErrorDescription(e.path),
+              'File Already Existed',
+              'Use other database name.',
               routeAppend: 'createFileExists',
             );
-          } catch (e, stackTrace) {
-            _logger.severe('Error while creating file.', e, stackTrace);
-            rethrow;
+          } else {
+            print("File don't exists");
+            // final hash = await computeHash(_password.text);
+            // var result = await initCard(context: context, masterPassword: hash);
+            var result = await initCard(
+                context: context, masterPassword: _password.text);
+            print('init result = ${result.isOk}');
+            if (result.isOk) {
+              try {
+                final created = await kdbxBloc.createFile(
+                  password: result.data,
+                  databaseName: _databaseName.text,
+                  openAfterCreate: true,
+                );
+                assert(created != null);
+                await Navigator.of(context).pushAndRemoveUntil(
+                    MainAppScaffold.route(), (route) => false);
+              } on FileExistsException catch (e, stackTrace) {
+                _logger.warning(
+                    'Showing file exists error dialog.', e, stackTrace);
+                final loc = AppLocalizations.of(context);
+                await DialogUtils.showSimpleAlertDialog(
+                  context,
+                  loc.databaseExistsError,
+                  loc.databaseExistsErrorDescription(e.path),
+                  routeAppend: 'createFileExists',
+                );
+              } catch (e, stackTrace) {
+                _logger.severe('Error while creating file.', e, stackTrace);
+                rethrow;
+              }
+            } else //Invalid Card Initialization
+            {
+              await DialogUtils.showSimpleAlertDialog(
+                context,
+                'Invalid Card',
+                'Initialization Error / Used Card.',
+                routeAppend: 'cardInitError',
+              );
+            }
           }
         }
       });

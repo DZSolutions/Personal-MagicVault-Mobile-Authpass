@@ -897,6 +897,7 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
                           : SValidator<String>([])) +
                       SValidator.invalidValue(
                           invalidValue: _invalidPassword,
+                          //wrong password
                           message: loc.masterPasswordIncorrectValidator),
                   onEditingComplete: () {
                     FocusScope.of(context).unfocus();
@@ -996,93 +997,109 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
 
   Future<void> _tryUnlock() async {
     if (_formKey.currentState.validate()) {
-      await init(context: context, masterPasswordHash: _controller.text);
-      final deps = Provider.of<Deps>(context, listen: false);
-      final loc = AppLocalizations.of(context);
-      final analytics = deps.analytics;
-      final kdbxBloc = deps.kdbxBloc;
-      final pw = _controller.text;
-      final keyFileContents = await _keyFile?.readAsBytes();
-      final stopWatch = Stopwatch();
-      try {
-        stopWatch.start();
-        final openFileStream = kdbxBloc.openFile(
-          widget.kdbxFilePath,
-          Credentials.composite(
-              pw == '' ? null : ProtectedValue.fromString(pw), keyFileContents),
-          addToQuickUnlock: _biometricQuickUnlockActivated ?? false,
-        );
-        // TODO handle subsequent errors.
-        final openIt = StreamIterator(openFileStream);
-        _loadingFile = openIt.moveNext();
-        setState(() {});
-        await _loadingFile;
-        final fileResult = openIt.current;
-        analytics.trackTiming(
-          'tryUnlockFile',
-          fileResult.unlockStopwatch.elapsedMilliseconds,
-          category: 'unlock',
-          label: 'successfully unlocked (${fileResult.fileContent.source})',
-        );
-        analytics.events.trackTryUnlock(
-          action: TryUnlockResult.success,
-          ext: _fileExtension(),
-          source: widget.kdbxFilePath.typeDebug,
-        );
-        final fileSource = fileResult.kdbxOpenedFile.fileSource;
-        unawaited(kdbxBloc.continueLoadInBackground(openIt,
-            debugName: '${fileSource.displayName}', fileSource: fileSource));
-        await Navigator.of(context)
-            .pushAndRemoveUntil(MainAppScaffold.route(), (route) => false);
-      } on KdbxInvalidKeyException catch (e, stackTrace) {
-        _logger.fine('Invalid credentials.', e, stackTrace);
-        analytics.trackTiming(
-          'tryUnlockFile',
-          stopWatch.elapsedMilliseconds,
-          category: 'unlock',
-          label: 'invalid credentials',
-        );
-        analytics.events.trackTryUnlock(
-          action: TryUnlockResult.invalidCredential,
-          ext: _fileExtension(),
-          source: widget.kdbxFilePath.typeDebug,
-        );
-        setState(() {
-          _invalidPassword = pw;
-          _formKey.currentState.validate();
-        });
-      } on FileAlreadyOpenException catch (e, stackTrace) {
-        _logger.fine('File already open.', e, stackTrace);
-        await _handleOpenError(
-          analytics: analytics,
-          result: TryUnlockResult.alreadyOpen,
-          errorTitle: loc.errorOpenFileAlreadyOpenTitle,
-          errorBody: loc.errorOpenFileAlreadyOpenBody(
-            e.newFile.body.meta.databaseName.get(),
-            e.openFileSource.displayPath,
-            e.newFileSource.displayPath,
-          ),
-          stopWatch: stopWatch,
-        );
-      } catch (e, stackTrace) {
-        _logger.fine('Unable to open dzpx file. ', e, stackTrace);
-        await _handleOpenError(
-          analytics: analytics,
-          result: TryUnlockResult.failure,
-          errorTitle: loc.errorUnlockFileTitle,
-          errorBody:
-              'In order to import the Keepass file KDB* files, Please use MagicVault desktop version and create a new MagicVault database file (.dzpx) first then click "File" -> "Import" in the main menu. In the import dialog, choose "Keepass (.kdbx)" as file format.',
-          stopWatch: stopWatch,
-        );
-      } finally {
-        if (mounted) {
+      //nfc unlock
+      // final hash = await computeHash(_controller.text);
+      // final result = await verify(context: context, masterPassword: hash);
+      final result =
+          await verify(context: context, masterPassword: _controller.text);
+      print('verify result = ${result.isOk}');
+      if (result.isOk) {
+        final deps = Provider.of<Deps>(context, listen: false);
+        final loc = AppLocalizations.of(context);
+        final analytics = deps.analytics;
+        final kdbxBloc = deps.kdbxBloc;
+        final pw = result.data;
+        final keyFileContents = await _keyFile?.readAsBytes();
+        final stopWatch = Stopwatch();
+        try {
+          stopWatch.start();
+          final openFileStream = kdbxBloc.openFile(
+            widget.kdbxFilePath,
+            Credentials.composite(
+                pw == '' ? null : ProtectedValue.fromString(pw),
+                keyFileContents),
+            addToQuickUnlock: _biometricQuickUnlockActivated ?? false,
+          );
+          // TODO handle subsequent errors.
+          final openIt = StreamIterator(openFileStream);
+          _loadingFile = openIt.moveNext();
+          setState(() {});
+          await _loadingFile;
+          final fileResult = openIt.current;
+          analytics.trackTiming(
+            'tryUnlockFile',
+            fileResult.unlockStopwatch.elapsedMilliseconds,
+            category: 'unlock',
+            label: 'successfully unlocked (${fileResult.fileContent.source})',
+          );
+          analytics.events.trackTryUnlock(
+            action: TryUnlockResult.success,
+            ext: _fileExtension(),
+            source: widget.kdbxFilePath.typeDebug,
+          );
+          final fileSource = fileResult.kdbxOpenedFile.fileSource;
+          unawaited(kdbxBloc.continueLoadInBackground(openIt,
+              debugName: '${fileSource.displayName}', fileSource: fileSource));
+          await Navigator.of(context)
+              .pushAndRemoveUntil(MainAppScaffold.route(), (route) => false);
+        } on KdbxInvalidKeyException catch (e, stackTrace) {
+          _logger.fine('Invalid credentials.', e, stackTrace);
+          analytics.trackTiming(
+            'tryUnlockFile',
+            stopWatch.elapsedMilliseconds,
+            category: 'unlock',
+            label: 'invalid credentials',
+          );
+          analytics.events.trackTryUnlock(
+            action: TryUnlockResult.invalidCredential,
+            ext: _fileExtension(),
+            source: widget.kdbxFilePath.typeDebug,
+          );
           setState(() {
-            _loadingFile = null;
+            _invalidPassword = pw;
+            _formKey.currentState.validate();
           });
-        } else {
-          _logger.warning('User navigated away from $runtimeType, '
-              'not updating UI.');
+        } on FileAlreadyOpenException catch (e, stackTrace) {
+          _logger.fine('File already open.', e, stackTrace);
+          await _handleOpenError(
+            analytics: analytics,
+            result: TryUnlockResult.alreadyOpen,
+            errorTitle: loc.errorOpenFileAlreadyOpenTitle,
+            errorBody: loc.errorOpenFileAlreadyOpenBody(
+              e.newFile.body.meta.databaseName.get(),
+              e.openFileSource.displayPath,
+              e.newFileSource.displayPath,
+            ),
+            stopWatch: stopWatch,
+          );
+        } catch (e, stackTrace) {
+          _logger.fine('Unable to open dzpx file. ', e, stackTrace);
+          await _handleOpenError(
+            analytics: analytics,
+            result: TryUnlockResult.failure,
+            errorTitle: loc.errorUnlockFileTitle,
+            errorBody:
+                'In order to import the Keepass file KDB* files, Please use MagicVault desktop version and create a new MagicVault database file (.dzpx) first then click "File" -> "Import" in the main menu. In the import dialog, choose "Keepass (.kdbx)" as file format.',
+            stopWatch: stopWatch,
+          );
+        } finally {
+          if (mounted) {
+            setState(() {
+              _loadingFile = null;
+            });
+          } else {
+            _logger.warning('User navigated away from $runtimeType, '
+                'not updating UI.');
+          }
         }
+      } else //cardError
+      {
+        await DialogUtils.showSimpleAlertDialog(
+          context,
+          'Fail to verify Card',
+          'Card Error / Not Initialized.',
+          routeAppend: 'cardVerifyError',
+        );
       }
     }
   }

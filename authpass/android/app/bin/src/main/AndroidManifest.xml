@@ -2,12 +2,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.dzsolutions.proxipass"
     android:installLocation="auto">
-
+    
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA"
        />
+    <uses-permission android:name="android.permission.NFC"/>
+
+
 
     <!-- this permission is added by the open_file plugin, but nobody
     hopefully stores apk files in their password database. -->

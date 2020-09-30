@@ -117,42 +117,43 @@ class _PreferencesBodyState extends State<PreferencesBody>
         Map.fromEntries(localeInfo.map((e) => MapEntry(e.locale, e)));
     return Column(
       children: <Widget>[
-        ...?(_autofillStatus == AutofillServiceStatus.unsupported ||
-                _autofillPrefs == null
-            ? null
-            : [
-                SwitchListTile(
-                  secondary: const Icon(FontAwesomeIcons.iCursor),
-                  title: Text(loc.preferenceEnableAutoFill),
-                  subtitle: _autofillStatus == AutofillServiceStatus.unsupported
-                      ? Text(loc.preferenceAutoFillDescription)
-                      : null,
-                  value: _autofillStatus == AutofillServiceStatus.enabled,
-                  onChanged: _autofillStatus ==
-                          AutofillServiceStatus.unsupported
-                      ? null
-                      : (val) async {
-                          if (val) {
-                            await AutofillService().requestSetAutofillService();
-                          } else {
-                            await AutofillService().disableAutofillServices();
-                          }
-                          await _doInit();
-                        },
-                ),
-                SwitchListTile(
-                  secondary: const Icon(FontAwesomeIcons.bug),
-                  title: Text(loc.enableAutofillDebug),
-                  subtitle: Text(loc.enableAutofillDebugSubtitle),
-                  value: _autofillPrefs.enableDebug,
-                  onChanged: (val) async {
-                    _logger.fine('Setting debug to $val');
-                    await AutofillService()
-                        .setPreferences(AutofillPreferences(enableDebug: val));
-                    await _doInit();
-                  },
-                ),
-              ]),
+        //debug
+        // ...?(_autofillStatus == AutofillServiceStatus.unsupported ||
+        //         _autofillPrefs == null
+        //     ? null
+        //     : [
+        //         SwitchListTile(
+        //           secondary: const Icon(FontAwesomeIcons.iCursor),
+        //           title: Text(loc.preferenceEnableAutoFill),
+        //           subtitle: _autofillStatus == AutofillServiceStatus.unsupported
+        //               ? Text(loc.preferenceAutoFillDescription)
+        //               : null,
+        //           value: _autofillStatus == AutofillServiceStatus.enabled,
+        //           onChanged: _autofillStatus ==
+        //                   AutofillServiceStatus.unsupported
+        //               ? null
+        //               : (val) async {
+        //                   if (val) {
+        //                     await AutofillService().requestSetAutofillService();
+        //                   } else {
+        //                     await AutofillService().disableAutofillServices();
+        //                   }
+        //                   await _doInit();
+        //                 },
+        //         ),
+        //         SwitchListTile(
+        //           secondary: const Icon(FontAwesomeIcons.bug),
+        //           title: Text(loc.enableAutofillDebug),
+        //           subtitle: Text(loc.enableAutofillDebugSubtitle),
+        //           value: _autofillPrefs.enableDebug,
+        //           onChanged: (val) async {
+        //             _logger.fine('Setting debug to $val');
+        //             await AutofillService()
+        //                 .setPreferences(AutofillPreferences(enableDebug: val));
+        //             await _doInit();
+        //           },
+        //         ),
+        //       ]),
         ...?!AuthPassPlatform.isAndroid
             ? null
             : [

@@ -74,7 +74,7 @@ class CommonFields {
           CommonField(
             key: KdbxKeyCommon.PASSWORD,
             displayName: loc.fieldPassword,
-            protect: true,
+            nfc: true,
             icon: Icons.lock,
           ),
           CommonField(

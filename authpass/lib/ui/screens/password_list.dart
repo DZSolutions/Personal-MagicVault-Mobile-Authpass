@@ -1089,16 +1089,17 @@ class _PasswordListContentState extends State<PasswordListContent>
       ];
     } else {
       return [
-        PopupMenuItem(
-          child: const ListTile(
-            leading: Icon(Icons.cloud),
-            title: Text('Authenticate with MagicVault Cloud'),
-          ),
-          value: () {
-            Navigator.of(context, rootNavigator: true)
-                .push(AuthPassCloudAuthScreen.route());
-          },
-        )
+        //debug
+        // PopupMenuItem(
+        //   child: const ListTile(
+        //     leading: Icon(Icons.cloud),
+        //     title: Text('Authenticate with MagicVault Cloud'),
+        //   ),
+        //   value: () {
+        //     Navigator.of(context, rootNavigator: true)
+        //         .push(AuthPassCloudAuthScreen.route());
+        //   },
+        // )
       ];
     }
   }

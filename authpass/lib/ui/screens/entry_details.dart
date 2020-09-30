@@ -1231,38 +1231,39 @@ class _EntryFieldState extends State<EntryField>
           title: Text(loc.fieldRename),
         ),
       ),
-      PopupMenuItem(
-        value: EntryAction.passwordGenerator,
-        child: ListTile(
-          leading: const Icon(FontAwesomeIcons.random),
-          title: Text(loc.generatePassword),
+      // PopupMenuItem(
+      //   value: EntryAction.passwordGenerator,
+      //   child: ListTile(
+      //     leading: const Icon(FontAwesomeIcons.random),
+      //     title: Text(loc.generatePassword),
 //            subtitle: null,
-        ),
-      ),
-      ...?_buildMenuEntriesAuthPassCloud(context),
-      PopupMenuItem(
-        value: EntryAction.protect,
-        child: ListTile(
-          leading: Icon(_isProtected
-              ? Icons.no_encryption
-              : _isNFC
-                  ? Icons.no_encryption
-                  : Icons.enhanced_encryption),
-          title: Text(_isProtected
-              ? loc.fieldUnprotect
-              : _isNFC
-                  ? loc.fieldUnprotect
-                  : loc.fieldProtect),
-        ),
-      ),
-      PopupMenuItem(
-        value: EntryAction.nfc,
-        child: ListTile(
-          leading:
-              Icon(_isNFC ? Icons.no_encryption : Icons.enhanced_encryption),
-          title: Text(_isNFC ? 'Disable NFC' : 'Enable NFC'),
-        ),
-      ),
+      //   ),
+      // ),
+
+//       ...?_buildMenuEntriesAuthPassCloud(context),
+//       PopupMenuItem(
+//         value: EntryAction.protect,
+//         child: ListTile(
+//           leading: Icon(_isProtected
+//               ? Icons.no_encryption
+//               : _isNFC
+//                   ? Icons.no_encryption
+//                   : Icons.enhanced_encryption),
+//           title: Text(_isProtected
+//               ? loc.fieldUnprotect
+//               : _isNFC
+//                   ? loc.fieldUnprotect
+//                   : loc.fieldProtect),
+//         ),
+//       ),
+//       PopupMenuItem(
+//         value: EntryAction.nfc,
+//         child: ListTile(
+//           leading:
+//               Icon(_isNFC ? Icons.no_encryption : Icons.enhanced_encryption),
+//           title: Text(_isNFC ? 'Disable NFC' : 'Enable NFC'),
+//         ),
+//       ),
       PopupMenuItem(
         value: EntryAction.delete,
         child: ListTile(
@@ -1270,14 +1271,14 @@ class _EntryFieldState extends State<EntryField>
           title: Text(loc.deleteAction),
         ),
       ),
-      PopupMenuItem(
-        value: EntryAction.show,
-        child: ListTile(
-//                    leading: Icon(Icons.present_to_all),
-          leading: const Icon(FontAwesomeIcons.qrcode),
-          title: Text(loc.fieldPresent),
-        ),
-      ),
+//       PopupMenuItem(
+//         value: EntryAction.show,
+//         child: ListTile(
+// //                    leading: Icon(Icons.present_to_all),
+//           leading: const Icon(FontAwesomeIcons.qrcode),
+//           title: Text(loc.fieldPresent),
+//         ),
+//       ),
     ];
   }
 
@@ -1344,7 +1345,7 @@ class _EntryFieldState extends State<EntryField>
     setState(() {
       _isValueObscured = false;
       _controller.text = password;
-      _fieldValue = ProtectedValue.fromString(_controller.text);
+      _fieldValue = NFCValue.fromString(_controller.text);
       _controller.selection =
           TextSelection(baseOffset: 0, extentOffset: _controller.text.length);
       _focusNode.requestFocus();
