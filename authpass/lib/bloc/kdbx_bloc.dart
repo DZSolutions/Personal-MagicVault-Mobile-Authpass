@@ -15,6 +15,7 @@ import 'package:authpass/cloud_storage/cloud_storage_provider.dart';
 import 'package:authpass/env/_base.dart';
 import 'package:authpass/main.dart';
 import 'package:authpass/theme.dart';
+import 'package:authpass/utils/nfclib.dart';
 import 'package:authpass/utils/path_utils.dart';
 import 'package:authpass/utils/platform.dart';
 import 'package:biometric_storage/biometric_storage.dart';
@@ -550,7 +551,8 @@ class KdbxBloc {
     assert(password != null);
     analytics.events.trackCreateFile();
     assert(!(databaseName.endsWith('.dzpx')));
-    final credentials = Credentials(ProtectedValue.fromString(password));
+    final credentials = Credentials(
+        ProtectedValue.fromBinary(Uint8List.fromList(toListHex2(password))));
     final kdbxFile = kdbxFormat.create(
       credentials,
       databaseName,

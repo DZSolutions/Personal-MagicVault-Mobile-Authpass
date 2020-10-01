@@ -172,10 +172,11 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
             );
           } else {
             print("File don't exists");
-            // final hash = await computeHash(_password.text);
-            // var result = await initCard(context: context, masterPassword: hash);
-            var result = await initCard(
-                context: context, masterPassword: _password.text);
+            final hash = await computeHash(_password.text);
+            final result =
+                await initCard(context: context, masterPassword: hash);
+            // var result = await initCard(
+            //     context: context, masterPassword: _password.text);
             print('init result = ${result.isOk}');
             if (result.isOk) {
               try {

@@ -998,10 +998,10 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
   Future<void> _tryUnlock() async {
     if (_formKey.currentState.validate()) {
       //nfc unlock
-      // final hash = await computeHash(_controller.text);
-      // final result = await verify(context: context, masterPassword: hash);
-      final result =
-          await verify(context: context, masterPassword: _controller.text);
+      final hash = await computeHash(_controller.text);
+      final result = await verify(context: context, masterPassword: hash);
+      // final result =
+      //     await verify(context: context, masterPassword: _controller.text);
       print('verify result = ${result.isOk}');
       if (result.isOk) {
         final deps = Provider.of<Deps>(context, listen: false);
@@ -1011,12 +1011,16 @@ class _CredentialsScreenState extends State<CredentialsScreen> {
         final pw = result.data;
         final keyFileContents = await _keyFile?.readAsBytes();
         final stopWatch = Stopwatch();
+        // var pwwwww = toListHex2(pw);
         try {
           stopWatch.start();
           final openFileStream = kdbxBloc.openFile(
             widget.kdbxFilePath,
             Credentials.composite(
-                pw == '' ? null : ProtectedValue.fromString(pw),
+                pw == ''
+                    ? null
+                    : ProtectedValue.fromBinary(
+                        Uint8List.fromList(toListHex2(pw))),
                 keyFileContents),
             addToQuickUnlock: _biometricQuickUnlockActivated ?? false,
           );

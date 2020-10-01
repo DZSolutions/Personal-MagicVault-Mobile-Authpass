@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/platform_tags.dart';
-// import 'package:cryptography/cryptography.dart';
+import 'package:cryptography/cryptography.dart';
 
 class NFCResult {
   bool _isOk;
@@ -212,21 +212,29 @@ const List<int> _nonce = [
   0x00
 ];
 
-// Future<String> _computeHash(String password) async {
-//   const pbkdf2 = Pbkdf2(
-//     macAlgorithm: Hmac(sha256),
-//     iterations: 36000,
-//     bits: 128,
-//   );
-//   final hash =
-//       await pbkdf2.deriveBits(utf8.encode(password), nonce: Nonce(_nonce));
-//   final hashString = hash.toStringHex();
-//   return hashString;
-// }
+Future<String> _computeHash(String password) async {
+  const pbkdf2 = Pbkdf2(
+    macAlgorithm: Hmac(sha256),
+    iterations: 36000,
+    bits: 128,
+  );
+  final hash =
+      await pbkdf2.deriveBits(utf8.encode(password), nonce: Nonce(_nonce));
+  final hashString = hash.toStringHex();
+  return hashString;
+}
 
-// Future<String> computeHash(String password) async {
-//   return await compute(_computeHash, password);
-// }
+Future<String> computeHash(String password) async {
+  return await compute(_computeHash, password);
+}
+
+List<int> toListHex2(String str) {
+  List<int> temp = [];
+  for (int i = 0; i < str.length; i += 2) {
+    temp.add(int.parse(str.substring(i, i + 2), radix: 16));
+  }
+  return temp;
+}
 
 extension StringParsing on String {
   List<int> toListHex() {

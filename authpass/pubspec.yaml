@@ -187,7 +187,7 @@ dependencies:
       url: https://github.com/authpass/winsparkle_flutter.git
       ref: 2c56009666a2a8b6802a87a87e5135ed724edfc2
   nfc_manager: ^2.0.1
-  # cryptography: ^1.4.1
+  cryptography: ^1.4.1
 
   
 dev_dependencies:
