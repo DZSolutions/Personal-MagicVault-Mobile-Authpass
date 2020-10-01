@@ -22,6 +22,7 @@ import 'package:authpass/utils/dialog_utils.dart';
 import 'package:authpass/utils/extension_methods.dart';
 import 'package:authpass/utils/format_utils.dart';
 import 'package:authpass/utils/logging_utils.dart';
+import 'package:authpass/utils/nfclib.dart';
 import 'package:authpass/utils/path_utils.dart';
 import 'package:authpass/utils/platform.dart';
 import 'package:authpass/utils/winsparkle_init_noop.dart'
@@ -294,7 +295,10 @@ class _AuthPassAppState extends State<AuthPassApp> with StreamSubscriberMixin {
         StreamProvider<OpenedKdbxFiles>.value(
           value: _deps.kdbxBloc.openedFilesChanged,
           initialData: _deps.kdbxBloc.openedFilesChanged.value,
-        )
+        ),
+        Provider(
+          create: (_) => MasterPassword(),
+        ),
       ],
       child: MaterialApp(
         navigatorObservers: [AnalyticsNavigatorObserver(_deps.analytics)],

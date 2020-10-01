@@ -173,15 +173,15 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
           } else {
             print("File don't exists");
             final hash = await computeHash(_password.text);
-            final result =
-                await initCard(context: context, masterPassword: hash);
+            saveMasterPasswordHash(context, hash);
+            final result = await initCard(context);
             // var result = await initCard(
             //     context: context, masterPassword: _password.text);
             print('init result = ${result.isOk}');
             if (result.isOk) {
               try {
                 final created = await kdbxBloc.createFile(
-                  password: result.data,
+                  password: result.dataList,
                   databaseName: _databaseName.text,
                   openAfterCreate: true,
                 );

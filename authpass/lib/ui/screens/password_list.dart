@@ -22,6 +22,7 @@ import 'package:authpass/ui/widgets/primary_button.dart';
 import 'package:authpass/utils/cache_manager.dart';
 import 'package:authpass/utils/extension_methods.dart';
 import 'package:authpass/utils/format_utils.dart';
+import 'package:authpass/utils/nfclib.dart';
 import 'package:authpass/utils/predefined_icons.dart';
 import 'package:authpass/utils/theme_utils.dart';
 import 'package:autofill_service/autofill_service.dart';
@@ -939,12 +940,17 @@ class _PasswordListContentState extends State<PasswordListContent>
                             SnackBar(content: Text(loc.doneCopiedUsername)));
                       } else {
 //                      await ClipboardManager.copyToClipBoard(entry.getString(commonFields.password.key).getText());
-                        await Clipboard.setData(ClipboardData(
-                            text: entry.entry
+                        final result = await decryptData(
+                            context: context,
+                            data: entry.entry
                                 .getString(commonFields.password.key)
-                                .getText()));
-                        Scaffold.of(context).showSnackBar(
-                            SnackBar(content: Text(loc.doneCopiedPassword)));
+                                .getText());
+                        if (result.isOk) {
+                          await Clipboard.setData(
+                              ClipboardData(text: result.data));
+                          Scaffold.of(context).showSnackBar(
+                              SnackBar(content: Text(loc.doneCopiedPassword)));
+                        }
                       }
                       return false;
                     },

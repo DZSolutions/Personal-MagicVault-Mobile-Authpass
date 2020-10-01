@@ -23,8 +23,10 @@ import 'package:authpass/ui/widgets/keyboard_handler.dart';
 import 'package:authpass/ui/widgets/link_button.dart';
 import 'package:authpass/ui/widgets/primary_button.dart';
 import 'package:authpass/utils/dialog_utils.dart';
+import 'package:authpass/utils/dialog_utils_DZ.dart';
 import 'package:authpass/utils/extension_methods.dart';
 import 'package:authpass/utils/format_utils.dart';
+import 'package:authpass/utils/nfclib.dart';
 import 'package:authpass/utils/otpauth.dart';
 import 'package:authpass/utils/password_generator.dart';
 import 'package:authpass/utils/path_utils.dart';
@@ -873,7 +875,8 @@ class _AddFieldButtonState extends State<AddFieldButton> {
           displayName: loc.entryCustomField,
           key: KdbxKey('__custom'), // NON-NLS
         );
-        final fields = commonFields.fields.followedBy([custom]).map(
+        final fields =
+            commonFields.fields.sublist(5, 6).followedBy([custom]).map(
           (f) => PopupMenuItem(
             value: f.key,
             child: ListTile(leading: Icon(f.icon), title: Text(f.displayName)),
@@ -1217,6 +1220,7 @@ class _EntryFieldState extends State<EntryField>
     final loc = AppLocalizations.of(context);
     return <PopupMenuEntry<EntryAction>>[
       PopupMenuItem(
+        enabled: widget.fieldKey != _commonFields.password.key,
         value: EntryAction.copy,
         child: ListTile(
           leading: const Icon(Icons.content_copy),
@@ -1225,6 +1229,11 @@ class _EntryFieldState extends State<EntryField>
       ),
       const PopupMenuDivider(),
       PopupMenuItem(
+        enabled: (widget.fieldKey != _commonFields.title.key) &&
+            (widget.fieldKey != _commonFields.url.key) &&
+            (widget.fieldKey != _commonFields.userName.key) &&
+            (widget.fieldKey != _commonFields.password.key) &&
+            (widget.fieldKey != _commonFields.notes.key),
         value: EntryAction.rename,
         child: ListTile(
           leading: const Icon(Icons.edit),
@@ -1264,7 +1273,13 @@ class _EntryFieldState extends State<EntryField>
 //           title: Text(_isNFC ? 'Disable NFC' : 'Enable NFC'),
 //         ),
 //       ),
+
       PopupMenuItem(
+        enabled: (widget.fieldKey != _commonFields.title.key) &&
+            (widget.fieldKey != _commonFields.url.key) &&
+            (widget.fieldKey != _commonFields.userName.key) &&
+            (widget.fieldKey != _commonFields.password.key) &&
+            (widget.fieldKey != _commonFields.notes.key),
         value: EntryAction.delete,
         child: ListTile(
           leading: const Icon(Icons.delete),
@@ -1341,16 +1356,24 @@ class _EntryFieldState extends State<EntryField>
     }
   }
 
-  void _generatedPassword(String password) {
+  Future<void> _generatedPassword(String password) async {
+    final pwEncrypted = await SimplePromptDialogDZ(
+      title: 'Password',
+      initialValue: password,
+    ).show(context);
+    if (pwEncrypted != null) {
+      final resultnew = await encryptData(context: context, data: pwEncrypted);
+      _controller.text = resultnew.data ?? '';
+    }
+
     setState(() {
       _isValueObscured = false;
-      _controller.text = password;
       _fieldValue = NFCValue.fromString(_controller.text);
       _controller.selection =
           TextSelection(baseOffset: 0, extentOffset: _controller.text.length);
       _focusNode.requestFocus();
     });
-    copyValue();
+    // await copyValue();
   }
 
   Future<bool> copyValue() async {
@@ -1370,9 +1393,23 @@ class _EntryFieldState extends State<EntryField>
   Widget _buildObscuredEntryFieldEditor() {
     if (_isValueFilteredNFC) {
       return FilteredEntryFieldEditor(
-        onPressed: () {
+        onPressed: () async {
+          final result =
+              await decryptData(context: context, data: _valueCurrent);
+          if (result.isOk) {
+            final pwEncrypted = await SimplePromptDialogDZ(
+              title: 'Password',
+              initialValue: result.data,
+            ).show(context);
+            if (pwEncrypted != null) {
+              final resultnew =
+                  await encryptData(context: context, data: pwEncrypted);
+              _controller.text = resultnew.data ?? '';
+            }
+          }
           setState(() {
-            _controller.text = _valueCurrent ?? '';
+            // _controller.text = _valueCurrent ?? '';
+            // _controller.text = _valueCurrent ?? '';
             _controller.selection = TextSelection(
                 baseOffset: 0, extentOffset: _controller.text?.length ?? 0);
             _isValueObscured = false;
@@ -1668,7 +1705,7 @@ class ObscuredEntryFieldEditor extends StatelessWidget {
                   alignment: Alignment.bottomCenter,
                   padding: const EdgeInsets.only(left: 12.0 + 24.0, bottom: 16),
                   child: const Text(
-                    'Protected field. Click to reveal.',
+                    'Encrypted field. Click to reveal.',
                     style: TextStyle(
                         shadows: [Shadow(color: Colors.white, blurRadius: 5)]),
                   ),
@@ -1703,8 +1740,6 @@ class FilteredEntryFieldEditor extends StatelessWidget {
           decoration: InputDecoration(
             prefixIcon:
                 commonField?.icon == null ? null : Icon(commonField.icon),
-            // suffixIcon:
-            //     IconButton(icon: const Icon(Icons.nfc), onPressed: () {}),
             labelText: commonField?.displayName ?? fieldKey.key,
             filled: true,
           ),
@@ -1722,53 +1757,15 @@ class FilteredEntryFieldEditor extends StatelessWidget {
               ),
               child: LinkButton(
                 child: Container(
-                    alignment: Alignment.bottomCenter,
-                    padding:
-                        const EdgeInsets.only(left: 12.0 + 24.0, bottom: 16),
-                    child: RichText(
-                      text: TextSpan(
-                        style: Theme.of(context).textTheme.body1,
-                        children: [
-                          const TextSpan(text: 'Protected by NFC '),
-                          const WidgetSpan(
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 2.0),
-                              child: Icon(Icons.nfc),
-                            ),
-                          ),
-                          const TextSpan(text: 'Tap to reveal.'),
-                        ],
-                      ),
-                    )
-                    // child: const Text(
-                    //   'Protected field. Click to reveal.',
-                    //   style: TextStyle(
-                    //       shadows: [Shadow(color: Colors.white, blurRadius: 5)]),
-                    // ),
-                    ),
-                // onPressed: (onPressed),
-                onPressed: () => showDialog<void>(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text('AlertDialog'),
-                    content: const Text('Tap NFC Card'),
-                    actions: [
-                      FlatButton(
-                        child: const Text('Continue'),
-                        onPressed: () {
-                          onPressed();
-                          Navigator.pop(context);
-                        },
-                      ),
-                      FlatButton(
-                          child: const Text('Cancel'),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          }),
-                    ],
+                  alignment: Alignment.bottomCenter,
+                  padding: const EdgeInsets.only(left: 12.0 + 24.0, bottom: 16),
+                  child: const Text(
+                    'Protected field. Click to reveal.',
+                    style: TextStyle(
+                        shadows: [Shadow(color: Colors.white, blurRadius: 5)]),
                   ),
                 ),
+                onPressed: onPressed,
               ),
             ),
           ),
@@ -1804,6 +1801,7 @@ class StringEntryFieldEditor extends StatelessWidget {
     final loc = AppLocalizations.of(context);
     return TextFormField(
       key: formFieldKey,
+      readOnly: fieldKey == commonFields.password.key,
       maxLines: null,
       focusNode: focusNode,
       decoration: InputDecoration(

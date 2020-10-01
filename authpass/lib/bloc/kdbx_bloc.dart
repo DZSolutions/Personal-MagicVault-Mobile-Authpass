@@ -544,15 +544,14 @@ class KdbxBloc {
   /// Creates a new file in the application document directory by the given name.
   /// Throws a [FileExistsException] if a file of the same name already exists.
   Future<FileSourceLocal> createFile({
-    @required String password,
+    @required Uint8List password,
     @required String databaseName,
     bool openAfterCreate = false,
   }) async {
     assert(password != null);
     analytics.events.trackCreateFile();
     assert(!(databaseName.endsWith('.dzpx')));
-    final credentials = Credentials(
-        ProtectedValue.fromBinary(Uint8List.fromList(toListHex2(password))));
+    final credentials = Credentials(ProtectedValue.fromBinary(password));
     final kdbxFile = kdbxFormat.create(
       credentials,
       databaseName,

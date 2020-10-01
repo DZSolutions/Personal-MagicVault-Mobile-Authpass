@@ -56,7 +56,7 @@ android {
 
     signingConfigs {
         release {
-            keyAlias 'authpass'
+            keyAlias 'key0'
             keyPassword secretProperties['com.dzsolutions.proxipass.storePassword']
             storeFile file(secretProperties['com.dzsolutions.proxipass.storeFile'] ?: "invalid")
             storePassword secretProperties['com.dzsolutions.proxipass.storePassword']

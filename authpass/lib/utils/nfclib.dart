@@ -7,13 +7,30 @@ import 'package:flutter/material.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager/platform_tags.dart';
 import 'package:cryptography/cryptography.dart';
+import 'package:provider/provider.dart';
 
 class NFCResult {
-  bool _isOk;
+  bool _isOk = false;
   String _data;
+  Uint8List _dataList;
 
   bool get isOk => _isOk;
   String get data => _data;
+  Uint8List get dataList => _dataList;
+
+  void clear() {
+    _isOk = false;
+    _data = null;
+    _dataList = null;
+  }
+}
+
+class MasterPassword {
+  Uint8List hash;
+}
+
+void saveMasterPasswordHash(BuildContext context, Uint8List hash) {
+  Provider.of<MasterPassword>(context, listen: false).hash = hash;
 }
 
 Future<void> _displayNFCDialog(BuildContext context) async {
@@ -35,13 +52,12 @@ Future<void> _displayNFCDialog(BuildContext context) async {
   );
 }
 
-Future<NFCResult> initCard({
-  @required BuildContext context,
-  @required String masterPassword,
-}) async {
+Future<NFCResult> initCard(BuildContext context) async {
   final result = NFCResult();
   NfcManager.instance.startSession(onDiscovered: (tag) async {
-    result._isOk = false;
+    result.clear();
+    final masterPasswordHash =
+        Provider.of<MasterPassword>(context, listen: false).hash;
     final card = IsoDep.from(tag);
     if (card == null) {
       Navigator.of(context, rootNavigator: true).pop();
@@ -50,27 +66,29 @@ Future<NFCResult> initCard({
     await card.transceive(
         data: Uint8List.fromList('00A4040C0AA00000006203010C0701'.toListHex()));
     final passwordlenhex =
-        (masterPassword.length ~/ 2).toRadixString(16).padLeft(2, '0');
+        masterPasswordHash.length.toRadixString(16).padLeft(2, '0');
     var cardResult = await card.transceive(
-        data: Uint8List.fromList('B0010000$passwordlenhex'.toListHex()
-          ..addAll(masterPassword.toListHex())));
+        data: Uint8List.fromList(
+            'B0010000$passwordlenhex'.toListHex()..addAll(masterPasswordHash)));
     if (cardResult.toStringHex() != '9000') {
       Navigator.of(context, rootNavigator: true).pop();
       return;
     }
     cardResult = await card.transceive(
-        data: Uint8List.fromList('B0020000$passwordlenhex'.toListHex()
-          ..addAll(masterPassword.toListHex())));
+        data: Uint8List.fromList(
+            'B0020000$passwordlenhex'.toListHex()..addAll(masterPasswordHash)));
     if (cardResult.toStringHex() != '9000') {
       Navigator.of(context, rootNavigator: true).pop();
       return;
     }
     cardResult = await card.transceive(
-        data: Uint8List.fromList('B0040100$passwordlenhex'.toListHex()
-          ..addAll(masterPassword.toListHex())));
+        data: Uint8List.fromList(
+            'B0040100$passwordlenhex'.toListHex()..addAll(masterPasswordHash)));
     if (cardResult.sublist(cardResult.length - 2).toStringHex() == '9000') {
+      cardResult = cardResult.sublist(0, cardResult.length - 2);
       result._isOk = true;
-      result._data = cardResult.sublist(0, cardResult.length - 2).toStringHex();
+      result._dataList = cardResult;
+      result._data = cardResult.toStringHex();
     }
     NfcManager.instance.stopSession();
     Navigator.of(context, rootNavigator: true).pop();
@@ -79,13 +97,12 @@ Future<NFCResult> initCard({
   return result;
 }
 
-Future<NFCResult> verify({
-  @required BuildContext context,
-  @required String masterPassword,
-}) async {
+Future<NFCResult> verify(BuildContext context) async {
   final result = NFCResult();
   NfcManager.instance.startSession(onDiscovered: (tag) async {
-    result._isOk = false;
+    result.clear();
+    final masterPasswordHash =
+        Provider.of<MasterPassword>(context, listen: false).hash;
     final card = IsoDep.from(tag);
     if (card == null) {
       Navigator.of(context, rootNavigator: true).pop();
@@ -94,20 +111,22 @@ Future<NFCResult> verify({
     await card.transceive(
         data: Uint8List.fromList('00A4040C0AA00000006203010C0701'.toListHex()));
     final passwordlenhex =
-        (masterPassword.length ~/ 2).toRadixString(16).padLeft(2, '0');
+        masterPasswordHash.length.toRadixString(16).padLeft(2, '0');
     var cardResult = await card.transceive(
-        data: Uint8List.fromList('B0020000$passwordlenhex'.toListHex()
-          ..addAll(masterPassword.toListHex())));
+        data: Uint8List.fromList(
+            'B0020000$passwordlenhex'.toListHex()..addAll(masterPasswordHash)));
     if (cardResult.toStringHex() != '9000') {
       Navigator.of(context, rootNavigator: true).pop();
       return;
     }
     cardResult = await card.transceive(
-        data: Uint8List.fromList('B0040100$passwordlenhex'.toListHex()
-          ..addAll(masterPassword.toListHex())));
+        data: Uint8List.fromList(
+            'B0040100$passwordlenhex'.toListHex()..addAll(masterPasswordHash)));
     if (cardResult.sublist(cardResult.length - 2).toStringHex() == '9000') {
+      cardResult = cardResult.sublist(0, cardResult.length - 2);
       result._isOk = true;
-      result._data = cardResult.sublist(0, cardResult.length - 2).toStringHex();
+      result._dataList = cardResult;
+      result._data = cardResult.toStringHex();
     }
     NfcManager.instance.stopSession();
     Navigator.of(context, rootNavigator: true).pop();
@@ -118,12 +137,13 @@ Future<NFCResult> verify({
 
 Future<NFCResult> encryptData({
   @required BuildContext context,
-  @required String masterPassword,
   @required String data,
 }) async {
   final result = NFCResult();
   NfcManager.instance.startSession(onDiscovered: (tag) async {
-    result._isOk = false;
+    result.clear();
+    final masterPasswordHash =
+        Provider.of<MasterPassword>(context, listen: false).hash;
     final card = IsoDep.from(tag);
     if (card == null) {
       Navigator.of(context, rootNavigator: true).pop();
@@ -131,10 +151,10 @@ Future<NFCResult> encryptData({
     }
     await card.transceive(
         data: Uint8List.fromList('00A4040C0AA00000006203010C0701'.toListHex()));
-    var len = (masterPassword.length ~/ 2).toRadixString(16).padLeft(2, '0');
+    var len = masterPasswordHash.length.toRadixString(16).padLeft(2, '0');
     var cardResult = await card.transceive(
         data: Uint8List.fromList(
-            'B0020000$len'.toListHex()..addAll(masterPassword.toListHex())));
+            'B0020000$len'.toListHex()..addAll(masterPasswordHash)));
     if (cardResult.toStringHex() != '9000') {
       Navigator.of(context, rootNavigator: true).pop();
       return;
@@ -144,8 +164,10 @@ Future<NFCResult> encryptData({
         data: Uint8List.fromList(
             'B0040200$len'.toListHex()..addAll(data.codeUnits)));
     if (cardResult.sublist(cardResult.length - 2).toStringHex() == '9000') {
+      cardResult = cardResult.sublist(0, cardResult.length - 2);
       result._isOk = true;
-      result._data = cardResult.sublist(0, cardResult.length - 2).toStringHex();
+      result._dataList = cardResult;
+      result._data = cardResult.toStringHex();
     }
     NfcManager.instance.stopSession();
     Navigator.of(context, rootNavigator: true).pop();
@@ -156,12 +178,13 @@ Future<NFCResult> encryptData({
 
 Future<NFCResult> decryptData({
   @required BuildContext context,
-  @required String masterPassword,
   @required String data,
 }) async {
   final result = NFCResult();
   NfcManager.instance.startSession(onDiscovered: (tag) async {
-    result._isOk = false;
+    result.clear();
+    final masterPasswordHash =
+        Provider.of<MasterPassword>(context, listen: false).hash;
     final card = IsoDep.from(tag);
     if (card == null) {
       Navigator.of(context, rootNavigator: true).pop();
@@ -169,10 +192,10 @@ Future<NFCResult> decryptData({
     }
     await card.transceive(
         data: Uint8List.fromList('00A4040C0AA00000006203010C0701'.toListHex()));
-    var len = (masterPassword.length ~/ 2).toRadixString(16).padLeft(2, '0');
+    var len = masterPasswordHash.length.toRadixString(16).padLeft(2, '0');
     var cardResult = await card.transceive(
         data: Uint8List.fromList(
-            'B0020000$len'.toListHex()..addAll(masterPassword.toListHex())));
+            'B0020000$len'.toListHex()..addAll(masterPasswordHash)));
     if (cardResult.toStringHex() != '9000') {
       Navigator.of(context, rootNavigator: true).pop();
       return;
@@ -212,7 +235,7 @@ const List<int> _nonce = [
   0x00
 ];
 
-Future<String> _computeHash(String password) async {
+Future<Uint8List> _computeHash(String password) async {
   const pbkdf2 = Pbkdf2(
     macAlgorithm: Hmac(sha256),
     iterations: 36000,
@@ -220,20 +243,12 @@ Future<String> _computeHash(String password) async {
   );
   final hash =
       await pbkdf2.deriveBits(utf8.encode(password), nonce: Nonce(_nonce));
-  final hashString = hash.toStringHex();
-  return hashString;
+  // final hashString = hash.toStringHex();
+  return hash;
 }
 
-Future<String> computeHash(String password) async {
+Future<Uint8List> computeHash(String password) async {
   return await compute(_computeHash, password);
-}
-
-List<int> toListHex2(String str) {
-  List<int> temp = [];
-  for (int i = 0; i < str.length; i += 2) {
-    temp.add(int.parse(str.substring(i, i + 2), radix: 16));
-  }
-  return temp;
 }
 
 extension StringParsing on String {
