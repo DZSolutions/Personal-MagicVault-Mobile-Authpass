@@ -102,7 +102,7 @@ abstract class Env {
   bool get featureFetchWebsiteIconEnabledByDefault => false;
 
   /// Support for WebDAV
-  bool get featureCloudStorageWebDav => true;
+  bool get featureCloudStorageWebDav => false;
 
   @protected
   String get storageNamespaceFromEnvironment;

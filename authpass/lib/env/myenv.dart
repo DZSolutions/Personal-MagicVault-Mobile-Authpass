@@ -12,10 +12,11 @@ class Production extends EnvAppBase {
   EnvSecrets get secrets => const EnvSecrets(
         analyticsAmplitudeApiKey: null,
         analyticsGoogleAnalyticsId: null,
-        googleClientId: null,
-        googleClientSecret: null,
-        dropboxKey: 'x9hjztjezw813y0',
-        dropboxSecret: 'ro2i1nqvpn7m63c',
+        googleClientId:
+            '334340771161-kp9lmvn14kkmpb8oih996l98b18d4jm9.apps.googleusercontent.com',
+        googleClientSecret: 'aTysO7KZmJpsIK32I9Rl3lgb',
+        dropboxKey: 'xhofdbveoa57j3q',
+        dropboxSecret: 'janlxkx1730iotn',
         microsoftClientId: 'e40fd28c-f809-4103-8366-e3f51ba64853',
         microsoftClientSecret: 'kktMFOMI13@:vylpRQ800(*',
       );
