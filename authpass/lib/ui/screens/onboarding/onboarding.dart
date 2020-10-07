@@ -88,15 +88,22 @@ class OnboardingContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const SizedBox(height: 32),
-        ConstrainedBox(
-          constraints: const BoxConstraints(maxHeight: 64),
-          child: Image.asset(
-            'assets/images/onboarding-header.webp',
-            // height: 96 * imageScaleFactor,
-            width: 96 * imageScaleFactor,
-            fit: BoxFit.contain,
-          ),
-        ),
+        ...Theme.of(context).brightness == Brightness.light
+            ? [
+                Image.asset('assets/images/onboarding-header.webp'),
+              ]
+            : [
+                Image.asset('assets/images/onboarding-header_white.webp'),
+              ],
+        // ConstrainedBox(
+        //   constraints: const BoxConstraints(maxHeight: 64),
+        //   child: Image.asset(
+        //     'assets/images/onboarding-header.webp',
+        //     // height: 96 * imageScaleFactor,
+        //     width: 96 * imageScaleFactor,
+        //     fit: BoxFit.contain,
+        //   ),
+        // ),
         const SizedBox(height: 16),
         Text(
           loc.onboardingHeadline,
