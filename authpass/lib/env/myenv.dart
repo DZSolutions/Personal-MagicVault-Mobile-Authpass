@@ -17,7 +17,7 @@ class Production extends EnvAppBase {
         googleClientSecret: 'aTysO7KZmJpsIK32I9Rl3lgb',
         dropboxKey: 'xhofdbveoa57j3q',
         dropboxSecret: 'janlxkx1730iotn',
-        microsoftClientId: 'e40fd28c-f809-4103-8366-e3f51ba64853',
-        microsoftClientSecret: 'kktMFOMI13@:vylpRQ800(*',
+        microsoftClientId: '933ae920-12bd-417f-b822-1f168e003cf0',
+        microsoftClientSecret: '~gQjutHZf9eaUh9eD-AiJ.1_FSb4ZL-5dR',
       );
 }
