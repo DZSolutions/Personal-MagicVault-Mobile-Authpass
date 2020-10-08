@@ -138,7 +138,7 @@ class AppLocalizationsFi extends AppLocalizations {
   String get aboutLinkVisitWebsite => 'Also make sure to visit our website';
 
   @override
-  String get aboutLinkGitHub => 'Test Test Test Test Test';
+  String get aboutLinkGitHub => 'MagicVault is Awesome';
 
   @override
   String aboutLogFile(String logFilePath) {

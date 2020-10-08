@@ -178,7 +178,7 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
             // var result = await initCard(
             //     context: context, masterPassword: _password.text);
             print('init result = ${result.isOk}');
-            if (result.isOk) {
+            if (result.isOk == true) {
               try {
                 final created = await kdbxBloc.createFile(
                   password: result.dataList,
@@ -202,14 +202,16 @@ class _CreateFileState extends State<CreateFile> with FutureTaskStateMixin {
                 _logger.severe('Error while creating file.', e, stackTrace);
                 rethrow;
               }
-            } else //Invalid Card Initialization
+            } else if (result.isOk == false) //Invalid Card Initialization
             {
               await DialogUtils.showSimpleAlertDialog(
                 context,
                 'Invalid Card',
-                'Initialization Error / Used Card.',
+                'This card is already registered.',
                 routeAppend: 'cardInitError',
               );
+            } else {
+              return;
             }
           }
         }

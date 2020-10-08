@@ -444,19 +444,19 @@ class PreferencesOverflowMenuAction extends StatelessWidget {
 
         return [
           if (kdbxBloc.quickUnlockStorage.supportsBiometricKeystoreAlready) ...[
-            PopupMenuItem(
-              child: ListTile(
-                leading: const Icon(FontAwesomeIcons.bug),
-                title: Text(loc.clearQuickUnlock),
-                subtitle: Text(loc.clearQuickUnlockSubtitle),
-              ),
-              value: () async {
-                await kdbxBloc.closeAllFiles(clearQuickUnlock: true);
-                Scaffold.of(context).showSnackBar(
-                    SnackBar(content: Text(loc.clearQuickUnlockSuccess)));
-                await SelectFileScreen.navigate(context);
-              },
-            ),
+            // PopupMenuItem(
+            //   child: ListTile(
+            //     leading: const Icon(FontAwesomeIcons.bug),
+            //     title: Text(loc.clearQuickUnlock),
+            //     subtitle: Text(loc.clearQuickUnlockSubtitle),
+            //   ),
+            //   value: () async {
+            //     await kdbxBloc.closeAllFiles(clearQuickUnlock: true);
+            //     Scaffold.of(context).showSnackBar(
+            //         SnackBar(content: Text(loc.clearQuickUnlockSuccess)));
+            //     await SelectFileScreen.navigate(context);
+            //   },
+            // ),
           ],
           if (kdbxBloc.openedFilesWithSources.isNotEmpty) ...[
             PopupMenuItem(

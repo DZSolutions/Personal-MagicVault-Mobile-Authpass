@@ -230,7 +230,7 @@ class _ManageFileState extends State<ManageFile> with FutureTaskStateMixin {
                   },
                 ),
                 ListTile(
-                  title: const Text('Kdbx File Version'),
+                  title: const Text('Dzpx File Version'),
                   subtitle: Text('${_file.kdbxFile.header.version} '
                       '(${_debugKdfType(_file.kdbxFile)})'),
                   trailing: _file.kdbxFile.header.version < KdbxVersion.V4

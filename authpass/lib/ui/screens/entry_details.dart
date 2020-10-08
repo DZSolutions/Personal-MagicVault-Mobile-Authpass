@@ -990,6 +990,10 @@ class _EntryFieldState extends State<EntryField>
   void initState() {
     super.initState();
     _focusNode.addListener(_focusNodeChanged);
+    _initController();
+  }
+
+  void _initController() {
     if (_fieldValue is ProtectedValue || widget.commonField?.protect == true) {
       _isValueObscured = true;
       _controller = TextEditingController();
@@ -1369,9 +1373,11 @@ class _EntryFieldState extends State<EntryField>
     setState(() {
       _isValueObscured = false;
       _fieldValue = NFCValue.fromString(_controller.text);
-      _controller.selection =
-          TextSelection(baseOffset: 0, extentOffset: _controller.text.length);
+      // _controller.selection =
+      //     TextSelection(baseOffset: 0, extentOffset: _controller.text.length);
       _focusNode.requestFocus();
+      _focusNode.unfocus();
+      _focusNodeChanged();
     });
     // await copyValue();
   }
@@ -1405,19 +1411,21 @@ class _EntryFieldState extends State<EntryField>
               final resultnew =
                   await encryptData(context: context, data: pwEncrypted);
               _controller.text = resultnew.data ?? '';
+              setState(() {
+                // _controller.text = _valueCurrent ?? '';
+                // _controller.text = _valueCurrent ?? '';
+                // _controller.selection = TextSelection(
+                //     baseOffset: 0, extentOffset: _controller.text?.length ?? 0);
+                _isValueObscured = false;
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  _focusNode.requestFocus();
+                  _logger.finer('requesting focus.');
+                  _focusNode.unfocus();
+                  _focusNodeChanged();
+                });
+              });
             }
           }
-          setState(() {
-            // _controller.text = _valueCurrent ?? '';
-            // _controller.text = _valueCurrent ?? '';
-            _controller.selection = TextSelection(
-                baseOffset: 0, extentOffset: _controller.text?.length ?? 0);
-            _isValueObscured = false;
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              _focusNode.requestFocus();
-              _logger.finer('requesting focus.');
-            });
-          });
         },
         fieldKey: widget.fieldKey,
         commonField: widget.commonField,

@@ -30,11 +30,12 @@ class MasterPassword {
 }
 
 void saveMasterPasswordHash(BuildContext context, Uint8List hash) {
-  Provider.of<MasterPassword>(context, listen: false).hash = hash;
+  // Provider.of<MasterPassword>(context, listen: false).hash = hash;
+  context.read<MasterPassword>().hash = hash;
 }
 
-Future<void> _displayNFCDialog(BuildContext context) async {
-  await showDialog<void>(
+Future<String> _displayNFCDialog(BuildContext context) async {
+  return await showDialog<String>(
     context: context,
     barrierDismissible: false,
     builder: (context) => AlertDialog(
@@ -44,9 +45,9 @@ Future<void> _displayNFCDialog(BuildContext context) async {
           child: const Text('CANCEL'),
           onPressed: () {
             NfcManager.instance.stopSession();
-            Navigator.pop(context, true);
+            Navigator.pop(context, 'cancel');
           },
-        )
+        ),
       ],
     ),
   );
@@ -56,8 +57,9 @@ Future<NFCResult> initCard(BuildContext context) async {
   final result = NFCResult();
   NfcManager.instance.startSession(onDiscovered: (tag) async {
     result.clear();
-    final masterPasswordHash =
-        Provider.of<MasterPassword>(context, listen: false).hash;
+    // final masterPasswordHash =
+    //     Provider.of<MasterPassword>(context, listen: false).hash;
+    final masterPasswordHash = context.read<MasterPassword>().hash;
     final card = IsoDep.from(tag);
     if (card == null) {
       Navigator.of(context, rootNavigator: true).pop();
@@ -93,7 +95,11 @@ Future<NFCResult> initCard(BuildContext context) async {
     NfcManager.instance.stopSession();
     Navigator.of(context, rootNavigator: true).pop();
   });
-  await _displayNFCDialog(context);
+  final r = await _displayNFCDialog(context);
+  print('r = $r');
+  if (r == 'cancel') {
+    result._isOk = null;
+  }
   return result;
 }
 
@@ -101,8 +107,9 @@ Future<NFCResult> verify(BuildContext context) async {
   final result = NFCResult();
   NfcManager.instance.startSession(onDiscovered: (tag) async {
     result.clear();
-    final masterPasswordHash =
-        Provider.of<MasterPassword>(context, listen: false).hash;
+    // final masterPasswordHash =
+    // Provider.of<MasterPassword>(context, listen: false).hash;
+    final masterPasswordHash = context.read<MasterPassword>().hash;
     final card = IsoDep.from(tag);
     if (card == null) {
       Navigator.of(context, rootNavigator: true).pop();
@@ -131,7 +138,10 @@ Future<NFCResult> verify(BuildContext context) async {
     NfcManager.instance.stopSession();
     Navigator.of(context, rootNavigator: true).pop();
   });
-  await _displayNFCDialog(context);
+  final r = await _displayNFCDialog(context);
+  if (r == 'cancel') {
+    result._isOk = null;
+  }
   return result;
 }
 
@@ -142,8 +152,9 @@ Future<NFCResult> encryptData({
   final result = NFCResult();
   NfcManager.instance.startSession(onDiscovered: (tag) async {
     result.clear();
-    final masterPasswordHash =
-        Provider.of<MasterPassword>(context, listen: false).hash;
+    // final masterPasswordHash =
+    //     Provider.of<MasterPassword>(context, listen: false).hash;
+    final masterPasswordHash = context.read<MasterPassword>().hash;
     final card = IsoDep.from(tag);
     if (card == null) {
       Navigator.of(context, rootNavigator: true).pop();
@@ -172,7 +183,10 @@ Future<NFCResult> encryptData({
     NfcManager.instance.stopSession();
     Navigator.of(context, rootNavigator: true).pop();
   });
-  await _displayNFCDialog(context);
+  final r = await _displayNFCDialog(context);
+  if (r == 'cancel') {
+    result._isOk = null;
+  }
   return result;
 }
 
@@ -183,8 +197,9 @@ Future<NFCResult> decryptData({
   final result = NFCResult();
   NfcManager.instance.startSession(onDiscovered: (tag) async {
     result.clear();
-    final masterPasswordHash =
-        Provider.of<MasterPassword>(context, listen: false).hash;
+    // final masterPasswordHash =
+    //     Provider.of<MasterPassword>(context, listen: false).hash;
+    final masterPasswordHash = context.read<MasterPassword>().hash;
     final card = IsoDep.from(tag);
     if (card == null) {
       Navigator.of(context, rootNavigator: true).pop();
@@ -211,7 +226,10 @@ Future<NFCResult> decryptData({
     NfcManager.instance.stopSession();
     Navigator.of(context, rootNavigator: true).pop();
   });
-  await _displayNFCDialog(context);
+  final r = await _displayNFCDialog(context);
+  if (r == 'cancel') {
+    result._isOk = null;
+  }
   return result;
 }
 

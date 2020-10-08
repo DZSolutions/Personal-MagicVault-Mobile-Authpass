@@ -50,7 +50,7 @@ class AuthPassAboutDialog extends StatelessWidget {
               const SizedBox(height: 32),
               UrlLink(
                 caption: loc.aboutLinkFeedback,
-                url: 'mailto:dzsolutions@dzcard.com',
+                url: 'mailto:developer@dzcard.com',
               ),
               UrlLink(
                 caption: loc.aboutLinkVisitWebsite,
@@ -58,7 +58,7 @@ class AuthPassAboutDialog extends StatelessWidget {
               ),
               UrlLink(
                 caption: loc.aboutLinkGitHub,
-                url: 'https://google.com/',
+                url: 'https://www.dzcard.com/support/contact',
               ),
               const SizedBox(height: 32),
               Text(
